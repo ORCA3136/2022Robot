@@ -52,9 +52,9 @@ public class Drivetrain extends SubsystemBase {
 
     public void drive( XboxController controller) 
   {
-      diffDrive.tankDrive(trueRightX((controller.getLeftY() * Constants.kLeftDriveScaling)),
-       trueRightX((controller.getRightY() * Constants.kLeftDriveScaling)), true);
-      left_motors.set(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)));
+      diffDrive.tankDrive(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)),
+       trueRightX((controller.getRightY() * Constants.kRightDriveScaling)), true);
+      //left_motors.set(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)));
      
   }
 
