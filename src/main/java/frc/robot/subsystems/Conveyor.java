@@ -7,26 +7,24 @@ import frc.robot.Constants;
 
 
 public class Conveyor extends SubsystemBase{
-    private CANSparkMax leftConveyor;
-    private CANSparkMax rightConveyor;
+    private CANSparkMax conveyor;
 
 
 
 public Conveyor(){
-    leftConveyor = new CANSparkMax(Constants.kConveyor1, MotorType.kBrushless);
-    rightConveyor.follow(leftConveyor, true);
+    conveyor = new CANSparkMax(Constants.kConveyor1, MotorType.kBrushless);
 }
 
 public void lowerConveyor(){
-    leftConveyor.set( Constants.kConveyorSpeed *-1 );
+    conveyor.set( Constants.kConveyorSpeed *-1 );
 }
 
 public void raiseConveyor(){
-    leftConveyor.set( Constants.kConveyorSpeed);
+    conveyor.set( Constants.kConveyorSpeed);
 }
 
 public void stopConveyor(){
-    leftConveyor.set(0);
+    conveyor.set(0);
 }
 
 
