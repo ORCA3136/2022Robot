@@ -19,7 +19,7 @@ public class FlyWheel extends SubsystemBase {
         FlyWheelLeft = new CANSparkMax(Constants.LeftFlyWheel, MotorType.kBrushless);
     }
 
-    public void Shoot( XboxController controller) 
+    public void Shoot() 
     {
 
        FlyWheelLeft.set(Constants.kFlyWheelSpeed);
@@ -32,6 +32,14 @@ public class FlyWheel extends SubsystemBase {
 
        FlyWheelLeft.set(Constants.kFlyWheelSpeed * -1);
        FlyWheelRight.set(Constants.kFlyWheelSpeed);
+
+    }  
+
+    public void Stop() 
+    {
+
+       FlyWheelLeft.set(0);
+       FlyWheelRight.set(0);
 
     }  
 

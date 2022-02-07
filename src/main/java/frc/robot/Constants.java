@@ -15,18 +15,18 @@ package frc.robot;
 public final class Constants {
 
     //drivetrainmotores
-public static int lm1_motor_id = 0;
-public static int lm2_motor_id = 1;
-public static int lm3_motor_id = 2;
+public static int rm1_motor_id = 4;
+public static int rm2_motor_id = 5;
+public static int rm3_motor_id = 6;
 
-public static int rm1_motor_id = 3;
-public static int rm2_motor_id = 4;
-public static int rm3_motor_id = 5;
+public static int lm1_motor_id = 1;
+public static int lm2_motor_id = 2;
+public static int lm3_motor_id = 3;
 
-public static int RightFlyWheel = 6;
+public static int RightFlyWheel = 8;
 public static int LeftFlyWheel = 7;
 
-public static int kConveyor1 = 8;
+public static int kConveyor1 = 0;
 
 public static final int kIntake1 = 10;
 public static final int kIntake2 = 11;
@@ -47,16 +47,16 @@ public final int kStart = 9;
 public static int kHopperStopperForward = 0;
 public static int kHopperStopperReverse = 1;
 
-public static final double kConveyorSpeed = .5;
+public static final double kConveyorSpeed = .8;
 
-public static final double kFlyWheelSpeed = .5;
+public static final double kFlyWheelSpeed = .8;
 
 
 public static final int kIntakeForward = 3;
 public static final int kIntakeReverse = 0;
 
-public static final double kLeftDriveScaling = 0.8;
- public static final double kRightDriveScaling = 0.8;
+public static final double kLeftDriveScaling = -.8;
+ public static final double kRightDriveScaling = -.8;
 
 
 

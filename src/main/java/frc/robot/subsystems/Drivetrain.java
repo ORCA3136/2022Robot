@@ -31,14 +31,14 @@ public class Drivetrain extends SubsystemBase {
             new CANSparkMax(Constants.rm2_motor_id, MotorType.kBrushless),
             new CANSparkMax(Constants.rm3_motor_id, MotorType.kBrushless),
         };
-        right_motors = new MotorControllerGroup(motors[3], motors[4], motors[5]);
+        right_motors = new MotorControllerGroup(motors[3],motors[4], motors[5]);
         left_motors = new MotorControllerGroup(motors[0], motors[1], motors[2]);
 
-            motors[1] . follow(motors[0]);
-            motors[2] . follow(motors[0]);
-            motors[4] . follow(motors[3]);
-            motors[5] . follow(motors[3]);
-            
+          //  motors[1] . follow(motors[0]);
+          //  motors[2] . follow(motors[0]);
+          //  motors[5] . follow(motors[3]);
+          //  motors[5] . follow(motors[3]);
+             
             leftEncoder = motors[0].getEncoder();
             leftController = (SparkMaxPIDController) motors[0].getPIDController();
             ((SparkMaxPIDController) leftController) . setFeedbackDevice (leftEncoder);
@@ -52,10 +52,12 @@ public class Drivetrain extends SubsystemBase {
 
     public void drive( XboxController controller) 
   {
-      diffDrive.tankDrive(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)),
-       trueRightX((controller.getRightY() * Constants.kRightDriveScaling)), true);
-      //left_motors.set(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)));
      
+     //diffDrive.tankDrive(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)),
+       //trueRightX((controller.getRightY() * Constants.kRightDriveScaling)), true);
+      left_motors.set(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)));
+      right_motors.set(trueRightX((controller.getRightY() * Constants.kRightDriveScaling)*-1));
+     // right_motors.set(.1);
   }
 
     public double trueRightX(double RY) {

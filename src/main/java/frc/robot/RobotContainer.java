@@ -61,8 +61,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
   
     new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
-    .whenPressed(new InstantCommand(m_innerIntake::intakeIn,m_innerIntake));
+    .whenPressed(new InstantCommand(m_flyWheel::Shoot,m_flyWheel));
 
+    new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
+    .whenReleased(new InstantCommand(m_flyWheel::Stop,m_flyWheel));
   }
 }
 
