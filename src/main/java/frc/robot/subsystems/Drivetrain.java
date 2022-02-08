@@ -139,11 +139,11 @@ public class Drivetrain extends SubsystemBase {
      
      
       //this is what was working on 2/6/2022
-      //left_motors.set(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)));
-      //right_motors.set(trueRightX((controller.getRightY() * Constants.kRightDriveScaling)*-1));
+      leftLeader.set(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)));
+      rightLeader.set(trueRightX((controller.getRightY() * Constants.kRightDriveScaling)*-1));
 
-     diffDrive.tankDrive(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)), 
-     trueRightX((controller.getRightY() * Constants.kRightDriveScaling)*-1));
+     //diffDrive.tankDrive(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)), 
+     //trueRightX((controller.getRightY() * Constants.kRightDriveScaling)*-1));
     }
 
     public void drivePercent(double left, double right)
