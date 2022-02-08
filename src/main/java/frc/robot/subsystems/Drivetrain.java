@@ -139,11 +139,17 @@ public class Drivetrain extends SubsystemBase {
      
      
       //this is what was working on 2/6/2022
-      leftLeader.set(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)));
-      rightLeader.set(trueRightX((controller.getRightY() * Constants.kRightDriveScaling)*-1));
+      //left_motors.set(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)));
+      //right_motors.set(trueRightX((controller.getRightY() * Constants.kRightDriveScaling)*-1));
 
-     //diffDrive.tankDrive(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)), 
-     //trueRightX((controller.getRightY() * Constants.kRightDriveScaling)*-1));
+     diffDrive.tankDrive(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)), 
+     trueRightX((controller.getRightY() * Constants.kRightDriveScaling)*-1));
+    }
+
+    //trying this will rename to drive if it works
+    public void drivePercentController(XboxController controller)
+    {
+        driveVelocity(trueLeftX((controller.getLeftY() * Constants.MAX_VELOCITY_MPS)), trueRightX((controller.getRightY() * Constants.MAX_VELOCITY_MPS)));
     }
 
     public void drivePercent(double left, double right)

@@ -42,8 +42,10 @@ public class RobotContainer {
 
     m_drivetrain.setDefaultCommand(
       new RunCommand(() -> m_drivetrain.drive(controller),m_drivetrain));
-
-
+      
+    //Uncomment this if we want to try the new code.
+    //m_drivetrain.setDefaultCommand(
+    //    new RunCommand(() -> m_drivetrain.drivePercentController(controller),m_drivetrain));
     // Configure the button bindings
     
   /**
