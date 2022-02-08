@@ -55,8 +55,8 @@ public static final double kFlyWheelSpeed = .8;
 public static final int kIntakeForward = 3;
 public static final int kIntakeReverse = 0;
 
-public static final double kLeftDriveScaling = -.8;
- public static final double kRightDriveScaling = -.8;
+public static final double kLeftDriveScaling = -.3;
+ public static final double kRightDriveScaling = -.3;
 
 
 
