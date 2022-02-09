@@ -149,7 +149,7 @@ public class Drivetrain extends SubsystemBase {
     //trying this will rename to drive if it works
     public void drivePercentController(XboxController controller)
     {
-        driveVelocity(trueLeftX((controller.getLeftY() * Constants.MAX_VELOCITY_MPS)), trueRightX((controller.getRightY() * Constants.MAX_VELOCITY_MPS)));
+        driveVelocity(trueLeftX(((controller.getLeftY() * Constants.MAX_VELOCITY_MPS)*-1*.3)), (trueRightX((controller.getRightY() * Constants.MAX_VELOCITY_MPS)*-1*.3)));
     }
 
     public void drivePercent(double left, double right)
