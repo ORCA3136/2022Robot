@@ -90,7 +90,7 @@ public class Drivetrain extends SubsystemBase {
         rightFollower2.follow(rightLeader);
         
         //Invert the right side.
-        rightLeader.setInverted(true);
+        leftLeader.setInverted(true);
     
         //Do some more specific configruations on the Maxes
         leftLeader.enableVoltageCompensation(12.0);
@@ -147,9 +147,9 @@ public class Drivetrain extends SubsystemBase {
     }
 
     //trying this will rename to drive if it works
-    public void drivePercentController(XboxController controller)
+    public void drivePercentController(XboxController controller, double maxSpeed)
     {
-        driveVelocity(trueLeftX(((controller.getLeftY() * Constants.MAX_VELOCITY_MPS)*-1*.3)), (trueRightX((controller.getRightY() * Constants.MAX_VELOCITY_MPS)*-1*.3)));
+        driveVelocity(trueLeftX(((controller.getLeftY() * Constants.MAX_VELOCITY_MPS)*maxSpeed)), (trueRightX((controller.getRightY() * Constants.MAX_VELOCITY_MPS)*maxSpeed)));
     }
 
     public void drivePercent(double left, double right)
