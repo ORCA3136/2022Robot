@@ -12,7 +12,7 @@ import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
 
-    DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.kIntakeForward, Constants.kIntakeReverse);
+   // DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.kIntakeForward, Constants.kIntakeReverse);
 
     private CANSparkMax intakeRoller;
     private CANSparkMax midRoller;
@@ -49,16 +49,16 @@ public class Intake extends SubsystemBase {
     }
 
     public void deployIntake(){
-        intakeSolenoid.set(DoubleSolenoid.Value.kForward);
+       // intakeSolenoid.set(DoubleSolenoid.Value.kForward);
     }
 
     
     public void retractIntake(){
-        intakeSolenoid.set(Value.kReverse);
+       // intakeSolenoid.set(Value.kReverse);
     }
 
     public void off(){
-        intakeSolenoid.set(Value.kOff);
+    //intakeSolenoid.set(Value.kOff);
     }
 
     public void Toggle(){
