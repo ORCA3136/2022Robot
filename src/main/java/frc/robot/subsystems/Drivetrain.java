@@ -14,6 +14,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.SPI;
@@ -160,6 +161,9 @@ public class Drivetrain extends SubsystemBase {
 
     public void driveVelocity(double leftVelocityMPS, double rightVelocityMPS)
     {
+        Shuffleboard.getTab("Drive").add("LEFT VELOCITY MPS", leftVelocityMPS);
+        Shuffleboard.getTab("Drive").add("RIGHT VELOCITY MPS", rightVelocityMPS);
+        Shuffleboard.getTab("Drive").add("GYRO ANGLE", gyro.getAngle());
         double maxAccelerationPerCycle = Double.POSITIVE_INFINITY * Constants.loopPeriodSecs;
         double leftAcceleration = lastLeftVelocityMPS > 0 
         ? leftVelocityMPS - lastLeftVelocityMPS 
@@ -247,7 +251,12 @@ public class Drivetrain extends SubsystemBase {
         //log this 
         //new double[] {robotPose.getX(), robotPose.getY(),
          //   robotPose.getRotation().getRadians()});
-
+        Shuffleboard.getTab("Drive").add("LAST LEFT VELOCITY MPS", lastLeftVelocityMPS);
+        Shuffleboard.getTab("Drive").add("LAST RIGHT VELOCITY MPS", lastRightVelocityMPS);
+        Shuffleboard.getTab("Drive").add("LEFT ENCODER", leftEncoder.getPosition());
+        Shuffleboard.getTab("Drive").add("RIGHT ENCODER", rightEncoder.getPosition());
+        Shuffleboard.getTab("Drive").add("LEFT ENCODER POS", leftEncoder.getPosition());
+        Shuffleboard.getTab("Drive").add("RIGHT ENCODER POS", rightEncoder.getPosition());
     }
 
     public double getLeftPositionMeters()
