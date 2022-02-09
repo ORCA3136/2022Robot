@@ -155,19 +155,24 @@ public class Drivetrain extends SubsystemBase {
 
     public void drivePercent(double left, double right)
     {
+        Shuffleboard.getTab("Drive Details").add("LEFT", left);
+
+        Shuffleboard.getTab("Drive Details").add("RIGHT", right);
+
         driveVelocity(left*Constants.MAX_VELOCITY_MPS, right*Constants.MAX_VELOCITY_MPS);
         
     }
 
     public void driveVelocity(double leftVelocityMPS, double rightVelocityMPS)
     {
-        Shuffleboard.getTab("Drive").add("LEFT VELOCITY MPS", leftVelocityMPS);
-        Shuffleboard.getTab("Drive").add("RIGHT VELOCITY MPS", rightVelocityMPS);
-        Shuffleboard.getTab("Drive").add("GYRO ANGLE", gyro.getAngle());
+        Shuffleboard.getTab("Drive Details").add("LEFT VELOCITY MPS", leftVelocityMPS);
+        Shuffleboard.getTab("Drive Details").add("RIGHT VELOCITY MPS", rightVelocityMPS);
+        Shuffleboard.getTab("Drive Details").add("GYRO ANGLE", gyro.getAngle());
         double maxAccelerationPerCycle = Double.POSITIVE_INFINITY * Constants.loopPeriodSecs;
         double leftAcceleration = lastLeftVelocityMPS > 0 
         ? leftVelocityMPS - lastLeftVelocityMPS 
         : lastLeftVelocityMPS - leftVelocityMPS;
+        Shuffleboard.getTab("Drive Details").add("LEFT ACCELERATION", leftAcceleration);
 
         if(leftAcceleration> maxAccelerationPerCycle)
         {
@@ -181,6 +186,7 @@ public class Drivetrain extends SubsystemBase {
         double rightAcceleration = lastRightVelocityMPS > 0 
         ? rightVelocityMPS - lastRightVelocityMPS 
         : lastRightVelocityMPS - rightVelocityMPS;
+        Shuffleboard.getTab("Drive Details").add("RIGHT ACCELERATION", rightAcceleration);
 
         if(rightAcceleration> maxAccelerationPerCycle)
         {
@@ -194,23 +200,27 @@ public class Drivetrain extends SubsystemBase {
         //calculate the setpoint and the feed forward voltage
         double leftVelocityRPS = lastLeftVelocityMPS / Constants.WHEEL_RADIUS_METERS;
         double rightVelocityRPS = lastRightVelocityMPS / Constants.WHEEL_RADIUS_METERS;
+        Shuffleboard.getTab("Drive Details").add("LEFT VELOCITY RPS", leftVelocityRPS);
+        Shuffleboard.getTab("Drive Details").add("RIGHT VELOCITY RPS", rightVelocityRPS);
 
         double leftFFVolts = leftModel.calculate(leftVelocityRPS);
         double rightFFVolts = rightModel.calculate(rightVelocityRPS);
+
+        Shuffleboard.getTab("Drive Details").add("LEFT FF Volts", leftFFVolts);
+        Shuffleboard.getTab("Drive Details").add("RIGHT FF Volts", rightFFVolts);
+
         //this is just a basic drive -
         //leftLeader.setVoltage(leftFFVolts);
         //rightLeader.setVoltage(rightFFVolts);
 
         //this is a pid drive
-        double leftRPM = Units.radiansPerSecondToRotationsPerMinute(leftVelocityRPS)
-            * afterEncoderReduction;
-    double rightRPM =
-        Units.radiansPerSecondToRotationsPerMinute(rightVelocityRPS)
-            * afterEncoderReduction;
-    leftLeader.getPIDController().setReference(leftRPM, ControlType.kVelocity, 0, leftFFVolts,
-        ArbFFUnits.kVoltage);
-    rightLeader.getPIDController().setReference(rightRPM, ControlType.kVelocity, 0, rightFFVolts,
-        ArbFFUnits.kVoltage);
+        double leftRPM = Units.radiansPerSecondToRotationsPerMinute(leftVelocityRPS) * afterEncoderReduction;
+        double rightRPM = Units.radiansPerSecondToRotationsPerMinute(rightVelocityRPS) * afterEncoderReduction;
+        Shuffleboard.getTab("Drive Details").add("LEFT RPM", leftRPM);
+        Shuffleboard.getTab("Drive Details").add("RIGHT RPM", rightRPM);
+
+        leftLeader.getPIDController().setReference(leftRPM, ControlType.kVelocity, 0, leftFFVolts,ArbFFUnits.kVoltage);
+        rightLeader.getPIDController().setReference(rightRPM, ControlType.kVelocity, 0, rightFFVolts,ArbFFUnits.kVoltage);
 
     }
 
