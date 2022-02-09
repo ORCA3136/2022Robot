@@ -15,9 +15,19 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
+import edu.wpi.first.wpilibj.simulation.EncoderSim;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.hal.SimDouble;
+import edu.wpi.first.hal.simulation.SimDeviceDataJNI;
+import edu.wpi.first.math.VecBuilder;
+
 
 
 public class Drivetrain extends SubsystemBase {
@@ -41,6 +51,8 @@ public class Drivetrain extends SubsystemBase {
     private final CANSparkMax rightFollower;
     private final CANSparkMax rightFollower2;
 
+    private final Field2d fieldSim = new Field2d();
+
     private double lastLeftVelocityMPS = 0.0;
     private double lastRightVelocityMPS = 0.0;
     private double afterEncoderReduction = 6.0; // Internal encoders
@@ -52,7 +64,7 @@ public class Drivetrain extends SubsystemBase {
 
     private final DifferentialDriveOdometry odometry =
       new DifferentialDriveOdometry(new Rotation2d(), new Pose2d());
-   
+       
     private double baseDistanceLeftRad = 0.0;
     private double baseDistanceRightRad = 0.0;
 
@@ -132,8 +144,11 @@ public class Drivetrain extends SubsystemBase {
         rightEncoder = rightLeader.getEncoder();
         rightController = (SparkMaxPIDController) rightLeader.getPIDController();
         ((SparkMaxPIDController) rightController) . setFeedbackDevice (rightEncoder);
+        
+        leftEncoder.setPosition(0);
+        rightEncoder.setPosition(0);
 
-    };
+    }
 
     public void drive( XboxController controller) 
     {
@@ -300,4 +315,19 @@ public class Drivetrain extends SubsystemBase {
     public SparkMaxPIDController getRightPidController(){
         return rightController;
     }
+    /**
+   * Inverts NavX yaw as Odometry takes CCW as positive
+   *
+   * @return -180..180
+   */
+  public double getHeading() {
+    double heading = -gyro.getYaw();
+    if (heading > 180 || heading < 180) {
+      heading = Math.IEEEremainder(heading, 360);
+    }
+    return heading;
+  }
+
+   
+  
 }
