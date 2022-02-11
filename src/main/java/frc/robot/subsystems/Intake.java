@@ -3,6 +3,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,6 +20,7 @@ public class Intake extends SubsystemBase {
     private static CANSparkMax topRoller;
     boolean togglePressed, toggleOn;
     RelativeEncoder topEncoder, intakeEncoder, midEncoder;  
+    private Solenoid intakeSolenoid;
 
     public Intake(){
         intakeRoller = new CANSparkMax(Constants.kIntake2, MotorType.kBrushless);
@@ -48,18 +50,29 @@ public class Intake extends SubsystemBase {
   
     }
 
+    public void intakeForward(double Speed){
+        intakeRoller.set(Speed);
+    }
+    
+    public void intakeReverse(double Speed){
+        intakeRoller.set(Speed);
+    }
+
+
     public void deployIntake(){
-       // intakeSolenoid.set(DoubleSolenoid.Value.kForward);
+       intakeSolenoid.set(DoubleSolenoid.Value.kForward);
     }
 
     
     public void retractIntake(){
-       // intakeSolenoid.set(Value.kReverse);
+       intakeSolenoid.set(Value.kReverse);
     }
 
     public void off(){
-    //intakeSolenoid.set(Value.kOff);
+       intakeSolenoid.set(Value.kOff);
     }
+
+
 
     public void Toggle(){
         updateToggle();
