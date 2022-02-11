@@ -20,7 +20,8 @@ public class Intake extends SubsystemBase {
     private static CANSparkMax topRoller;
     boolean togglePressed, toggleOn;
     RelativeEncoder topEncoder, intakeEncoder, midEncoder;  
-    private Solenoid intakeSolenoid;
+    private DoubleSolenoid intakeSolenoid;
+
 
     public Intake(){
         intakeRoller = new CANSparkMax(Constants.kIntake2, MotorType.kBrushless);
@@ -50,12 +51,12 @@ public class Intake extends SubsystemBase {
   
     }
 
-    public void intakeForward(double Speed){
-        intakeRoller.set(Speed);
+    public void intakeForward(double speed){
+        intakeRoller.set(speed);
     }
     
-    public void intakeReverse(double Speed){
-        intakeRoller.set(Speed);
+    public void intakeReverse(double speed){
+        intakeRoller.set(speed);
     }
 
 
