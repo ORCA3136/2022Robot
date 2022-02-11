@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -27,12 +29,11 @@ public class InnerIntake extends SubsystemBase{
         innerRoller.set(0);
     }
 
-    public void intakeForward(double Speed){
-        innerRoller.set(Speed);
+    public void intakeForward(double speed){
+        innerRoller.set(speed);
     }
     
-    public void intakeReverse(double Speed){
-        innerRoller.set(Speed);
+    public void intakeReverse(double speed){
+        innerRoller.set(speed);
     }
-
 }

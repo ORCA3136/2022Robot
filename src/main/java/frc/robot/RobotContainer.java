@@ -36,6 +36,9 @@ public class RobotContainer {
   private final Constants m_constants= new Constants();
   private final XboxController controller = new XboxController(1);
   private final Joystick Joystick = new Joystick(0);
+  public void Constants(){
+ 
+  };
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -60,25 +63,17 @@ public class RobotContainer {
 
   
   private void configureButtonBindings() {
+
+    new JoystickButton(controller, XboxController.Button.kRightBumper.value)
+    .whenHeld(new InstantCommand(() -> m_innerIntake.intakeForward(Constants.kIntakeHigh), m_innerIntake))
+      .whenReleased(new InstantCommand(m_innerIntake::intakeStop, m_innerIntake));
   
-    new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
-    .whenPressed(new InstantCommand(m_flyWheel::Shoot,m_flyWheel));
-
-    new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
-    .whenReleased(new InstantCommand(m_flyWheel::Stop,m_flyWheel));
-
-    new JoystickButton(controller, XboxController.Button.kX.value)
-    .whenReleased(new InstantCommand(intakeForward(Constants.kIntakeHigh)));
-
 
 
 }
 
 
-
-  private Runnable intakeForward(double kintakehigh) {
-    return null;
-  }}
+  }
 
 
 
