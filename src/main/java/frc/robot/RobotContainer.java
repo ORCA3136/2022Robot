@@ -4,14 +4,9 @@
 
 package frc.robot;
 
-import java.util.Map;
-
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -45,16 +40,10 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-   // m_drivetrain.setDefaultCommand(
-   //   new RunCommand(() -> m_drivetrain.drive(controller),m_drivetrain));
-   NetworkTableEntry maxSpeed = Shuffleboard.getTab("Drive")
-   .add("Max Speed", .8)
-   .withWidget(BuiltInWidgets.kNumberSlider)
-   .withProperties(Map.of("min", 0, "max", 1)) // specify widget properties here
-   .getEntry();
-    //Uncomment this if we want to try the new code.
     m_drivetrain.setDefaultCommand(
-        new RunCommand(() -> m_drivetrain.drivePercentController(controller, maxSpeed.getDouble(.8)),m_drivetrain));
+      new RunCommand(() -> m_drivetrain.drive(controller),m_drivetrain));
+
+
     // Configure the button bindings
     
   /**
@@ -64,6 +53,7 @@ public class RobotContainer {
    */
     // An ExampleCommand will run in autonomous
     configureButtonBindings();
+
 
   }
 
@@ -76,8 +66,19 @@ public class RobotContainer {
 
     new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
     .whenReleased(new InstantCommand(m_flyWheel::Stop,m_flyWheel));
-  }
+
+    new JoystickButton(controller, XboxController.Button.kX.value)
+    .whenReleased(new InstantCommand(intakeForward(Constants.kIntakeHigh)));
+
+
+
 }
+
+
+
+  private Runnable intakeForward(double kintakehigh) {
+    return null;
+  }}
 
 
 
