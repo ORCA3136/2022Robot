@@ -16,26 +16,23 @@ public class InnerIntake extends SubsystemBase{
         midEncoder = innerRoller.getEncoder();
         togglePressed = false;
         toggleOn = false;
+     
     }
 
     @Override   
     public void periodic(){
         //TODO - put data out to the smartdashboard
     }
-    
-    public void intakeIn() {
-        innerRoller.set(Constants.kConveyorSpeed);
-    }
-
-    public void intakeOut() {
-        innerRoller.set(Constants.kConveyorSpeed * -1);
-    }
-
     public void intakeStop() {
         innerRoller.set(0);
     }
 
-
+    public void intakeForward(double Speed){
+        innerRoller.set(Speed);
+    }
     
+    public void intakeReverse(double Speed){
+        innerRoller.set(Speed);
+    }
 
 }

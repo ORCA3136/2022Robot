@@ -54,6 +54,7 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     configureButtonBindings();
 
+
   }
 
 
@@ -65,8 +66,19 @@ public class RobotContainer {
 
     new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
     .whenReleased(new InstantCommand(m_flyWheel::Stop,m_flyWheel));
-  }
+
+    new JoystickButton(controller, XboxController.Button.kX.value)
+    .whenReleased(new InstantCommand(intakeForward(Constants.kIntakeHigh)));
+
+
+
 }
+
+
+
+  private Runnable intakeForward(double kintakehigh) {
+    return null;
+  }}
 
 
 
