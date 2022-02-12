@@ -15,16 +15,14 @@ public class Intake extends SubsystemBase {
 
    // DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.kIntakeForward, Constants.kIntakeReverse);
 
-    private CANSparkMax intakeRoller;
-    private CANSparkMax midRoller;
-    private static CANSparkMax topRoller;
+    private CANSparkMax intakeRoller; 
     boolean togglePressed, toggleOn;
-    RelativeEncoder topEncoder, intakeEncoder, midEncoder;  
+    RelativeEncoder intakeEncoder;  
     private DoubleSolenoid intakeSolenoid;
 
 
     public Intake(){
-        intakeRoller = new CANSparkMax(Constants.kIntake2, MotorType.kBrushless);
+        intakeRoller = new CANSparkMax(Constants.kOutterIntake, MotorType.kBrushless);
        
         intakeEncoder = intakeRoller.getEncoder();
    
@@ -38,12 +36,12 @@ public class Intake extends SubsystemBase {
         SmartDashboard.putNumber( "Intake Roller Current" , intakeRoller.getOutputCurrent());
     }
     
-    public void intakeIn() {
-        intakeRoller.set(Constants.kConveyorSpeed * -1);
+    public void intakeIn(double ConveyorSpeed) {
+        intakeRoller.set(ConveyorSpeed);
     }
 
-    public void intakeOut() {
-        intakeRoller.set(Constants.kConveyorSpeed);
+    public void intakeOut(double ConveyorSpeed) {
+        intakeRoller.set(ConveyorSpeed);
     }
 
     public void intakeStop() {

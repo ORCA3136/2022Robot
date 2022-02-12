@@ -14,7 +14,7 @@ public class InnerIntake extends SubsystemBase{
     RelativeEncoder midEncoder;
 
     public InnerIntake(){
-        innerRoller = new CANSparkMax(Constants.kIntake1, MotorType.kBrushless);
+        innerRoller = new CANSparkMax(Constants.kInnerIntake, MotorType.kBrushless);
         midEncoder = innerRoller.getEncoder();
         togglePressed = false;
         toggleOn = false;

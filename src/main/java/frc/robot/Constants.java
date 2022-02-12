@@ -32,15 +32,20 @@ public final class Constants {
         public static double WHEEL_RADIUS_METERS =  Units.inchesToMeters(3.0);
     
     
-    public static int RightFlyWheel = 8;
-    public static int LeftFlyWheel = 7;
+        public static int FlyWheel1 = 8;
+        public static int FlyWheel2 = 7;
+        public static int FlyWheel3 = 12;
     
-    public static int kConveyor1 = 0;
+        public static boolean isFlyWheel3 = false;
+
+        public static int kConveyor1 = 9;
     
-    public static final int kIntake1 = 10;
-    public static final int kIntake2 = 11;
-    public static final int kIntake3 = 12;
+        public static final int kOutterIntake = 10;
+        public static final int kInnerIntake = 11;
+
     
+      
+
     public final int kY = 0;
     public final int kX = 1;
     public final int kA = 2;
@@ -52,13 +57,13 @@ public final class Constants {
     public final int kSelect = 8;
     public final int kStart = 9;
     
-    //Pneumatic Adressing
-    public static int kHopperStopperForward = 0;
-    public static int kHopperStopperReverse = 1;
-    
-    public static final double kConveyorSpeed = .8;
-    
-    public static final double kFlyWheelSpeed = .8;
+    //Pneumatic Adressing    
+    public static final double kConveyerHigh = .8;
+    public static final double kConveyorLow = .3;
+
+    public static final double kFlyWheelFast = .8;
+    public static final double kFlyWheelMedium = .5;
+    public static final double kFlyWheelSlow = .3;
     
     
     public static final int kIntakeForward = 3;
@@ -68,7 +73,7 @@ public final class Constants {
     public static final double kIntakeLow = .3;
 
     public static final double kLeftDriveScaling = -.8;
-     public static final double kRightDriveScaling = -.8;
+    public static final double kRightDriveScaling = -.8;
 
 
 }
