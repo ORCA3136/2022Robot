@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class InnerIntake extends SubsystemBase{
+public class Intake extends SubsystemBase{
     private CANSparkMax innerRoller;
     boolean togglePressed, toggleOn;
     RelativeEncoder midEncoder;
 
-    public InnerIntake(){
+    public Intake(){
         innerRoller = new CANSparkMax(Constants.kInnerIntake, MotorType.kBrushless);
         midEncoder = innerRoller.getEncoder();
         togglePressed = false;
