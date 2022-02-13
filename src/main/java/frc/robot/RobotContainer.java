@@ -44,7 +44,7 @@ public class RobotContainer {
   public RobotContainer() {
 
     m_drivetrain.setDefaultCommand(
-      new RunCommand(() -> m_drivetrain.drive(controller),m_drivetrain));
+      new RunCommand(() -> m_drivetrain.drivePercentController(controller,Constants.maxSpeed),m_drivetrain));
 
 
     // Configure the button bindings
@@ -63,13 +63,53 @@ public class RobotContainer {
 
   
   private void configureButtonBindings() {
-
+    //inner intake forwward rb
     new JoystickButton(controller, XboxController.Button.kRightBumper.value)
     .whenHeld(new InstantCommand(() -> m_innerIntake.intakeForward(Constants.kIntakeHigh), m_innerIntake))
+    .whenHeld(new InstantCommand(() -> m_intake.intakeIn(Constants.kIntakeHigh), m_intake))
       .whenReleased(new InstantCommand(m_innerIntake::intakeStop, m_innerIntake));
+   
+      //move elevator (conveyer) UP lb
+    new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
+    .whenHeld(new InstantCommand(() -> m_innerIntake.intakeForward(Constants.kIntakeHigh), m_innerIntake))
+    .whenHeld(new InstantCommand(() -> m_conveyor.raiseConveyor(Constants.kConveyerHigh), m_conveyor))
+      .whenReleased(new InstantCommand(m_innerIntake::intakeStop, m_innerIntake));
+   
+      //flywheel shoot fast y
+    new JoystickButton(controller, XboxController.Button.kY.value)
+    .whenHeld(new InstantCommand(() -> m_flyWheel.shoot(Constants.kFlyWheelFast), m_flyWheel))
+      .whenReleased(new InstantCommand(m_flyWheel::stop, m_flyWheel));
+   
+      //Lower convyeyor b
+    new JoystickButton(controller, XboxController.Button.kB.value)
+    .whenHeld(new InstantCommand(() -> m_conveyor.lowerConveyor(Constants.kConveyorLow), m_conveyor))
+      .whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
+   
+      //flywheel shoot slow a
+   // new JoystickButton(controller, XboxController.Button.kA.value)
+   // .whenPressed(new InstantCommand(() -> m_conveyor.raiseConveyor(Constants.kConveyerHigh), m_conveyor))
+    //  .whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
+   
+      //deploy intake right stick
+   // new JoystickButton(controller, XboxController.Button.kRightStick.value)
+      //.whenPressed(new InstantCommand(() -> m_intake.deployIntake(), m_innerIntake))
+     //   .whenReleased(new InstantCommand(m_intake::off, m_intake));
+   
+        //retract intake left stick
+      // new JoystickButton(controller, XboxController.Button.kLeftStick.value)
+     // .whenPressed(new InstantCommand(() -> m_intake.retractIntake(),m_innerIntake))
+       // .whenReleased(new InstantCommand(m_intake::off,m_intake));
+
+        //Shoot mid x
+    new JoystickButton(controller, XboxController.Button.kX.value)
+    .whenPressed(new InstantCommand(() -> m_flyWheel.shoot(Constants.kFlyWheelMedium), m_flyWheel))
+        .whenReleased(new InstantCommand(m_flyWheel::stop,m_flyWheel));
+   
+        //intake out start
+   // new JoystickButton(controller, XboxController.Button.kStart.value)
+     // .whenPressed(new InstantCommand(() -> m_intake.intakeOut(Constants.kIntakeHigh), m_innerIntake))
+       // .whenReleased(new InstantCommand(m_intake::intakeStop, m_intake));
   
-
-
 }
 
 
