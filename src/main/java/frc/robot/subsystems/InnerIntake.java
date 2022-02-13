@@ -34,6 +34,6 @@ public class InnerIntake extends SubsystemBase{
     }
     
     public void intakeReverse(double speed){
-        innerRoller.set(speed);
+        innerRoller.set(-1 * speed);
     }
 }

@@ -16,7 +16,7 @@ public Conveyor(){
 }
 
 public void lowerConveyor(double ConveyorSpeed){
-    conveyor.set(ConveyorSpeed);
+    conveyor.set(-1 * ConveyorSpeed);
 }
 
 public void raiseConveyor(double ConveyorSpeed){

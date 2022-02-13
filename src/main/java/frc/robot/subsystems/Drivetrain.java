@@ -180,14 +180,14 @@ public class Drivetrain extends SubsystemBase {
 
     public void driveVelocity(double leftVelocityMPS, double rightVelocityMPS)
     {
-        Shuffleboard.getTab("Drive Details").add("LEFT VELOCITY MPS", leftVelocityMPS);
-        Shuffleboard.getTab("Drive Details").add("RIGHT VELOCITY MPS", rightVelocityMPS);
-        Shuffleboard.getTab("Drive Details").add("GYRO ANGLE", gyro.getAngle());
+        //Shuffleboard.getTab("Drive Details").add("LEFT VELOCITY MPS", leftVelocityMPS);
+        //Shuffleboard.getTab("Drive Details").add("RIGHT VELOCITY MPS", rightVelocityMPS);
+        //Shuffleboard.getTab("Drive Details").add("GYRO ANGLE", gyro.getAngle());
         double maxAccelerationPerCycle = Double.POSITIVE_INFINITY * Constants.loopPeriodSecs;
         double leftAcceleration = lastLeftVelocityMPS > 0 
         ? leftVelocityMPS - lastLeftVelocityMPS 
         : lastLeftVelocityMPS - leftVelocityMPS;
-        Shuffleboard.getTab("Drive Details").add("LEFT ACCELERATION", leftAcceleration);
+        //Shuffleboard.getTab("Drive Details").add("LEFT ACCELERATION", leftAcceleration);
 
         if(leftAcceleration> maxAccelerationPerCycle)
         {
@@ -201,7 +201,7 @@ public class Drivetrain extends SubsystemBase {
         double rightAcceleration = lastRightVelocityMPS > 0 
         ? rightVelocityMPS - lastRightVelocityMPS 
         : lastRightVelocityMPS - rightVelocityMPS;
-        Shuffleboard.getTab("Drive Details").add("RIGHT ACCELERATION", rightAcceleration);
+       // Shuffleboard.getTab("Drive Details").add("RIGHT ACCELERATION", rightAcceleration);
 
         if(rightAcceleration> maxAccelerationPerCycle)
         {
@@ -215,14 +215,14 @@ public class Drivetrain extends SubsystemBase {
         //calculate the setpoint and the feed forward voltage
         double leftVelocityRPS = lastLeftVelocityMPS / Constants.WHEEL_RADIUS_METERS;
         double rightVelocityRPS = lastRightVelocityMPS / Constants.WHEEL_RADIUS_METERS;
-        Shuffleboard.getTab("Drive Details").add("LEFT VELOCITY RPS", leftVelocityRPS);
-        Shuffleboard.getTab("Drive Details").add("RIGHT VELOCITY RPS", rightVelocityRPS);
+       // Shuffleboard.getTab("Drive Details").add("LEFT VELOCITY RPS", leftVelocityRPS);
+      //  Shuffleboard.getTab("Drive Details").add("RIGHT VELOCITY RPS", rightVelocityRPS);
 
         double leftFFVolts = leftModel.calculate(leftVelocityRPS);
         double rightFFVolts = rightModel.calculate(rightVelocityRPS);
 
-        Shuffleboard.getTab("Drive Details").add("LEFT FF Volts", leftFFVolts);
-        Shuffleboard.getTab("Drive Details").add("RIGHT FF Volts", rightFFVolts);
+     //   Shuffleboard.getTab("Drive Details").add("LEFT FF Volts", leftFFVolts);
+    //    Shuffleboard.getTab("Drive Details").add("RIGHT FF Volts", rightFFVolts);
 
         //this is just a basic drive -
         //leftLeader.setVoltage(leftFFVolts);
@@ -231,8 +231,8 @@ public class Drivetrain extends SubsystemBase {
         //this is a pid drive
         double leftRPM = Units.radiansPerSecondToRotationsPerMinute(leftVelocityRPS) * afterEncoderReduction;
         double rightRPM = Units.radiansPerSecondToRotationsPerMinute(rightVelocityRPS) * afterEncoderReduction;
-        Shuffleboard.getTab("Drive Details").add("LEFT RPM", leftRPM);
-        Shuffleboard.getTab("Drive Details").add("RIGHT RPM", rightRPM);
+     //   Shuffleboard.getTab("Drive Details").add("LEFT RPM", leftRPM);
+     //   Shuffleboard.getTab("Drive Details").add("RIGHT RPM", rightRPM);
 
         leftLeader.getPIDController().setReference(leftRPM, ControlType.kVelocity, 0, leftFFVolts,ArbFFUnits.kVoltage);
         rightLeader.getPIDController().setReference(rightRPM, ControlType.kVelocity, 0, rightFFVolts,ArbFFUnits.kVoltage);
@@ -274,14 +274,14 @@ public class Drivetrain extends SubsystemBase {
 
         Pose2d robotPose = odometry.getPoseMeters();
         //log this 
-        //new double[] {robotPose.getX(), robotPose.getY(),
-         //   robotPose.getRotation().getRadians()});
-        Shuffleboard.getTab("Drive").add("LAST LEFT VELOCITY MPS", lastLeftVelocityMPS);
-        Shuffleboard.getTab("Drive").add("LAST RIGHT VELOCITY MPS", lastRightVelocityMPS);
-        Shuffleboard.getTab("Drive").add("LEFT ENCODER", leftEncoder.getPosition());
-        Shuffleboard.getTab("Drive").add("RIGHT ENCODER", rightEncoder.getPosition());
-        Shuffleboard.getTab("Drive").add("LEFT ENCODER POS", leftEncoder.getPosition());
-        Shuffleboard.getTab("Drive").add("RIGHT ENCODER POS", rightEncoder.getPosition());
+       // new double  {robotPose.getX(), robotPose.getY(),
+      //  robotPose.getRotation().getRadians()};
+      // Shuffleboard.getTab("Drive").add()
+       //Shuffleboard.getTab("Drive").add("LAST RIGHT VELOCITY MPS", lastRightVelocityMPS);
+      // Shuffleboard.getTab("Drive").add("LEFT ENCODER", leftEncoder.getPosition());
+      // Shuffleboard.getTab("Drive").add("RIGHT ENCODER", rightEncoder.getPosition());
+      // Shuffleboard.getTab("Drive").add("LEFT ENCODER POS", leftEncoder.getPosition());
+      // Shuffleboard.getTab("Drive").add("RIGHT ENCODER POS", rightEncoder.getPosition());
     }
 
     public double getLeftPositionMeters()

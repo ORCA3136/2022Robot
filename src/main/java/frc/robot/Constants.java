@@ -24,14 +24,7 @@ public final class Constants {
         public static int LEADER_RIGHT_CAN_ID = 4;
         public static int FOLLOWER_RIGHT_CAN_ID = 5;
         public static int FOLLOWER_RIGHT_2_CAN_ID = 6;
-    
-        public static boolean RESET_SPARKMAX = true;
-    
-        public static double MAX_VELOCITY_MPS = Units.inchesToMeters(100.0); //15feet/second converted to meters
-        public static double loopPeriodSecs = 0.02;
-        public static double WHEEL_RADIUS_METERS =  Units.inchesToMeters(3.0);
-    
-    
+        
         public static int FlyWheel1 = 8;
         public static int FlyWheel2 = 7;
         public static int FlyWheel3 = 12;
@@ -40,9 +33,19 @@ public final class Constants {
 
         public static int kConveyor1 = 9;
     
-        public static final int kOutterIntake = 10;
+        
         public static final int kInnerIntake = 11;
 
+        public static boolean RESET_SPARKMAX = true;
+    
+        public static double MAX_VELOCITY_MPS = Units.inchesToMeters(100.0); //15feet/second converted to meters
+        public static double loopPeriodSecs = 0.02;
+        public static double WHEEL_RADIUS_METERS =  Units.inchesToMeters(3.0);
+
+        public static double maxSpeed = .65;
+    
+    
+        
     
       
 
@@ -58,12 +61,12 @@ public final class Constants {
     public final int kStart = 9;
     
     //Pneumatic Adressing    
-    public static final double kConveyerHigh = .8;
+    public static final double kConveyerHigh = .5;
     public static final double kConveyorLow = .3;
 
-    public static final double kFlyWheelFast = .8;
-    public static final double kFlyWheelMedium = .5;
-    public static final double kFlyWheelSlow = .3;
+    public static final double kFlyWheelFast = - .8;
+    public static final double kFlyWheelMedium = - .5;
+    public static final double kFlyWheelSlow = - .3;
     
     
     public static final int kIntakeForward = 3;
@@ -72,7 +75,7 @@ public final class Constants {
     public static final double kIntakeHigh = .8;
     public static final double kIntakeLow = .3;
 
-    public static final double kLeftDriveScaling = -.8;
+    public static final double kLeftDriveScaling = .8;
     public static final double kRightDriveScaling = -.8;
 
 

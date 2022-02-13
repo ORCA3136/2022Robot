@@ -12,7 +12,7 @@ public class FlyWheel extends SubsystemBase {
 
 
 
-    private CANSparkMax FlyWheel1;
+    public CANSparkMax FlyWheel1;
     private  CANSparkMax FlyWheel2;
     private CANSparkMax FlyWheel3;
     RelativeEncoder FlyWheelEncoder;
@@ -33,7 +33,8 @@ public class FlyWheel extends SubsystemBase {
          }
       }
       
-      FlyWheel2.follow(FlyWheel1);
+     // FlyWheel2.follow(FlyWheel1);
+      //FlyWheel2.setInverted(true);
       if(Constants.isFlyWheel3){
          FlyWheel3.follow(FlyWheel1);
       }
@@ -58,13 +59,13 @@ public class FlyWheel extends SubsystemBase {
          }
        }
     }
-    public void Shoot(double FlyWheelSpeed) 
+    public void shoot(double FlyWheelSpeed) 
     {FlyWheel1.set(FlyWheelSpeed);}    
 
-    public void NotShoot(double FlyWheelSpeed) 
+    public void notShoot(double FlyWheelSpeed) 
     {FlyWheel1.set(FlyWheelSpeed);}  
 
-    public void Stop() 
-    {FlyWheel2.set(0);}  
+    public void stop() 
+    {FlyWheel1.set(0);}  
 
 }
