@@ -15,18 +15,14 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
-import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.RobotBase;
-import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.hal.SimDouble;
-import edu.wpi.first.hal.simulation.SimDeviceDataJNI;
-import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 
 
@@ -68,8 +64,19 @@ public class Drivetrain extends SubsystemBase {
     private double baseDistanceLeftRad = 0.0;
     private double baseDistanceRightRad = 0.0;
 
+    //LIMELIGHT STUFF
+    private NetworkTable table;
+    NetworkTableEntry tx;
+    NetworkTableEntry ty;
+    NetworkTableEntry ta;
+
     public Drivetrain() 
     {
+        //LIMELIGHT
+        table = NetworkTableInstance.getDefault().getTable("limelight");
+        tx = table.getEntry("tx");
+        ty = table.getEntry("ty");
+        ta = table.getEntry("ta");
         //TODO SET THESE BASD ON CHARACTERIZATION?
         leftModel = new SimpleMotorFeedforward(0.20554, 0.10965, 0.016329);
         rightModel = new SimpleMotorFeedforward(0.20231, 0.11768, 0.0085871);
@@ -277,11 +284,21 @@ public class Drivetrain extends SubsystemBase {
        // new double  {robotPose.getX(), robotPose.getY(),
       //  robotPose.getRotation().getRadians()};
       // Shuffleboard.getTab("Drive").add()
-       //Shuffleboard.getTab("Drive").add("LAST RIGHT VELOCITY MPS", lastRightVelocityMPS);
-      // Shuffleboard.getTab("Drive").add("LEFT ENCODER", leftEncoder.getPosition());
-      // Shuffleboard.getTab("Drive").add("RIGHT ENCODER", rightEncoder.getPosition());
-      // Shuffleboard.getTab("Drive").add("LEFT ENCODER POS", leftEncoder.getPosition());
-      // Shuffleboard.getTab("Drive").add("RIGHT ENCODER POS", rightEncoder.getPosition());
+      SmartDashboard.putNumber("LAST RIGHT VELOCITY MPS", lastRightVelocityMPS);
+      SmartDashboard.putNumber("LEFT ENCODER", leftEncoder.getPosition());
+      SmartDashboard.putNumber("RIGHT ENCODER", rightEncoder.getPosition());
+      SmartDashboard.putNumber("LEFT ENCODER POS", leftEncoder.getPosition());
+      SmartDashboard.putNumber("RIGHT ENCODER POS", rightEncoder.getPosition());
+      
+        //read values periodically
+        double x = tx.getDouble(0.0);
+        double y = ty.getDouble(0.0);
+        double area = ta.getDouble(0.0);
+
+        //post to smart dashboard periodically
+        SmartDashboard.putNumber("LimelightX", x);
+        SmartDashboard.putNumber("LimelightY", y);
+        SmartDashboard.putNumber("LimelightArea", area);
     }
 
     public double getLeftPositionMeters()

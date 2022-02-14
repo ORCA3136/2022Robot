@@ -12,60 +12,74 @@ public class FlyWheel extends SubsystemBase {
 
 
 
-    public CANSparkMax FlyWheel1;
-    private  CANSparkMax FlyWheel2;
-    private CANSparkMax FlyWheel3;
-    RelativeEncoder FlyWheelEncoder;
+    public CANSparkMax flyWheel1;
+    private  CANSparkMax flyWheel2;
+    private CANSparkMax flyWheel3;
+    RelativeEncoder flyWheelEncoder;
 
 
     public FlyWheel(){
-        FlyWheel1 = new CANSparkMax(Constants.FlyWheel1, MotorType.kBrushless);
-        FlyWheel2 = new CANSparkMax(Constants.FlyWheel2, MotorType.kBrushless);
-        FlyWheel3 = new CANSparkMax(Constants.FlyWheel3, MotorType.kBrushless);
+        flyWheel1 = new CANSparkMax(Constants.FlyWheel1, MotorType.kBrushless);
+        flyWheel2 = new CANSparkMax(Constants.FlyWheel2, MotorType.kBrushless);
+        flyWheel3 = new CANSparkMax(Constants.FlyWheel3, MotorType.kBrushless);
 
-         FlyWheelEncoder = FlyWheel1.getEncoder();
+       flyWheelEncoder = flyWheel1.getEncoder();
 
       if(Constants.RESET_SPARKMAX){
-         FlyWheel1.restoreFactoryDefaults();
-         FlyWheel2.restoreFactoryDefaults();
+         flyWheel1.restoreFactoryDefaults();
+         flyWheel2.restoreFactoryDefaults();
          if(Constants.isFlyWheel3){
-            FlyWheel3.restoreFactoryDefaults();
+            flyWheel3.restoreFactoryDefaults();
          }
       }
       
-     // FlyWheel2.follow(FlyWheel1);
+       flyWheel2.follow(flyWheel1,true); //sets inverted to true
       //FlyWheel2.setInverted(true);
       if(Constants.isFlyWheel3){
-         FlyWheel3.follow(FlyWheel1);
+         flyWheel3.follow(flyWheel1);
       }
-      FlyWheel1.enableVoltageCompensation(12.0);
+      flyWheel1.enableVoltageCompensation(12.0);
+      flyWheel2.enableVoltageCompensation(12.0);
 
-      FlyWheel1.setSmartCurrentLimit(60);
-      FlyWheel2.setSmartCurrentLimit(60);
+      flyWheel1.setSmartCurrentLimit(60);
+      flyWheel2.setSmartCurrentLimit(60);
+      
       if(Constants.isFlyWheel3){
-         FlyWheel3.setSmartCurrentLimit(60);
+         flyWheel3.enableVoltageCompensation(12.0);
+         flyWheel3.setSmartCurrentLimit(60);
       }
 
-      FlyWheel1.setCANTimeout(0);
-      FlyWheel2.setCANTimeout(0);
-      if(Constants.isFlyWheel3){
-         FlyWheel3.setCANTimeout(0);
+      flyWheel1.setCANTimeout(0);
+      flyWheel2.setCANTimeout(0);
+
+      if(Constants.isFlyWheel3)
+      {
+         flyWheel3.setCANTimeout(0);
       }
-      if (Constants.RESET_SPARKMAX) {
-         FlyWheel1.burnFlash();
-         FlyWheel2.burnFlash();
+      if (Constants.RESET_SPARKMAX) 
+      {
+         flyWheel1.burnFlash();
+         flyWheel2.burnFlash();
          if(Constants.isFlyWheel3){
-            FlyWheel3.burnFlash();
+            flyWheel3.burnFlash();
          }
        }
     }
-    public void shoot(double FlyWheelSpeed) 
-    {FlyWheel1.set(FlyWheelSpeed);}    
 
-    public void notShoot(double FlyWheelSpeed) 
-    {FlyWheel1.set(FlyWheelSpeed);}  
+
+    public void shoot(double flyWheelSpeed) 
+    {
+       flyWheel1.set(flyWheelSpeed);
+    }    
+
+//    public void notShoot(double FlyWheelSpeed) 
+//    {
+//       flyWheel1.set(FlyWheelSpeed);
+//    }  
 
     public void stop() 
-    {FlyWheel1.set(0);}  
+    {
+       flyWheel1.set(0);
+    }  
 
 }

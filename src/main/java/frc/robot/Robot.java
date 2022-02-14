@@ -9,6 +9,7 @@ package frc.robot;
 
 import com.revrobotics.REVPhysicsSim;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -38,7 +39,8 @@ public class Robot extends TimedRobot {
 
     m_robotContainer = new RobotContainer();
    
-  
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(2);
+
    
   }
 
@@ -77,8 +79,8 @@ public class Robot extends TimedRobot {
       
     //m_autonomousCommand = new Auto(m_robotContainer.getDrivetrain(), m_robotContainer.getFlyWheel(), m_robotContainer.getConveyor());
 
-  
-    compressor.enableDigital();
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+
     
     // schedule the autonomous command (example)
     
