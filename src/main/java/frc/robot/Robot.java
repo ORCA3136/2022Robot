@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-  Compressor compressor = new Compressor(1, PneumaticsModuleType.REVPH);
+ // Compressor compressor = new Compressor(1, PneumaticsModuleType.REVPH);
 
   public RobotContainer m_robotContainer;
 
@@ -103,7 +103,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-  compressor.enableDigital();
+  //compressor.enableDigital();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -125,7 +125,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testInit() {
-   compressor.enableDigital();
+   //compressor.enableDigital();
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
   }
