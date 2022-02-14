@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.FlyWheel;
-import frc.robot.subsystems.InnerIntake;
+import frc.robot.subsystems.Intake;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -29,7 +29,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_drivetrain = new Drivetrain(); 
   private final Conveyor m_conveyor= new Conveyor();
-    private final InnerIntake m_innerIntake = new InnerIntake();
+    private final Intake m_innerIntake = new Intake();
   private final FlyWheel m_flyWheel = new FlyWheel();
   private final Constants m_constants= new Constants();
   private final XboxController controller = new XboxController(1);
