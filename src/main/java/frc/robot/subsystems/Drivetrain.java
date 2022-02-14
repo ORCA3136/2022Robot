@@ -157,24 +157,38 @@ public class Drivetrain extends SubsystemBase {
 
     }
 
+    /**
+     * A really basic drive controller - this should not really be used going forward as we are trying to use a cleaner method outlined by other
+     * more sophisticated teams to use voltages - vs. jsut raw values. 
+     * @param controller
+     */
     public void drive( XboxController controller) 
     {
-     
-     
-      //this is what was working on 2/6/2022
-      //left_motors.set(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)));
-      //right_motors.set(trueRightX((controller.getRightY() * Constants.kRightDriveScaling)*-1));
-
      diffDrive.tankDrive(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)), 
      trueRightX((controller.getRightY() * Constants.kRightDriveScaling)*-1));
     }
 
-    //trying this will rename to drive if it works
+    /**
+     * Should be the key method gonig forward for a basic drive command. takes in the controller so we can capture the 
+     * throttle from the joysticks. This handles deadband to make sure we don't get creep when idle as well as capping
+     * the max speed to help the team learn and make the robot more controllable.
+     * 
+     * TODO - I think I can remove the maxSpeed element since the speed should be capped by the MAX_VELOCITY_MPS I jsut had a bad calculation in there for 
+     * what that value shoudl be which was above 100% as I think our max speed is like 13 ft / second.
+     * @param controller
+     * @param maxSpeed
+     */
     public void drivePercentController(XboxController controller, double maxSpeed)
     {
         driveVelocity(trueLeftX(((controller.getLeftY() * Constants.MAX_VELOCITY_MPS)*maxSpeed)), (trueRightX((controller.getRightY() * Constants.MAX_VELOCITY_MPS)*maxSpeed)));
     }
 
+
+    /**
+     * Same as percentController method but takes in the raw values. from -1 to 1
+     * @param left
+     * @param right
+     */
     public void drivePercent(double left, double right)
     {
        // Shuffleboard.getTab("Drive Details").add("LEFT", left);
@@ -185,6 +199,13 @@ public class Drivetrain extends SubsystemBase {
         
     }
 
+    /**
+     * takes the speed and works to conver it all to volts since volts is what we really need / want for kinematics.
+     * TODO - get the output values on shuffleboard so I can understand what is going on!!!!
+     * 
+     * @param leftVelocityMPS
+     * @param rightVelocityMPS
+     */
     public void driveVelocity(double leftVelocityMPS, double rightVelocityMPS)
     {
         //Shuffleboard.getTab("Drive Details").add("LEFT VELOCITY MPS", leftVelocityMPS);
@@ -246,6 +267,11 @@ public class Drivetrain extends SubsystemBase {
 
     }
 
+    /**
+     * Handles deadband of the right stick
+     * @param RY
+     * @return
+     */
     public double trueRightX(double RY) 
     {
         double stick = RY;
@@ -255,7 +281,12 @@ public class Drivetrain extends SubsystemBase {
         }
         return stick;
     }
-
+    
+    /**
+     * handles deadband on the left stick
+     * @param LY
+     * @return
+     */
     public double trueLeftX(double LY) 
     {
         double stick = LY;
@@ -267,11 +298,17 @@ public class Drivetrain extends SubsystemBase {
 
     }
 
+    /**
+     * A basic stop command.
+     */
     public void stop() {
         leftLeader.set(0);
         rightLeader.set(0);
     }
 
+    /**
+     * works to update the Odemetry details, limelight details etc...
+     */
     @Override
     public void periodic()
     {
@@ -332,6 +369,8 @@ public class Drivetrain extends SubsystemBase {
     public SparkMaxPIDController getRightPidController(){
         return rightController;
     }
+
+    
     /**
    * Inverts NavX yaw as Odometry takes CCW as positive
    *

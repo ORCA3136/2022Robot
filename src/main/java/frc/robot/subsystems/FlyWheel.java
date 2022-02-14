@@ -34,7 +34,7 @@ public class FlyWheel extends SubsystemBase {
       }
       
        flyWheel2.follow(flyWheel1,true); //sets inverted to true
-      //FlyWheel2.setInverted(true);
+
       if(Constants.isFlyWheel3){
          flyWheel3.follow(flyWheel1);
       }
@@ -43,7 +43,7 @@ public class FlyWheel extends SubsystemBase {
 
       flyWheel1.setSmartCurrentLimit(60);
       flyWheel2.setSmartCurrentLimit(60);
-      
+
       if(Constants.isFlyWheel3){
          flyWheel3.enableVoltageCompensation(12.0);
          flyWheel3.setSmartCurrentLimit(60);
