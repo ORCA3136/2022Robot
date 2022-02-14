@@ -177,9 +177,9 @@ public class Drivetrain extends SubsystemBase {
 
     public void drivePercent(double left, double right)
     {
-        Shuffleboard.getTab("Drive Details").add("LEFT", left);
+       // Shuffleboard.getTab("Drive Details").add("LEFT", left);
 
-        Shuffleboard.getTab("Drive Details").add("RIGHT", right);
+      //  Shuffleboard.getTab("Drive Details").add("RIGHT", right);
 
         driveVelocity(left*Constants.MAX_VELOCITY_MPS, right*Constants.MAX_VELOCITY_MPS);
         
@@ -284,11 +284,11 @@ public class Drivetrain extends SubsystemBase {
        // new double  {robotPose.getX(), robotPose.getY(),
       //  robotPose.getRotation().getRadians()};
       // Shuffleboard.getTab("Drive").add()
-      SmartDashboard.putNumber("LAST RIGHT VELOCITY MPS", lastRightVelocityMPS);
-      SmartDashboard.putNumber("LEFT ENCODER", leftEncoder.getPosition());
-      SmartDashboard.putNumber("RIGHT ENCODER", rightEncoder.getPosition());
-      SmartDashboard.putNumber("LEFT ENCODER POS", leftEncoder.getPosition());
-      SmartDashboard.putNumber("RIGHT ENCODER POS", rightEncoder.getPosition());
+     // SmartDashboard.putNumber("LAST RIGHT VELOCITY MPS", lastRightVelocityMPS);
+     // SmartDashboard.putNumber("LEFT ENCODER", leftEncoder.getPosition());
+     // SmartDashboard.putNumber("RIGHT ENCODER", rightEncoder.getPosition());
+     // SmartDashboard.putNumber("LEFT ENCODER POS", leftEncoder.getPosition());
+     // SmartDashboard.putNumber("RIGHT ENCODER POS", rightEncoder.getPosition());
       
         //read values periodically
         double x = tx.getDouble(0.0);
@@ -296,9 +296,9 @@ public class Drivetrain extends SubsystemBase {
         double area = ta.getDouble(0.0);
 
         //post to smart dashboard periodically
-        SmartDashboard.putNumber("LimelightX", x);
-        SmartDashboard.putNumber("LimelightY", y);
-        SmartDashboard.putNumber("LimelightArea", area);
+       // SmartDashboard.putNumber("LimelightX", x);
+       // SmartDashboard.putNumber("LimelightY", y);
+       // SmartDashboard.putNumber("LimelightArea", area);
     }
 
     public double getLeftPositionMeters()
