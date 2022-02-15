@@ -15,6 +15,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -69,6 +70,9 @@ public class Drivetrain extends SubsystemBase {
     NetworkTableEntry tx;
     NetworkTableEntry ty;
     NetworkTableEntry ta;
+
+    ShuffleboardTab driveTab = Shuffleboard.getTab("Drive");
+
 
     public Drivetrain() 
     {
@@ -191,9 +195,10 @@ public class Drivetrain extends SubsystemBase {
      */
     public void drivePercent(double left, double right)
     {
-        Shuffleboard.getTab("Drive Details").add("LEFT", left);
+        SmartDashboard.putNumber("LEFT", left);
+        SmartDashboard.putNumber("RIGHT", right);
 
-        Shuffleboard.getTab("Drive Details").add("RIGHT", right);
+
 
         driveVelocity(left*Constants.MAX_VELOCITY_MPS, right*Constants.MAX_VELOCITY_MPS);
         
@@ -208,9 +213,9 @@ public class Drivetrain extends SubsystemBase {
      */
     public void driveVelocity(double leftVelocityMPS, double rightVelocityMPS)
     {
-        //Shuffleboard.getTab("Drive Details").add("LEFT VELOCITY MPS", leftVelocityMPS);
-        //Shuffleboard.getTab("Drive Details").add("RIGHT VELOCITY MPS", rightVelocityMPS);
-        //Shuffleboard.getTab("Drive Details").add("GYRO ANGLE", gyro.getAngle());
+        driveTab.add("LEFT VELOCITY MPS", leftVelocityMPS);
+        driveTab.add("RIGHT VELOCITY MPS", rightVelocityMPS);
+        driveTab.add("GYRO ANGLE", gyro.getAngle());
         double maxAccelerationPerCycle = Double.POSITIVE_INFINITY * Constants.loopPeriodSecs;
         double leftAcceleration = lastLeftVelocityMPS > 0 
         ? leftVelocityMPS - lastLeftVelocityMPS 
@@ -321,12 +326,12 @@ public class Drivetrain extends SubsystemBase {
        // new double  {robotPose.getX(), robotPose.getY(),
       //  robotPose.getRotation().getRadians()};
       // Shuffleboard.getTab("Drive").add()
-      SmartDashboard.putNumber("LAST RIGHT VELOCITY MPS", lastRightVelocityMPS);
-      SmartDashboard.putNumber("LEFT ENCODER", leftEncoder.getPosition());
-      SmartDashboard.putNumber("RIGHT ENCODER", rightEncoder.getPosition());
-      SmartDashboard.putNumber("LEFT ENCODER POS", leftEncoder.getPosition());
-      SmartDashboard.putNumber("RIGHT ENCODER POS", rightEncoder.getPosition());
-      
+        SmartDashboard.putNumber("LAST RIGHT VELOCITY MPS", lastRightVelocityMPS);
+        SmartDashboard.putNumber("LEFT ENCODER", leftEncoder.getPosition());
+        SmartDashboard.putNumber("RIGHT ENCODER", rightEncoder.getPosition());
+        SmartDashboard.putNumber("LEFT ENCODER POS", leftEncoder.getPosition());
+        SmartDashboard.putNumber("RIGHT ENCODER POS", rightEncoder.getPosition());
+        
         //read values periodically
         double x = tx.getDouble(0.0);
         double y = ty.getDouble(0.0);
@@ -370,7 +375,7 @@ public class Drivetrain extends SubsystemBase {
         return rightController;
     }
 
-    
+
     /**
    * Inverts NavX yaw as Odometry takes CCW as positive
    *
