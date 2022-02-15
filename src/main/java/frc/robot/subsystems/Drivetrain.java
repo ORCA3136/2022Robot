@@ -191,9 +191,9 @@ public class Drivetrain extends SubsystemBase {
      */
     public void drivePercent(double left, double right)
     {
-       // Shuffleboard.getTab("Drive Details").add("LEFT", left);
+       // Shuffleboard.getTab("Drive").add("LEFT", left);
 
-      //  Shuffleboard.getTab("Drive Details").add("RIGHT", right);
+      //  Shuffleboard.getTab("Drive").add("RIGHT", right);
 
         driveVelocity(left*Constants.MAX_VELOCITY_MPS, right*Constants.MAX_VELOCITY_MPS);
         
@@ -208,7 +208,7 @@ public class Drivetrain extends SubsystemBase {
      */
     public void driveVelocity(double leftVelocityMPS, double rightVelocityMPS)
     {
-        //Shuffleboard.getTab("Drive Details").add("LEFT VELOCITY MPS", leftVelocityMPS);
+        //Shuffleboard.getTab("Drive").add("LEFT VELOCITY MPS", leftVelocityMPS);
         //Shuffleboard.getTab("Drive Details").add("RIGHT VELOCITY MPS", rightVelocityMPS);
         //Shuffleboard.getTab("Drive Details").add("GYRO ANGLE", gyro.getAngle());
         double maxAccelerationPerCycle = Double.POSITIVE_INFINITY * Constants.loopPeriodSecs;
