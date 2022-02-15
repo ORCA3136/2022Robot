@@ -184,7 +184,7 @@ public class Drivetrain extends SubsystemBase {
      */
     public void drivePercentController(XboxController controller, double maxSpeed)
     {
-        driveVelocity(trueLeftX(((controller.getLeftY() * Constants.MAX_VELOCITY_MPS)*maxSpeed)), (trueRightX((controller.getRightY() * Constants.MAX_VELOCITY_MPS)*maxSpeed)));
+        driveVelocity(trueLeftX(((controller.getLeftY() * Constants.MAX_VELOCITY_MPS))), (trueRightX((controller.getRightY() * Constants.MAX_VELOCITY_MPS))));
     }
 
 
@@ -212,9 +212,9 @@ public class Drivetrain extends SubsystemBase {
     public void driveVelocity(double leftVelocityMPS, double rightVelocityMPS)
     {
 
-        driveTab.add("LEFT VELOCITY MPS", leftVelocityMPS);
-        driveTab.add("RIGHT VELOCITY MPS", rightVelocityMPS);
-        driveTab.add("GYRO ANGLE", gyro.getAngle());
+       // driveTab.add("LEFT VELOCITY MPS", leftVelocityMPS);
+       // driveTab.add("RIGHT VELOCITY MPS", rightVelocityMPS);
+       // driveTab.add("GYRO ANGLE", gyro.getAngle());
         double maxAccelerationPerCycle = Double.POSITIVE_INFINITY * Constants.loopPeriodSecs;
         double leftAcceleration = lastLeftVelocityMPS > 0 
         ? leftVelocityMPS - lastLeftVelocityMPS 
@@ -255,6 +255,8 @@ public class Drivetrain extends SubsystemBase {
 
      //   Shuffleboard.getTab("Drive Details").add("LEFT FF Volts", leftFFVolts);
     //    Shuffleboard.getTab("Drive Details").add("RIGHT FF Volts", rightFFVolts);
+        SmartDashboard.putNumber("LEFT FF VOLTS", leftFFVolts);
+        SmartDashboard.putNumber(" RIGHT FF VOLTS", rightFFVolts);
 
         //this is just a basic drive -
         //leftLeader.setVoltage(leftFFVolts);
@@ -263,7 +265,10 @@ public class Drivetrain extends SubsystemBase {
         //this is a pid drive
         double leftRPM = Units.radiansPerSecondToRotationsPerMinute(leftVelocityRPS) * afterEncoderReduction;
         double rightRPM = Units.radiansPerSecondToRotationsPerMinute(rightVelocityRPS) * afterEncoderReduction;
-     //   Shuffleboard.getTab("Drive Details").add("LEFT RPM", leftRPM);
+        SmartDashboard.putNumber("LEFT RPM", leftRPM);
+        SmartDashboard.putNumber("RIGHT RPM", rightRPM);
+
+        //   Shuffleboard.getTab("Drive Details").add("LEFT RPM", leftRPM);
      //   Shuffleboard.getTab("Drive Details").add("RIGHT RPM", rightRPM);
 
         leftLeader.getPIDController().setReference(leftRPM, ControlType.kVelocity, 0, leftFFVolts,ArbFFUnits.kVoltage);
@@ -325,6 +330,7 @@ public class Drivetrain extends SubsystemBase {
        // new double  {robotPose.getX(), robotPose.getY(),
       //  robotPose.getRotation().getRadians()};
       // Shuffleboard.getTab("Drive").add()
+        SmartDashboard.putNumber("LAST LEFT VELOCITY MPS", lastLeftVelocityMPS);
 
         SmartDashboard.putNumber("LAST RIGHT VELOCITY MPS", lastRightVelocityMPS);
         SmartDashboard.putNumber("LEFT ENCODER", leftEncoder.getPosition());
