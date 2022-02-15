@@ -71,7 +71,6 @@ public class Drivetrain extends SubsystemBase {
     NetworkTableEntry ty;
     NetworkTableEntry ta;
 
-    ShuffleboardTab driveTab = Shuffleboard.getTab("Drive");
 
 
     public Drivetrain() 
