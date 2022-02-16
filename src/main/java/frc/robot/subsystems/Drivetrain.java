@@ -71,7 +71,6 @@ public class Drivetrain extends SubsystemBase {
     NetworkTableEntry ty;
     NetworkTableEntry ta;
 
-    ShuffleboardTab driveTab = Shuffleboard.getTab("Drive");
 
 
     public Drivetrain() 
@@ -212,9 +211,9 @@ public class Drivetrain extends SubsystemBase {
     public void driveVelocity(double leftVelocityMPS, double rightVelocityMPS)
     {
 
-       // driveTab.add("LEFT VELOCITY MPS", leftVelocityMPS);
-       // driveTab.add("RIGHT VELOCITY MPS", rightVelocityMPS);
-       // driveTab.add("GYRO ANGLE", gyro.getAngle());
+        SmartDashboard.putNumber("LEFT MPS", leftVelocityMPS);
+        SmartDashboard.putNumber("RIGHT MPS", rightVelocityMPS);
+        SmartDashboard.putNumber("GYRO ANGLE", gyro.getAngle());
         double maxAccelerationPerCycle = Double.POSITIVE_INFINITY * Constants.loopPeriodSecs;
         double leftAcceleration = lastLeftVelocityMPS > 0 
         ? leftVelocityMPS - lastLeftVelocityMPS 
@@ -333,8 +332,8 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("LAST LEFT VELOCITY MPS", lastLeftVelocityMPS);
 
         SmartDashboard.putNumber("LAST RIGHT VELOCITY MPS", lastRightVelocityMPS);
-        SmartDashboard.putNumber("LEFT ENCODER", leftEncoder.getPosition());
-        SmartDashboard.putNumber("RIGHT ENCODER", rightEncoder.getPosition());
+        SmartDashboard.putNumber("LEFT ENCODER VELOCITY", leftEncoder.getVelocity());
+        SmartDashboard.putNumber("RIGHT ENCODER VELOCITY", rightEncoder.getVelocity());
         SmartDashboard.putNumber("LEFT ENCODER POS", leftEncoder.getPosition());
         SmartDashboard.putNumber("RIGHT ENCODER POS", rightEncoder.getPosition());
         
