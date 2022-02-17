@@ -19,6 +19,11 @@ public class TurnToTarget extends CommandBase {
   private NetworkTableEntry tx;
   private NetworkTableEntry ty;
   private NetworkTableEntry ta;
+
+  private double Kp = -0.1;  // Proportional control constant
+
+  private boolean done = false;
+
   /**
    * Creates a new ExampleCommand.
    *
@@ -36,35 +41,46 @@ public class TurnToTarget extends CommandBase {
   @Override
   public void initialize() 
   {
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     //LIMELIGHT
-    table = NetworkTableInstance.getDefault().getTable("limelight");
-    tx = table.getEntry("tx");
-    ty = table.getEntry("ty");
-    ta = table.getEntry("ta");
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
      //read values periodically
-     double x = tx.getDouble(0.0);
-     double y = ty.getDouble(0.0);
-     double area = ta.getDouble(0.0);
+     table = NetworkTableInstance.getDefault().getTable("limelight");
+     tx = table.getEntry("tx");
+     ty = table.getEntry("ty");
+     ta = table.getEntry("ta");
+      double x = tx.getDouble(0.0);
+      double y = ty.getDouble(0.0);
+      double area = ta.getDouble(0.0);
 
-     //float heading_error = tx;
-     //steering_adjust = Kp * tx;
-
-     //left_command+=steering_adjust;
-     //right_command-=steering_adjust;
+     double steeringAdjust = Kp * x;
+    if(Math.abs(x)<.2)
+    {
+      done=true;
+    }
+    else
+    {
+      done = false;
+    }
+    double left=steeringAdjust;
+    double right=-steeringAdjust;
+   
+    m_drivetrain.drivePercent(left, right);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return done;
   }
 }

@@ -39,8 +39,6 @@ public class Robot extends TimedRobot {
 
     m_robotContainer = new RobotContainer();
    
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
-
    
   }
 
@@ -79,7 +77,6 @@ public class Robot extends TimedRobot {
       
     //m_autonomousCommand = new Auto(m_robotContainer.getDrivetrain(), m_robotContainer.getFlyWheel(), m_robotContainer.getConveyor());
 
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
 
     
     // schedule the autonomous command (example)
@@ -108,7 +105,7 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+
 
 
     // schedule the autonomous command (example)
