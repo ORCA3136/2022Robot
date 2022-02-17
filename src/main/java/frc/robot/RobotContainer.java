@@ -14,10 +14,12 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.TurnToTarget;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Limelight;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -31,6 +33,7 @@ public class RobotContainer {
   private final Conveyor m_conveyor= new Conveyor();
     private final Intake m_innerIntake = new Intake();
   private final FlyWheel m_flyWheel = new FlyWheel();
+  private final Limelight m_limelight = new Limelight();
   private final Constants m_constants= new Constants();
   private final XboxController controller = new XboxController(1);
   private final Joystick Joystick = new Joystick(0);
@@ -111,10 +114,20 @@ public class RobotContainer {
    // new JoystickButton(controller, XboxController.Button.kStart.value)
      // .whenPressed(new InstantCommand(() -> m_intake.intakeOut(Constants.kIntakeHigh), m_innerIntake))
        // .whenReleased(new InstantCommand(m_intake::intakeStop, m_intake));
-  
-}
+       new JoystickButton(controller, XboxController.Button.kA.value)
+        .whenPressed(new TurnToTarget(m_drivetrain));
 
+         new JoystickButton(controller, XboxController.Button.kLeftStick.value)
+         .whenPressed(new InstantCommand(m_limelight::enableLED,m_limelight));
 
+         new JoystickButton(controller, XboxController.Button.kRightStick.value)
+         .whenPressed(new InstantCommand(m_limelight::disableLED,m_limelight));
+
+         new JoystickButton(controller, XboxController.Button.kStart.value)
+         .whenPressed(new InstantCommand(m_limelight::findRing,m_limelight));
+    }
+
+    
   }
 
 

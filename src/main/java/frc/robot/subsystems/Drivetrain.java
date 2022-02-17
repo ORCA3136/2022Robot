@@ -15,18 +15,15 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
-import edu.wpi.first.wpilibj.simulation.EncoderSim;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.RobotBase;
-import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.hal.SimDouble;
-import edu.wpi.first.hal.simulation.SimDeviceDataJNI;
-import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 
 
@@ -68,8 +65,21 @@ public class Drivetrain extends SubsystemBase {
     private double baseDistanceLeftRad = 0.0;
     private double baseDistanceRightRad = 0.0;
 
+    //LIMELIGHT STUFF
+    private NetworkTable table;
+    NetworkTableEntry tx;
+    NetworkTableEntry ty;
+    NetworkTableEntry ta;
+
+
+
     public Drivetrain() 
     {
+        //LIMELIGHT
+        table = NetworkTableInstance.getDefault().getTable("limelight");
+        tx = table.getEntry("tx");
+        ty = table.getEntry("ty");
+        ta = table.getEntry("ta");
         //TODO SET THESE BASD ON CHARACTERIZATION?
         leftModel = new SimpleMotorFeedforward(0.20554, 0.10965, 0.016329);
         rightModel = new SimpleMotorFeedforward(0.20231, 0.11768, 0.0085871);
@@ -150,39 +160,60 @@ public class Drivetrain extends SubsystemBase {
 
     }
 
+    /**
+     * A really basic drive controller - this should not really be used going forward as we are trying to use a cleaner method outlined by other
+     * more sophisticated teams to use voltages - vs. jsut raw values. 
+     * @param controller
+     */
     public void drive( XboxController controller) 
     {
-     
-     
-      //this is what was working on 2/6/2022
-      //left_motors.set(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)));
-      //right_motors.set(trueRightX((controller.getRightY() * Constants.kRightDriveScaling)*-1));
-
      diffDrive.tankDrive(trueLeftX((controller.getLeftY() * Constants.kLeftDriveScaling)), 
      trueRightX((controller.getRightY() * Constants.kRightDriveScaling)*-1));
     }
 
-    //trying this will rename to drive if it works
+    /**
+     * Should be the key method gonig forward for a basic drive command. takes in the controller so we can capture the 
+     * throttle from the joysticks. This handles deadband to make sure we don't get creep when idle as well as capping
+     * the max speed to help the team learn and make the robot more controllable.
+     * 
+     * TODO - I think I can remove the maxSpeed element since the speed should be capped by the MAX_VELOCITY_MPS I jsut had a bad calculation in there for 
+     * what that value shoudl be which was above 100% as I think our max speed is like 13 ft / second.
+     * @param controller
+     * @param maxSpeed
+     */
     public void drivePercentController(XboxController controller, double maxSpeed)
     {
-        driveVelocity(trueLeftX(((controller.getLeftY() * Constants.MAX_VELOCITY_MPS)*maxSpeed)), (trueRightX((controller.getRightY() * Constants.MAX_VELOCITY_MPS)*maxSpeed)));
+        driveVelocity(trueLeftX(((controller.getLeftY() * Constants.MAX_VELOCITY_MPS))), (trueRightX((controller.getRightY() * Constants.MAX_VELOCITY_MPS))));
     }
 
+
+    /**
+     * Same as percentController method but takes in the raw values. from -1 to 1
+     * @param left
+     * @param right
+     */
     public void drivePercent(double left, double right)
     {
-        Shuffleboard.getTab("Drive Details").add("LEFT", left);
 
-        Shuffleboard.getTab("Drive Details").add("RIGHT", right);
-
+        SmartDashboard.putNumber("LEFT", left);
+        SmartDashboard.putNumber("RIGHT", right);
         driveVelocity(left*Constants.MAX_VELOCITY_MPS, right*Constants.MAX_VELOCITY_MPS);
         
     }
 
+    /**
+     * takes the speed and works to conver it all to volts since volts is what we really need / want for kinematics.
+     * TODO - get the output values on shuffleboard so I can understand what is going on!!!!
+     * 
+     * @param leftVelocityMPS
+     * @param rightVelocityMPS
+     */
     public void driveVelocity(double leftVelocityMPS, double rightVelocityMPS)
     {
-        //Shuffleboard.getTab("Drive Details").add("LEFT VELOCITY MPS", leftVelocityMPS);
-        //Shuffleboard.getTab("Drive Details").add("RIGHT VELOCITY MPS", rightVelocityMPS);
-        //Shuffleboard.getTab("Drive Details").add("GYRO ANGLE", gyro.getAngle());
+
+        SmartDashboard.putNumber("LEFT MPS", leftVelocityMPS);
+        SmartDashboard.putNumber("RIGHT MPS", rightVelocityMPS);
+        SmartDashboard.putNumber("GYRO ANGLE", gyro.getAngle());
         double maxAccelerationPerCycle = Double.POSITIVE_INFINITY * Constants.loopPeriodSecs;
         double leftAcceleration = lastLeftVelocityMPS > 0 
         ? leftVelocityMPS - lastLeftVelocityMPS 
@@ -223,6 +254,8 @@ public class Drivetrain extends SubsystemBase {
 
      //   Shuffleboard.getTab("Drive Details").add("LEFT FF Volts", leftFFVolts);
     //    Shuffleboard.getTab("Drive Details").add("RIGHT FF Volts", rightFFVolts);
+        SmartDashboard.putNumber("LEFT FF VOLTS", leftFFVolts);
+        SmartDashboard.putNumber(" RIGHT FF VOLTS", rightFFVolts);
 
         //this is just a basic drive -
         //leftLeader.setVoltage(leftFFVolts);
@@ -231,7 +264,10 @@ public class Drivetrain extends SubsystemBase {
         //this is a pid drive
         double leftRPM = Units.radiansPerSecondToRotationsPerMinute(leftVelocityRPS) * afterEncoderReduction;
         double rightRPM = Units.radiansPerSecondToRotationsPerMinute(rightVelocityRPS) * afterEncoderReduction;
-     //   Shuffleboard.getTab("Drive Details").add("LEFT RPM", leftRPM);
+        SmartDashboard.putNumber("LEFT RPM", leftRPM);
+        SmartDashboard.putNumber("RIGHT RPM", rightRPM);
+
+        //   Shuffleboard.getTab("Drive Details").add("LEFT RPM", leftRPM);
      //   Shuffleboard.getTab("Drive Details").add("RIGHT RPM", rightRPM);
 
         leftLeader.getPIDController().setReference(leftRPM, ControlType.kVelocity, 0, leftFFVolts,ArbFFUnits.kVoltage);
@@ -239,6 +275,11 @@ public class Drivetrain extends SubsystemBase {
 
     }
 
+    /**
+     * Handles deadband of the right stick
+     * @param RY
+     * @return
+     */
     public double trueRightX(double RY) 
     {
         double stick = RY;
@@ -248,7 +289,12 @@ public class Drivetrain extends SubsystemBase {
         }
         return stick;
     }
-
+    
+    /**
+     * handles deadband on the left stick
+     * @param LY
+     * @return
+     */
     public double trueLeftX(double LY) 
     {
         double stick = LY;
@@ -260,11 +306,17 @@ public class Drivetrain extends SubsystemBase {
 
     }
 
+    /**
+     * A basic stop command.
+     */
     public void stop() {
         leftLeader.set(0);
         rightLeader.set(0);
     }
 
+    /**
+     * works to update the Odemetry details, limelight details etc...
+     */
     @Override
     public void periodic()
     {
@@ -277,11 +329,24 @@ public class Drivetrain extends SubsystemBase {
        // new double  {robotPose.getX(), robotPose.getY(),
       //  robotPose.getRotation().getRadians()};
       // Shuffleboard.getTab("Drive").add()
-       //Shuffleboard.getTab("Drive").add("LAST RIGHT VELOCITY MPS", lastRightVelocityMPS);
-      // Shuffleboard.getTab("Drive").add("LEFT ENCODER", leftEncoder.getPosition());
-      // Shuffleboard.getTab("Drive").add("RIGHT ENCODER", rightEncoder.getPosition());
-      // Shuffleboard.getTab("Drive").add("LEFT ENCODER POS", leftEncoder.getPosition());
-      // Shuffleboard.getTab("Drive").add("RIGHT ENCODER POS", rightEncoder.getPosition());
+        SmartDashboard.putNumber("LAST LEFT VELOCITY MPS", lastLeftVelocityMPS);
+
+        SmartDashboard.putNumber("LAST RIGHT VELOCITY MPS", lastRightVelocityMPS);
+        SmartDashboard.putNumber("LEFT ENCODER VELOCITY", leftEncoder.getVelocity());
+        SmartDashboard.putNumber("RIGHT ENCODER VELOCITY", rightEncoder.getVelocity());
+        SmartDashboard.putNumber("LEFT ENCODER POS", leftEncoder.getPosition());
+        SmartDashboard.putNumber("RIGHT ENCODER POS", rightEncoder.getPosition());
+        
+
+        //read values periodically
+        double x = tx.getDouble(0.0);
+        double y = ty.getDouble(0.0);
+        double area = ta.getDouble(0.0);
+
+        //post to smart dashboard periodically
+       // SmartDashboard.putNumber("LimelightX", x);
+       // SmartDashboard.putNumber("LimelightY", y);
+       // SmartDashboard.putNumber("LimelightArea", area);
     }
 
     public double getLeftPositionMeters()
@@ -315,6 +380,8 @@ public class Drivetrain extends SubsystemBase {
     public SparkMaxPIDController getRightPidController(){
         return rightController;
     }
+
+
     /**
    * Inverts NavX yaw as Odometry takes CCW as positive
    *

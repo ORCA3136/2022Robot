@@ -9,6 +9,7 @@ package frc.robot;
 
 import com.revrobotics.REVPhysicsSim;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -38,7 +39,6 @@ public class Robot extends TimedRobot {
 
     m_robotContainer = new RobotContainer();
    
-  
    
   }
 
@@ -77,8 +77,8 @@ public class Robot extends TimedRobot {
       
     //m_autonomousCommand = new Auto(m_robotContainer.getDrivetrain(), m_robotContainer.getFlyWheel(), m_robotContainer.getConveyor());
 
+
   
-   // compressor.enableDigital();
     
     // schedule the autonomous command (example)
     
@@ -101,12 +101,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
- // compressor.enableDigital();
+
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    
+
+
 
     // schedule the autonomous command (example)
      if (m_autonomousCommand != null) {

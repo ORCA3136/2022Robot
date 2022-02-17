@@ -38,7 +38,7 @@ public final class Constants {
 
         public static boolean RESET_SPARKMAX = true;
     
-        public static double MAX_VELOCITY_MPS = Units.inchesToMeters(100.0); //15feet/second converted to meters
+        public static double MAX_VELOCITY_MPS = Units.inchesToMeters(50.0); //15feet/second converted to meters
         public static double loopPeriodSecs = 0.02;
         public static double WHEEL_RADIUS_METERS =  Units.inchesToMeters(3.0);
 
