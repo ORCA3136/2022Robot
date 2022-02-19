@@ -80,6 +80,11 @@ public class FlyWheel extends SubsystemBase {
     public void stop() 
     {
        flyWheel1.set(0);
-    }  
+    }
+
+
+
+
+
 
 }
