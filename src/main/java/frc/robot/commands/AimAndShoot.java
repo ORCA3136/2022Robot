@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.FlyWheel;
 import frc.robot.Constants;
 
-public class AimAndShoot {
+public class AimAndShoot extends CommandBase{
     private Drivetrain m_drivetrain;
     private boolean alignedToTarget = false;
     private NetworkTableEntry tx;
@@ -25,10 +25,10 @@ public class AimAndShoot {
     double targetOffsetAngle_Vertical = ty.getDouble(0.0);
     
     // how many degrees back is your limelight rotated from perfectly vertical?
-    double limelightMountAngleDegrees = 90;
+    double limelightMountAngleDegrees = 45;
     
     // distance from the center of the Limelight lens to the floor
-    double limelightLensHeightInches = 20.0;
+    double limelightLensHeightInches = 22.125;
     
     // distance from the target to the floor
     double goalHeightInches = 103;
@@ -44,34 +44,23 @@ public class AimAndShoot {
 
     private boolean done = false;
   
+   
     /**
      * Creates a new ExampleCommand.
      *
      * @param subsystem The subsystem used by this command.
      * @return 
      */
-    public void AimAndShoot(Drivetrain subsystem) {
-      m_drivetrain = subsystem;
+    public AimAndShoot(Drivetrain driveSubsystem, FlyWheel flyWheelSubsystem, Conveyor conveyorSubsystem) {
+      m_drivetrain = driveSubsystem;
+      m_FlyWheel = flyWheelSubsystem;
+      m_Conveyor = conveyorSubsystem;
       // Use addRequirements() here to declare subsystem dependencies.
-      addRequirements(subsystem);     
+      addRequirements(driveSubsystem);
+      addRequirements(flyWheelSubsystem);
+      addRequirements(conveyorSubsystem);     
     }    
-    private void addRequirements(Drivetrain subsystem) {
-    }
-    public void AimAndShoot(FlyWheel subsystem) {
-        m_FlyWheel = subsystem;
-        // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(subsystem);
-      }
-
-    public void AimAndShoot(Conveyor subsystem){
-        m_Conveyor = subsystem;
-        addRequirements(subsystem);
-    }
-  
-    private void addRequirements(Conveyor subsystem) {
-    }
-    private void addRequirements(FlyWheel subsystem) {
-    }
+    
     // Called when the command is initially scheduled.
     public void initialize() 
     {

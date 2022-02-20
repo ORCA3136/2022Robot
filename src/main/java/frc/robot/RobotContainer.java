@@ -14,12 +14,12 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.TurnToTarget;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
+import frc.robot.commands.AimAndShoot;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -36,10 +36,11 @@ public class RobotContainer {
   private final Limelight m_limelight = new Limelight();
   private final Constants m_constants= new Constants();
   private final XboxController controller = new XboxController(1);
-  private final Joystick Joystick = new Joystick(0);
-  public void Constants(){
+  private final Joystick Joystick = new Joystick(2);
+  //private frc.robot.commands.AimAndShoot AimAndShoot = new AimAndShoot(m_drivetrain, m_flyWheel, m_conveyor);
+  private final XboxController controller2 = new XboxController(2);
  
-  };
+  ;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -90,10 +91,10 @@ public class RobotContainer {
     .whenReleased(new InstantCommand(() ->  m_innerIntake.intakeStop(), m_innerIntake))
       .whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
    
-      //flywheel shoot slow a
-   // new JoystickButton(controller, XboxController.Button.kA.value)
-   // .whenPressed(new InstantCommand(() -> m_conveyor.raiseConveyor(Constants.kConveyerHigh), m_conveyor))
-    //  .whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
+      //conveyor go a(on joystick)
+    new JoystickButton(Joystick,m_constants.kA)
+    .whenPressed(new InstantCommand(() -> m_conveyor.raiseConveyor(Constants.kConveyerHigh), m_conveyor))
+      .whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
    
       //deploy intake right stick
    // new JoystickButton(controller, XboxController.Button.kRightStick.value)
@@ -107,15 +108,17 @@ public class RobotContainer {
 
         //Shoot mid x
     new JoystickButton(controller, XboxController.Button.kX.value)
-    .whenPressed(new InstantCommand(() -> m_flyWheel.shoot(Constants.kFlyWheelMedium), m_flyWheel))
+    .whenPressed(new InstantCommand(() -> m_flyWheel.shoot(Constants.kFlyWheelSlow), m_flyWheel))
         .whenReleased(new InstantCommand(m_flyWheel::stop,m_flyWheel));
    
         //intake out start
    // new JoystickButton(controller, XboxController.Button.kStart.value)
      // .whenPressed(new InstantCommand(() -> m_intake.intakeOut(Constants.kIntakeHigh), m_innerIntake))
        // .whenReleased(new InstantCommand(m_intake::intakeStop, m_intake));
+       //new JoystickButton(controller, XboxController.Button.kA.value)
+       // .whenPressed(new TurnToTarget(m_drivetrain));
        new JoystickButton(controller, XboxController.Button.kA.value)
-        .whenPressed(new TurnToTarget(m_drivetrain));
+       .whenPressed( new AimAndShoot(m_drivetrain, m_flyWheel, m_conveyor));
 
          new JoystickButton(controller, XboxController.Button.kLeftStick.value)
          .whenPressed(new InstantCommand(m_limelight::enableLED,m_limelight));
@@ -125,6 +128,8 @@ public class RobotContainer {
 
          new JoystickButton(controller, XboxController.Button.kStart.value)
          .whenPressed(new InstantCommand(m_limelight::findRing,m_limelight));
+
+         
     }
 
     

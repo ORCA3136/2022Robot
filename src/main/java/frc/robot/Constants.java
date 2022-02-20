@@ -25,8 +25,8 @@ public final class Constants {
         public static int FOLLOWER_RIGHT_CAN_ID = 5;
         public static int FOLLOWER_RIGHT_2_CAN_ID = 6;
         
-        public static int FlyWheel1 = 8;
-        public static int FlyWheel2 = 7;
+        public static int FlyWheel1 = 7;
+        public static int FlyWheel2 = 8;
         public static int FlyWheel3 = 12;
     
         public static boolean isFlyWheel3 = false;
@@ -38,7 +38,7 @@ public final class Constants {
 
         public static boolean RESET_SPARKMAX = true;
     
-        public static double MAX_VELOCITY_MPS = Units.inchesToMeters(50.0); //15feet/second converted to meters
+        public static double MAX_VELOCITY_MPS = Units.inchesToMeters(62.0); //15feet/second converted to meters
         public static double loopPeriodSecs = 0.02;
         public static double WHEEL_RADIUS_METERS =  Units.inchesToMeters(3.0);
 
@@ -66,7 +66,7 @@ public final class Constants {
 
     public static final double kFlyWheelFast = - .8;
     public static final double kFlyWheelMedium = - .5;
-    public static final double kFlyWheelSlow = - .3;
+    public static final double kFlyWheelSlow = - .34;
     
     
     public static final int kIntakeForward = 3;

@@ -36,7 +36,7 @@ public class FlyWheel extends SubsystemBase {
        flyWheel2.follow(flyWheel1,true); //sets inverted to true
 
       if(Constants.isFlyWheel3){
-         flyWheel3.follow(flyWheel1);
+          flyWheel3.follow(flyWheel1);
       }
       flyWheel1.enableVoltageCompensation(12.0);
       flyWheel2.enableVoltageCompensation(12.0);
