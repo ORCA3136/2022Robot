@@ -81,6 +81,7 @@ public class RobotContainer {
     new JoystickButton(controller, XboxController.Button.kY.value)
     .whenHeld(new InstantCommand(() -> m_flyWheel.shoot(Constants.kFlyWheelFast), m_flyWheel))
       .whenReleased(new InstantCommand(m_flyWheel::stop, m_flyWheel));
+    
    
       //Lower convyeyor b
     new JoystickButton(controller, XboxController.Button.kB.value)
@@ -106,7 +107,7 @@ public class RobotContainer {
      // .whenPressed(new InstantCommand(() -> m_intake.retractIntake(),m_innerIntake))
        // .whenReleased(new InstantCommand(m_intake::off,m_intake));
 
-        //Shoot mid x
+        //Shoot slow x
     new JoystickButton(controller, XboxController.Button.kX.value)
     .whenPressed(new InstantCommand(() -> m_flyWheel.shoot(Constants.kFlyWheelSlow), m_flyWheel))
         .whenReleased(new InstantCommand(m_flyWheel::stop,m_flyWheel));

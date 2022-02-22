@@ -32,6 +32,28 @@ public class OnTarget {
         return this.bigangle = angle;
     }
 
+    private double FlyWheelLL;
+
+    public double getFlyWheelLL(){
+        return FlyWheelLL;
+    }       
+
+    public double setFlyWheelLL(double FWLL){
+        return this.FlyWheelLL = FWLL;
+    }
+
+    private double ConveyorLL;
+
+    public double getConveyorLL(){
+        return ConveyorLL;
+    }       
+
+    public double setConveyorLL(double CWLL){
+        return this.ConveyorLL = CWLL;
+    }
+
+
 }
+
 
 
