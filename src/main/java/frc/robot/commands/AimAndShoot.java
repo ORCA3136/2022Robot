@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.FlyWheel;
 import frc.robot.Constants;
@@ -43,6 +44,7 @@ public class AimAndShoot extends CommandBase{
     private double Kp = -0.1;  // Proportional control constant
 
     private boolean done = false;
+
   
    
     /**
@@ -101,13 +103,14 @@ public class AimAndShoot extends CommandBase{
       }
 
       double LimeLightConveyor = Kp * x;
+
       if(Math.abs(x)<.2)
       {
-          done=true;
+        done = true;
       }
       else
       {
-        done=false;
+        done = false;
       }
 
       double left=steeringAdjust;

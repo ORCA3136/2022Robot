@@ -31,6 +31,8 @@ public final class Constants {
     
         public static boolean isFlyWheel3 = false;
 
+        public static int Climber1 = 10;
+
         public static int kConveyor1 = 9;
     
         
@@ -77,6 +79,10 @@ public final class Constants {
 
     public static final double kLeftDriveScaling = .8;
     public static final double kRightDriveScaling = -.8;
+
+    public static final double kClimberSpeed = .3;
+    public static final double kClimberSpeedFast = .5;
+
 
 
 }

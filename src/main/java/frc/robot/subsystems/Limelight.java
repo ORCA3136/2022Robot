@@ -7,6 +7,9 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.models.OnTarget;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.commands.AimAndShoot;
+import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.FlyWheel;
 
 public class Limelight extends SubsystemBase 
 {
@@ -69,14 +72,22 @@ public class Limelight extends SubsystemBase
   
       OnTarget target = new OnTarget(); 
 
+
       double steeringAdjust = Kp * x;
+      double LimeLightFlywheel = Kp *x;
+      double LimeLightConveyor = Kp *x;
 
       double left=steeringAdjust;
       double right=-steeringAdjust;
-     
+      double flyWheelSpeed = LimeLightFlywheel;
+      double conveyorSpeed = LimeLightConveyor;
+
+
       target.setLeftPower(left);
       target.setRightPower(right);
       target.setBigAngle(x);
+      target.setFlyWheelLL(flyWheelSpeed);
+      target.setConveyorLL(conveyorSpeed);
 
       return target;
 
