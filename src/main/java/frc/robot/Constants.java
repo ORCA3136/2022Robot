@@ -38,7 +38,7 @@ public final class Constants {
 
         public static boolean RESET_SPARKMAX = true;
     
-        public static double MAX_VELOCITY_MPS = Units.inchesToMeters(62.0); //15feet/second converted to meters
+        public static double MAX_VELOCITY_MPS = Units.inchesToMeters(60.0); //15feet/second converted to meters
         public static double loopPeriodSecs = 0.02;
         public static double WHEEL_RADIUS_METERS =  Units.inchesToMeters(3.0);
 
@@ -64,7 +64,7 @@ public final class Constants {
     public static final double kConveyerHigh = .5;
     public static final double kConveyorLow = .3;
 
-    public static final double kFlyWheelFast = - .8;
+    public static final double kFlyWheelFast = - 1;
     public static final double kFlyWheelMedium = - .5;
     public static final double kFlyWheelSlow = - .34;
     

@@ -85,8 +85,8 @@ public class RobotContainer {
       //Lower convyeyor b
     new JoystickButton(controller, XboxController.Button.kB.value)
     .whenHeld(new InstantCommand(() -> m_conveyor.lowerConveyor(Constants.kConveyorLow), m_conveyor))
-    .whenHeld(new InstantCommand(() -> m_innerIntake.intakeForward(Constants.kIntakeHigh), m_innerIntake))
-    .whenHeld(new InstantCommand(() -> m_flyWheel.shoot(-1 * Constants.kFlyWheelSlow), m_flyWheel))
+    .whenHeld(new InstantCommand(() -> m_innerIntake.intakeForward(Constants.kIntakeLow), m_innerIntake))
+    .whenHeld(new InstantCommand(() -> m_flyWheel.shoot(.1), m_flyWheel))
     .whenReleased(new InstantCommand(() ->  m_flyWheel.stop(), m_flyWheel))
     .whenReleased(new InstantCommand(() ->  m_innerIntake.intakeStop(), m_innerIntake))
       .whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
