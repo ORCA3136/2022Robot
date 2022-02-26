@@ -83,6 +83,8 @@ public final class Constants {
     public static final double kClimberSpeed = .3;
     public static final double kClimberSpeedFast = .5;
 
+    public static final double kLeftAuto = .3;
+    public static final double kRightAuto = .3;
 
 
 }
