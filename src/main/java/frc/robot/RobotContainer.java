@@ -21,6 +21,7 @@ import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.commands.AimAndShoot;
+import frc.robot.commands.DrivetrainAuto;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -140,7 +141,9 @@ public class RobotContainer {
          //.whenHeld(new InstantCommand(() -> m_climber.lowerClimber(.75),m_climber)).whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
     }
 
-    
+    public Command getAutonomousCommand(){
+      return new DrivetrainAuto(m_drivetrain);
+    }
   }
 
 

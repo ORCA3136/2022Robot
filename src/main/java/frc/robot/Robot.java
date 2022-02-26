@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.DrivetrainAuto;
+import frc.robot.subsystems.Drivetrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -24,11 +26,11 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
+  
  // Compressor compressor = new Compressor(1, PneumaticsModuleType.REVPH);
 
   public RobotContainer m_robotContainer;
-
+  private Command m_autonomousCommand;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -40,6 +42,7 @@ public class Robot extends TimedRobot {
 
     m_robotContainer = new RobotContainer();
     CameraServer.startAutomaticCapture();
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
    
    
   }

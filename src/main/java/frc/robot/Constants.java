@@ -40,7 +40,7 @@ public final class Constants {
 
         public static boolean RESET_SPARKMAX = true;
     
-        public static double MAX_VELOCITY_MPS = Units.inchesToMeters(60.0); //15feet/second converted to meters
+        public static double MAX_VELOCITY_MPS = Units.inchesToMeters(80.0); //15feet/second converted to meters
         public static double loopPeriodSecs = 0.02;
         public static double WHEEL_RADIUS_METERS =  Units.inchesToMeters(3.0);
 
@@ -83,8 +83,9 @@ public final class Constants {
     public static final double kClimberSpeed = .3;
     public static final double kClimberSpeedFast = .5;
 
-    public static final double kLeftAuto = .3;
-    public static final double kRightAuto = .3;
+    public static final double kLeftAuto = -.5;
+    public static final double kRightAuto = -.5;
+    public static final double kAutoDistance = 40;
 
 
 }

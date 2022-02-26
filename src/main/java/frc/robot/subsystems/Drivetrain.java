@@ -397,5 +397,31 @@ public class Drivetrain extends SubsystemBase {
   }
 
    
-  
+  /**
+ * used to set the motors to a specific value....
+ */  
+    public boolean specificDrive(double distance) 
+    {
+        boolean complete = false;
+        getLeftEncoder().setPosition(0); //set the position to 0
+        Double leftPosition = getLeftEncoder().getPosition();
+        SmartDashboard.putNumber("Left Enc Pos: ", leftPosition);
+        //really only need to get this once...
+        int perRev =  getLeftEncoder().getCountsPerRevolution();
+        double totalRevolutions = distance*perRev;
+        double currentRevolutions = 0;
+        while(currentRevolutions<totalRevolutions)
+        {
+        //set the motors to running
+        drivePercent(Constants.kLeftAuto, Constants.kRightAuto);
+        currentRevolutions = (-1*getLeftEncoder().getPosition()) * perRev;
+        SmartDashboard.putNumber("Current Revs", currentRevolutions);
+        
+        SmartDashboard.putNumber("Total Revs", totalRevolutions);
+        }
+        complete = true;
+
+        return complete;
+  }
+
 }
