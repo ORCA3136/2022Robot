@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.FlyWheel;
@@ -36,6 +37,7 @@ public class RobotContainer {
   private final Limelight m_limelight = new Limelight();
   private final Constants m_constants= new Constants();
   private final XboxController controller = new XboxController(1);
+  private final Climber m_climber = new Climber();
   private final Joystick Joystick = new Joystick(2);
   //private frc.robot.commands.AimAndShoot AimAndShoot = new AimAndShoot(m_drivetrain, m_flyWheel, m_conveyor);
   private final XboxController controller2 = new XboxController(2);
@@ -87,7 +89,7 @@ public class RobotContainer {
     new JoystickButton(controller, XboxController.Button.kB.value)
     .whenHeld(new InstantCommand(() -> m_conveyor.lowerConveyor(Constants.kConveyorLow), m_conveyor))
     .whenHeld(new InstantCommand(() -> m_innerIntake.intakeForward(Constants.kIntakeLow), m_innerIntake))
-    .whenHeld(new InstantCommand(() -> m_flyWheel.shoot(.1), m_flyWheel))
+    .whenHeld(new InstantCommand(() -> m_flyWheel.shoot(.75), m_flyWheel))
     .whenReleased(new InstantCommand(() ->  m_flyWheel.stop(), m_flyWheel))
     .whenReleased(new InstantCommand(() ->  m_innerIntake.intakeStop(), m_innerIntake))
       .whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
@@ -121,14 +123,21 @@ public class RobotContainer {
        new JoystickButton(controller, XboxController.Button.kA.value)
        .whenPressed( new AimAndShoot(m_drivetrain, m_flyWheel, m_conveyor));
 
-         new JoystickButton(controller, XboxController.Button.kLeftStick.value)
-         .whenPressed(new InstantCommand(m_limelight::enableLED,m_limelight));
+        // new JoystickButton(controller, XboxController.Button.kLeftStick.value)
+        // .whenPressed(new InstantCommand(m_limelight::enableLED,m_limelight));
 
-         new JoystickButton(controller, XboxController.Button.kRightStick.value)
-         .whenPressed(new InstantCommand(m_limelight::disableLED,m_limelight));
+        // new JoystickButton(controller, XboxController.Button.kRightStick.value)
+        // .whenPressed(new InstantCommand(m_limelight::disableLED,m_limelight));
 
          new JoystickButton(controller, XboxController.Button.kStart.value)
          .whenPressed(new InstantCommand(m_limelight::findRing,m_limelight));
+
+         new JoystickButton(controller, XboxController.Button.kLeftStick.value)
+         .whenHeld(new InstantCommand(() -> m_climber.raiseClimber(.75),m_climber)
+    ).whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
+
+         new JoystickButton(controller, XboxController.Button.kRightStick.value)
+         .whenHeld(new InstantCommand(() -> m_climber.lowerClimber(.75),m_climber)).whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
 
          
     }

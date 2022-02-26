@@ -6,31 +6,32 @@ import frc.robot.Constants;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 
 public class Climber extends SubsystemBase{
-    private CANSparkMax climber;
+    private VictorSPX climber;
     RelativeEncoder climbEncoder;
 
 
 
    public Climber(){
-       climber = new CANSparkMax(Constants.Climber1, MotorType.kBrushless);
+       climber = new VictorSPX(15);
        
-       climbEncoder = climber.getEncoder();
 
    }
 
    public void raiseClimber(double climberSpeed){
-       climber.set(climberSpeed);
+       climber.set(ControlMode.PercentOutput, climberSpeed);
    }
 
    public void lowerClimber(double climberSpeed){
-       climber.set(-1 * climberSpeed);
+       climber.set(ControlMode.PercentOutput,-1 * climberSpeed);
    }
 
-   public void stopClimber(double climberSpeed){
-       climber.set(0);
+   public void stopClimber(){
+       climber.set(ControlMode.PercentOutput, 0.0);
    }
 
    public void NukeClimb(XboxController Driver){
