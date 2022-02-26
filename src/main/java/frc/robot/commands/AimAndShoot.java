@@ -20,6 +20,7 @@ public class AimAndShoot extends CommandBase{
     private NetworkTableEntry ta;
     private FlyWheel m_FlyWheel;
     private Conveyor m_Conveyor;
+    private NetworkTableEntry tv;
 
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     NetworkTableEntry ty = table.getEntry("ty");
@@ -78,11 +79,25 @@ public class AimAndShoot extends CommandBase{
        tx = table.getEntry("tx");
        ty = table.getEntry("ty");
        ta = table.getEntry("ta");
+       tv = table.getEntry("tv");
         double x = tx.getDouble(0.0);
         double y = ty.getDouble(0.0);
         double area = ta.getDouble(0.0);
+        double v = tv.getDouble(0.0);
   
        double steeringAdjust = Kp * x;
+       
+      if (v == 0.0f)
+      {
+           // We don't see the target, seek for the target by spinning in place at a safe speed.
+           steeringAdjust = 0.3f;
+      }
+      else
+      {
+           // We do see the target, execute aiming code
+           steeringAdjust = Kp * x;
+      }
+
       if(Math.abs(x)<.2)
       {
         done=true;
@@ -92,7 +107,8 @@ public class AimAndShoot extends CommandBase{
         done = false;
       }
 
-      double LimeLightFlywheel = Kp * x;
+      double limeLightFlywheel = Kp * x;
+      
       if(Math.abs(x)<.2)
       {
           done=true;
@@ -102,7 +118,7 @@ public class AimAndShoot extends CommandBase{
         done=false;
       }
 
-      double LimeLightConveyor = Kp * x;
+      double limeLightConveyor = Kp * x;
 
       if(Math.abs(x)<.2)
       {
@@ -115,12 +131,12 @@ public class AimAndShoot extends CommandBase{
 
       double left=steeringAdjust;
       double right=-steeringAdjust;
-      double FlyWheelSpeed=LimeLightFlywheel;
-      double ConveyorSpeed=LimeLightConveyor;
+      double flyWheelSpeed=limeLightFlywheel;
+      double conveyorSpeed=limeLightConveyor;
      
       m_drivetrain.drivePercent(left, right);
-      m_FlyWheel.shoot(FlyWheelSpeed);
-      m_Conveyor.raiseConveyor(ConveyorSpeed);
+      m_FlyWheel.shoot(flyWheelSpeed);
+      m_Conveyor.raiseConveyor(conveyorSpeed);
     }
   
     // Called once the command ends or is interrupted.
