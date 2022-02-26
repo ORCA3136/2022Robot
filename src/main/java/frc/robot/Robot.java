@@ -9,6 +9,7 @@ package frc.robot;
 
 import com.revrobotics.REVPhysicsSim;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -38,6 +39,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
 
     m_robotContainer = new RobotContainer();
+    CameraServer.startAutomaticCapture();
    
    
   }
