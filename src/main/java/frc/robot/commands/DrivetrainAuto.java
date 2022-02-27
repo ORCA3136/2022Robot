@@ -17,9 +17,11 @@ public class DrivetrainAuto extends CommandBase {
   // The subsystem the command runs on
   private final Drivetrain driveTrain;
   private boolean complete = false;
+  private double driveDist = Constants.kAutoDistance;
 
-  public DrivetrainAuto(Drivetrain subsystem) {
+  public DrivetrainAuto(Drivetrain subsystem, double distance) {
     SmartDashboard.putNumber("Drive Distance", Constants.kAutoDistance);
+    driveDist = distance;
     driveTrain = subsystem;
     addRequirements(driveTrain);
   }
@@ -27,7 +29,10 @@ public class DrivetrainAuto extends CommandBase {
   
   public void initialize() {
 
-    complete =  driveTrain.specificDrive(Constants.kAutoDistance);
+  }
+
+  public void execute() {
+    complete =  driveTrain.specificDrive(driveDist);
   }
 
   public void end(boolean interrupted) {

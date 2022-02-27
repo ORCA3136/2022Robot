@@ -22,6 +22,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.commands.AimAndShoot;
 import frc.robot.commands.DrivetrainAuto;
+import frc.robot.commands.ShootAndDriveAuto;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -42,7 +43,8 @@ public class RobotContainer {
   private final Joystick Joystick = new Joystick(2);
   //private frc.robot.commands.AimAndShoot AimAndShoot = new AimAndShoot(m_drivetrain, m_flyWheel, m_conveyor);
   private final XboxController controller2 = new XboxController(2);
- 
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
+
   ;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -51,6 +53,9 @@ public class RobotContainer {
     m_drivetrain.setDefaultCommand(
       new RunCommand(() -> m_drivetrain.drivePercentController(controller,Constants.maxSpeed),m_drivetrain));
 
+      m_chooser.setDefaultOption("Shoot Then Drive", new ShootAndDriveAuto(m_drivetrain,m_flyWheel,m_conveyor,m_innerIntake));
+      m_chooser.addOption("Drive Only",new DrivetrainAuto(m_drivetrain, Constants.kAutoDistance));
+      SmartDashboard.putData("Auto Chooser: ", m_chooser);
 
     // Configure the button bindings
     
@@ -142,7 +147,7 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand(){
-      return new DrivetrainAuto(m_drivetrain);
+      return new DrivetrainAuto(m_drivetrain, Constants.kAutoDistance);
     }
   }
 
