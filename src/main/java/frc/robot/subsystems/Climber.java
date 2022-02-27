@@ -35,8 +35,8 @@ public class Climber extends SubsystemBase{
        climberRight = new TalonSRX(Constants.kClimberRight);
        climberLeft.configFactoryDefault();
        climberRight.configFactoryDefault();
-       climberLeft.setNeutralMode(NeutralMode.Brake);
-       climberRight.setNeutralMode(NeutralMode.Brake);
+       climberLeft.setNeutralMode(NeutralMode.Coast);
+       climberRight.setNeutralMode(NeutralMode.Coast);
         /* Configure the left Talon's selected sensor as local QuadEncoder */
         climberLeft.configSelectedFeedbackSensor(	FeedbackDevice.QuadEncoder,				// Local Feedback Source
         Constants.PID_PRIMARY,					// PID Slot for Source [0, 1]
@@ -95,8 +95,42 @@ public class Climber extends SubsystemBase{
         
    }
 
-   public void raiseClimber(double climberSpeed){
+
+   /**set the main climber motors to coast */
+   public void setCoast()
+   {
+    climberLeft.setNeutralMode(NeutralMode.Coast);
+    climberRight.setNeutralMode(NeutralMode.Coast);
+   }
+   /**set the climber main motors to brake mode */
+   public void setBrake()
+   {
+    climberLeft.setNeutralMode(NeutralMode.Brake);
+    climberRight.setNeutralMode(NeutralMode.Brake);
+   }
+
+   /**used for the smaller motor on the back to raise the climber */
+   public void raiseClimber(double climberSpeed)
+   {
        climberBack.set(ControlMode.PercentOutput, climberSpeed);
+   }
+
+   /**
+    * Does not use a target distance - as we don't know it yet! But just a basic down 
+    */
+   public void simpleFrontLower(double climberSpeed){
+    climberLeft.set(ControlMode.PercentOutput, climberSpeed);
+    climberRight.set(ControlMode.PercentOutput, climberSpeed);
+
+   }
+   /**
+    * Basic standard to losent the strings if in brake mode
+    * @param climberSpeed
+    */
+   public void simpleFrontRaise(double climberSpeed){
+    climberLeft.set(ControlMode.PercentOutput, climberSpeed);
+    climberRight.set(ControlMode.PercentOutput, climberSpeed);
+
    }
 
    public void lowerClimber(double climberSpeed)
@@ -137,10 +171,11 @@ public class Climber extends SubsystemBase{
 
    }
            
-   public void zeroSensors() {
+   public void zeroSensors() 
+   {
     climberLeft.getSensorCollection().setQuadraturePosition(0, Constants.kTalonTimeoutMs);
     climberRight.getSensorCollection().setQuadraturePosition(0, Constants.kTalonTimeoutMs);
-}
+    }
 
    
 }
