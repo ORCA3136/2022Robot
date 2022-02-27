@@ -66,7 +66,7 @@ public final class Constants {
     public static final double kConveyerHigh = .5;
     public static final double kConveyorLow = .3;
 
-    public static final double kFlyWheelFast = - .9;
+    public static final double kFlyWheelFast = - .8;
     public static final double kFlyWheelMedium = - .5;
     public static final double kFlyWheelSlow = - .34;
     

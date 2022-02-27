@@ -124,13 +124,13 @@ public class RobotContainer {
        new JoystickButton(controller, XboxController.Button.kA.value)
        .whenPressed( new AimAndShoot(m_drivetrain, m_flyWheel, m_conveyor));
 
-         new JoystickButton(controller, XboxController.Button.kLeftStick.value)
+         new JoystickButton(controller, XboxController.Button.kBack.value)
          .whenPressed(new InstantCommand(m_limelight::enableLED,m_limelight));
 
-         new JoystickButton(controller, XboxController.Button.kRightStick.value)
+         new JoystickButton(controller, XboxController.Button.kStart.value)
          .whenPressed(new InstantCommand(m_limelight::disableLED,m_limelight));
 
-         new JoystickButton(controller, XboxController.Button.kStart.value)
+         new JoystickButton(controller, XboxController.Button.kRightStick.value)
          .whenPressed(new InstantCommand(m_limelight::findRing,m_limelight));
 
          //new JoystickButton(controller, XboxController.Button.kLeftStick.value)
