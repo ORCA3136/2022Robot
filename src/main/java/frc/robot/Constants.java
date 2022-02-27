@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.util.Units;
+import frc.robot.models.Gains;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -51,41 +52,66 @@ public final class Constants {
     
       
 
-    public final int kY = 0;
-    public final int kX = 1;
-    public final int kA = 2;
-    public final int kB = 3;
-    public final int kLB = 4;
-    public final int kRB = 5;
-    public final int kRT = 6;
-    public final int kLT = 7;
-    public final int kSelect = 8;
-    public final int kStart = 9;
-    
-    //Pneumatic Adressing    
-    public static final double kConveyerHigh = .5;
-    public static final double kConveyorLow = .3;
+        public final int kY = 0;
+        public final int kX = 1;
+        public final int kA = 2;
+        public final int kB = 3;
+        public final int kLB = 4;
+        public final int kRB = 5;
+        public final int kRT = 6;
+        public final int kLT = 7;
+        public final int kSelect = 8;
+        public final int kStart = 9;
+        
+        //Pneumatic Adressing    
+        public static final double kConveyerHigh = .5;
+        public static final double kConveyorLow = .3;
 
-    public static final double kFlyWheelFast = - .8;
-    public static final double kFlyWheelMedium = - .5;
-    public static final double kFlyWheelSlow = - .34;
-    
-    
-    public static final int kIntakeForward = 3;
-    public static final int kIntakeReverse = 0;
-    
-    public static final double kIntakeHigh = .8;
-    public static final double kIntakeLow = .3;
+        public static final double kFlyWheelFast = - .8;
+        public static final double kFlyWheelMedium = - .5;
+        public static final double kFlyWheelSlow = - .34;
+        
+        
+        public static final int kIntakeForward = 3;
+        public static final int kIntakeReverse = 0;
+        
+        public static final double kIntakeHigh = .8;
+        public static final double kIntakeLow = .3;
 
-    public static final double kLeftDriveScaling = .8;
-    public static final double kRightDriveScaling = -.8;
+        public static final double kLeftDriveScaling = .8;
+        public static final double kRightDriveScaling = -.8;
 
-    public static final double kClimberSpeed = .3;
-    public static final double kClimberSpeedFast = .5;
+ 
 
-    public static final double kLeftAuto = -.5;
-    public static final double kRightAuto = -.5;
-    public static final double kAutoDistance = 40;
+        public static final double kLeftAuto = -.5;
+        public static final double kRightAuto = -.5;
+        public static final double kAutoDistance = 40;
+
+        //overly complex climber stuff....
+        public static final double kClimberSpeed = .3;
+        public static final double kClimberSpeedFast = .5;
+        public static final int kClimberBack = 15;
+        public static final int kClimberLeft = 16;
+        public static final int kClimberRight = 17;
+        public final static int kTalonTimeoutMs = 30;
+        public final static int kTalonSensorUnitsPerRotation = 4096;
+        public final static double kClimberRotationsToTravel = 6;
+        public final static int PID_PRIMARY = 0;
+        public final static int REMOTE_0 = 0;
+        public final static Gains kGains_Distanc = new Gains( 0.1, 0.0,  0.0, 0.0,            100,  0.50 );
+        public final static Gains kGains_Turning = new Gains( 2.0, 0.0,  4.0, 0.0,            200,  1.00 );
+        public final static Gains kGains_Velocit = new Gains( 0.1, 0.0, 20.0, 1023.0/6800.0,  300,  0.50 );
+        public final static Gains kGains_MotProf = new Gains( 1.0, 0.0,  0.0, 1023.0/6800.0,  400,  1.00 );
+        public final static int SLOT_0 = 0;
+	    public final static int SLOT_1 = 1;
+	    public final static int SLOT_2 = 2;
+	    public final static int SLOT_3 = 3;
+        public final static int kSlot_Distanc = SLOT_0;
+        public final static int kSlot_Turning = SLOT_1;
+        public final static int kSlot_Velocit = SLOT_2;
+        public final static int kSlot_MotProf = SLOT_3;
+        
+
 
 
 }
