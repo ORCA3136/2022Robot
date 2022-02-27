@@ -147,7 +147,9 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand(){
-      return new DrivetrainAuto(m_drivetrain, Constants.kAutoDistance);
+     // return new DrivetrainAuto(m_drivetrain, Constants.kAutoDistance);
+     return m_chooser.getSelected();
+
     }
   }
 
