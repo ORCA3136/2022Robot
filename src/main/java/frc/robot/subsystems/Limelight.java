@@ -74,13 +74,13 @@ public class Limelight extends SubsystemBase
 
 
       double steeringAdjust = Kp * x;
-      double LimeLightFlywheel = Kp *x;
-      double LimeLightConveyor = Kp *x;
+      double limelightFlywheel = Kp *x; //Not sure what this is for? or why?
+      double limelightConveyor = Kp *x; //not sure what this is for or why?
 
       double left=steeringAdjust;
       double right=-steeringAdjust;
-      double flyWheelSpeed = LimeLightFlywheel;
-      double conveyorSpeed = LimeLightConveyor;
+      double flyWheelSpeed = limelightFlywheel;
+      double conveyorSpeed = limelightConveyor;
 
 
       target.setLeftPower(left);
