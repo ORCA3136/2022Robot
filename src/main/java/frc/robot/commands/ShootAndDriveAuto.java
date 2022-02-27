@@ -19,21 +19,48 @@ public class ShootAndDriveAuto extends SequentialCommandGroup
             //start the flywheel
             new InstantCommand(() -> flyWheel.shoot(Constants.kFlyWheelAuto), flyWheel),
             //wait for spinup
-            new WaitCommand(1),//TODO manage flywheel target speed at somepoint
+            new WaitCommand(2),//TODO manage flywheel target speed at somepoint
             //start conveyor and intake
             new InstantCommand(() -> intake.intakeReverse(Constants.kIntakeHigh), intake).andThen(
             new InstantCommand(() -> conveyor.raiseConveyor(Constants.kConveyerHigh), conveyor)),
-            new WaitCommand(1.5),
-            //stop flywheel
+            //new WaitCommand(1.5),
             new InstantCommand(() ->  flyWheel.stop(), flyWheel),
-            //stop conveyor and intake
             new InstantCommand(() -> conveyor.stopConveyor(), conveyor),
             //driveforward to get the next ball
             new InstantCommand(intake::intakeStop, intake),
             //drive forward...
+            new InstantCommand(() -> intake.intakeReverse(Constants.kIntakeHigh), intake),
             new DrivetrainAuto(driveTrain, Constants.kAutoDistance),
+            new InstantCommand(intake::intakeStop, intake),
+
+            new InstantCommand(()-> flyWheel.notShoot(Constants.kFlyWheelFast),flyWheel),
+            new WaitCommand(.65),
             new PrintCommand("Completed Drive Auto Command"),
-            new InstantCommand(driveTrain::stop, driveTrain));
+            new InstantCommand(driveTrain::stop, driveTrain),
+            new InstantCommand(() ->  flyWheel.stop(), flyWheel),
+            new WaitCommand(2),
+            new InstantCommand(()-> flyWheel.shoot(-1), flyWheel),///NOTE FULL SEND RIGHT NOW FIX THIS - just drive closer
+            new WaitCommand(1.5),
+            new TurnToTarget(driveTrain),
+            new TurnToTarget(driveTrain), 
+            //new InstantCommand(() -> intake.intakeReverse(.2),intake),
+            //new DrivetrainAuto(driveTrain, Constants.kAutoDistance2),
+            new WaitCommand(1.5),
+
+
+            new InstantCommand(() -> intake.intakeReverse(Constants.kIntakeHigh), intake)
+            .andThen(new InstantCommand(() -> conveyor.raiseConveyor(Constants.kConveyerHigh), conveyor)),
+            new WaitCommand(2),
+            new InstantCommand(() ->  flyWheel.stop(), flyWheel),
+            new InstantCommand(() -> conveyor.stopConveyor(), conveyor),
+            //driveforward to get the next ball
+            new InstantCommand(intake::intakeStop, intake),
+            //new DrivetrainAuto(driveTrain, Constants.kAutoDistance2),
+            new PrintCommand("Drive Auto 2")
+            
+            //stop conveyor and intake
+            //new InstantCommand(driveTrain::stop, driveTrain));
+            );
     }
 
 }
