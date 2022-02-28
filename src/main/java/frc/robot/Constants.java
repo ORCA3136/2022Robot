@@ -39,6 +39,11 @@ public final class Constants {
         
         public static final int kInnerIntake = 11;
 
+        public static final int kClimberBack = 15;
+        public static final int kClimberLeft = 16;
+        public static final int kClimberRight = 17;
+
+
         public static boolean RESET_SPARKMAX = true;
     
         public static double MAX_VELOCITY_MPS = Units.inchesToMeters(80.0); //15feet/second converted to meters
@@ -52,25 +57,25 @@ public final class Constants {
     
       
 
-        public final int kY = 0;
-        public final int kX = 1;
-        public final int kA = 2;
-        public final int kB = 3;
-        public final int kLB = 4;
-        public final int kRB = 5;
-        public final int kRT = 6;
-        public final int kLT = 7;
-        public final int kSelect = 8;
-        public final int kStart = 9;
+        public static final int kY = 5;
+        public static final int kX = 4;
+        public static final int kA = 1;
+        public static final int kB = 2;
+        public static final int kLB = 7;
+        public static final int kRB = 8;
+        public static final int kRT = 10;
+        public static final int kLT = 9;
+        public static final int kSelect = 11;
+        public static final int kStart = 12;
         
         //Pneumatic Adressing    
         public static final double kConveyerHigh = .5;
         public static final double kConveyorLow = .3;
 
-        public static final double kFlyWheelFast = - .75;
+        public static final double kFlyWheelFast = - .85;
         public static final double kFlyWheelMedium = - .5;
         public static final double kFlyWheelSlow = - .34;
-        public static final double kFlyWheelAuto = - .6;
+        public static final double kFlyWheelAuto = - .75;
         
         
         public static final int kIntakeForward = 3;
@@ -87,13 +92,13 @@ public final class Constants {
         public static final double kLeftAuto = -.5;
         public static final double kRightAuto = -.5;
         public static final double kAutoDistance = 40;
+        public static final double kAutoDistanceReverse = -40;
+        public static final double kAutoDistance2 = 20;
 
         //overly complex climber stuff....
-        public static final double kClimberSpeed = .3;
-        public static final double kClimberSpeedFast = .5;
-        public static final int kClimberBack = 15;
-        public static final int kClimberLeft = 16;
-        public static final int kClimberRight = 17;
+        public static final double kClimberSpeed = .5;
+        public static final double kClimberSpeedFast = 1;
+       
         public final static int kTalonTimeoutMs = 30;
         public final static int kTalonSensorUnitsPerRotation = 4096;
         public final static double kClimberRotationsToTravel = 6;

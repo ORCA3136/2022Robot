@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ShootAndDriveAuto;
 
 
 /**
@@ -15,7 +16,7 @@ import edu.wpi.first.wpilibj.XboxController;
  */
 public class DrivetrainAuto extends CommandBase {
   // The subsystem the command runs on
-  private final Drivetrain driveTrain;
+  private  Drivetrain driveTrain;
   private boolean complete = false;
   private double driveDist = Constants.kAutoDistance;
 
@@ -25,7 +26,6 @@ public class DrivetrainAuto extends CommandBase {
     driveTrain = subsystem;
     addRequirements(driveTrain);
   }
-
   
   public void initialize() {
 

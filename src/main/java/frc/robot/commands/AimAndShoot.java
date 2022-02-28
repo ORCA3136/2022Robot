@@ -84,9 +84,25 @@ public class AimAndShoot extends CommandBase{
         double y = ty.getDouble(0.0);
         double area = ta.getDouble(0.0);
         double v = tv.getDouble(0.0);
-  
+
        double steeringAdjust = Kp * x;
        
+       // how many degrees back is your limelight rotated from perfectly vertical?
+       double limelightMountAngleDegrees = 45;
+    
+       // distance from the center of the Limelight lens to the floor
+       double limelightLensHeightInches = 22.125;
+    
+       // distance from the target to the floor
+       double goalHeightInches = 103;
+    
+       double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
+       double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
+    
+       //calculate distance
+       double distanceFromLimelightToGoalInches = (goalHeightInches - limelightLensHeightInches)/Math.tan(angleToGoalRadians);
+
+
       if (v == 0.0f)
       {
            // We don't see the target, seek for the target by spinning in place at a safe speed.
