@@ -32,7 +32,7 @@ public class ShootAndDriveAuto extends SequentialCommandGroup
             new InstantCommand(() -> intake.intakeReverse(Constants.kIntakeHigh), intake),
             new DrivetrainAuto(driveTrain, Constants.kAutoDistance),
             new InstantCommand(intake::intakeStop, intake),
-
+            new InstantCommand(() -> conveyor.lowerConveyor(Constants.kConveyerHigh), conveyor),
             new InstantCommand(()-> flyWheel.notShoot(Constants.kFlyWheelFast),flyWheel),
             new WaitCommand(.65),
             new PrintCommand("Completed Drive Auto Command"),
@@ -40,7 +40,12 @@ public class ShootAndDriveAuto extends SequentialCommandGroup
             new InstantCommand(() ->  flyWheel.stop(), flyWheel),
             new WaitCommand(2),
             new InstantCommand(()-> flyWheel.shoot(-1), flyWheel),///NOTE FULL SEND RIGHT NOW FIX THIS - just drive closer
+            new InstantCommand(() -> conveyor.stopConveyor(), conveyor),
             new WaitCommand(1.5),
+            new TurnToTarget(driveTrain),
+            new TurnToTarget(driveTrain), 
+            new TurnToTarget(driveTrain),
+            new TurnToTarget(driveTrain), 
             new TurnToTarget(driveTrain),
             new TurnToTarget(driveTrain), 
             //new InstantCommand(() -> intake.intakeReverse(.2),intake),
