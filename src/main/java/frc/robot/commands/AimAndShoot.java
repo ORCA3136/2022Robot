@@ -102,6 +102,7 @@ public class AimAndShoot extends CommandBase{
        //calculate distance
        double distanceFromLimelightToGoalInches = (goalHeightInches - limelightLensHeightInches)/Math.tan(angleToGoalRadians);
 
+       
 
       if (v == 0.0f)
       {
