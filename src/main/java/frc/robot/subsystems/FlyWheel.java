@@ -72,10 +72,10 @@ public class FlyWheel extends SubsystemBase {
        flyWheel1.set(flyWheelSpeed);
     }    
 
-//    public void notShoot(double FlyWheelSpeed) 
-//    {
-//       flyWheel1.set(FlyWheelSpeed);
-//    }  
+    public void notShoot(double FlyWheelSpeed) 
+    {
+       flyWheel1.set(FlyWheelSpeed);
+    }  
 
     public void stop() 
     {
