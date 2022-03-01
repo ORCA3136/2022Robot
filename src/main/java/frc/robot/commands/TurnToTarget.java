@@ -20,24 +20,6 @@ public class TurnToTarget extends CommandBase {
   private NetworkTableEntry ty;
   private NetworkTableEntry ta;
 
-  double targetOffsetAngle_Vertical = ty.getDouble(0.0);
-  
-  // how many degrees back is your limelight rotated from perfectly vertical?
-  double limelightMountAngleDegrees = 45;
-  
-  // distance from the center of the Limelight lens to the floor
-  double limelightLensHeightInches = 22.125;
-  
-  // distance from the target to the floor
-  double goalHeightInches = 103;
-  
-  double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
-  double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
-  private double limelightHeightInches;
-  
-  //calculate distance
-  double distanceFromLimelightToGoalInches = (goalHeightInches - limelightHeightInches)/Math.tan(angleToGoalRadians);
-
   private double Kp = -0.1;  // Proportional control constant
 
   private boolean done = false;

@@ -57,14 +57,14 @@ public final class Constants {
     
       
 
-        public static final int kY = 5;
-        public static final int kX = 4;
-        public static final int kA = 1;
-        public static final int kB = 2;
-        public static final int kLB = 7;
-        public static final int kRB = 8;
-        public static final int kRT = 10;
-        public static final int kLT = 9;
+        public static final int kY = 4;
+        public static final int kX = 1;
+        public static final int kA = 2;
+        public static final int kB = 3;
+        public static final int kLB = 5;
+        public static final int kRB = 6;
+        public static final int kRT = 8;
+        public static final int kLT = 7;
         public static final int kSelect = 11;
         public static final int kStart = 12;
         

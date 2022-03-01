@@ -171,7 +171,7 @@ public class RobotContainer {
 // Joycon A - Lower conveyor and flywheel
          new JoystickButton(joystick, Constants.kA)
          .whenHeld(new InstantCommand(() -> m_conveyor.lowerConveyor(Constants.kConveyorLow), m_conveyor))
-        .whenHeld(new InstantCommand(() -> m_flyWheel.notShoot(Constants.kFlyWheelSlow), m_flyWheel))
+         .whenHeld(new InstantCommand(() -> m_flyWheel.shoot(.75), m_flyWheel))
        .whenReleased(new InstantCommand(() ->  m_flyWheel.stop(), m_flyWheel))
         .whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
 

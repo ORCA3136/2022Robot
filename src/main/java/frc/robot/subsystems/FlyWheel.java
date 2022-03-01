@@ -74,8 +74,7 @@ public class FlyWheel extends SubsystemBase {
     }    
 
     public void notShoot(double FlyWheelSpeed) 
-    {
-      flyWheel3.setInverted(true); 
+    { 
       flyWheel1.set( -1 * FlyWheelSpeed);
     }  
 
