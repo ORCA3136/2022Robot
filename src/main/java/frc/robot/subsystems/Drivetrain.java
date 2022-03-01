@@ -437,29 +437,48 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public boolean specificDriveReverse(double distance) 
-    {
-        double kP = 0.05;
-        double error = 90 - gyro.getAngle();
-        boolean complete = false;
-        getLeftEncoder().setPosition(0); //set the position to 0
-        Double leftPosition = getLeftEncoder().getPosition();
-        SmartDashboard.putNumber("Left Enc Pos: ", leftPosition);
-        //really only need to get this once...
-        int perRev =  getLeftEncoder().getCountsPerRevolution();
-        double totalRevolutions = -distance*perRev;
-        double currentRevolutions = 0;
-        while(currentRevolutions<totalRevolutions)
-        {
-        //set the motors to running
-        drivePercent(Constants.kLeftAuto, Constants.kRightAuto);
-        currentRevolutions = (1*getLeftEncoder().getPosition()) * -perRev;
-        SmartDashboard.putNumber("Current Revs", currentRevolutions);
-        
-        SmartDashboard.putNumber("Total Revs", totalRevolutions);
-        }
-        complete = true;
+  {
+      double kP = 0.05;
+      double startHeading = gyro.getAngle();
+      double error = startHeading - gyro.getAngle();
+      boolean complete = false;
+      getLeftEncoder().setPosition(0); //set the position to 0
+      Double leftPosition = getLeftEncoder().getPosition();
+      SmartDashboard.putNumber("Left Enc Pos: ", leftPosition);
+      SmartDashboard.putNumber("Start Heading ", startHeading);
 
-        return complete;
-  }
+      //really only need to get this once...
+      int perRev =  getLeftEncoder().getCountsPerRevolution();
+      double totalRevolutions = -distance*-perRev;
+      double currentRevolutions = 0;
+      while(currentRevolutions<totalRevolutions)
+      {
+          SmartDashboard.putNumber("Current Heading: ", gyro.getAngle());
+          SmartDashboard.putNumber("Heading eror: ", error);
+          if(error<0)
+          {
+              drivePercent(Constants.kLeftAuto-(kP*error), Constants.kRightAuto+(kP*error));
+
+          }
+          else if(error>0)
+          {
+              drivePercent(Constants.kLeftAuto+(kP*-error), Constants.kRightAuto-(kP*-error));
+
+          }
+          else
+          {
+              drivePercent(Constants.kLeftAuto, Constants.kRightAuto);
+          }
+          //set the motors to running
+          error = startHeading - gyro.getAngle();
+          currentRevolutions = (-1*getLeftEncoder().getPosition()) * - perRev;
+          SmartDashboard.putNumber("Current Revs", currentRevolutions);
+          
+          SmartDashboard.putNumber("Total Revs", totalRevolutions);
+      }
+      complete = true;
+
+      return complete;
+}
 
 }

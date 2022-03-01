@@ -95,6 +95,8 @@ public final class Constants {
         public static final double kAutoDistanceReverse = -40;
         public static final double kAutoDistance2 = 20;
 
+        public static final double idealShoot = 60;
+
         //overly complex climber stuff....
         public static final double kClimberSpeed = .5;
         public static final double kClimberSpeedFast = 1;
