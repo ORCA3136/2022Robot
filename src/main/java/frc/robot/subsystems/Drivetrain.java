@@ -3,6 +3,9 @@ package frc.robot.subsystems;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkMaxPIDController.ArbFFUnits;
+
+import javax.lang.model.util.ElementScanner6;
+
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.ControlType;
@@ -176,8 +179,6 @@ public class Drivetrain extends SubsystemBase {
      * throttle from the joysticks. This handles deadband to make sure we don't get creep when idle as well as capping
      * the max speed to help the team learn and make the robot more controllable.
      * 
-     * TODO - I think I can remove the maxSpeed element since the speed should be capped by the MAX_VELOCITY_MPS I jsut had a bad calculation in there for 
-     * what that value shoudl be which was above 100% as I think our max speed is like 13 ft / second.
      * @param controller
      * @param maxSpeed
      * @return 
@@ -338,16 +339,6 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("LEFT ENCODER POS", leftEncoder.getPosition());
         SmartDashboard.putNumber("RIGHT ENCODER POS", rightEncoder.getPosition());
         
-
-        //read values periodically
-        double x = tx.getDouble(0.0);
-        double y = ty.getDouble(0.0);
-        double area = ta.getDouble(0.0);
-
-        //post to smart dashboard periodically
-       // SmartDashboard.putNumber("LimelightX", x);
-       // SmartDashboard.putNumber("LimelightY", y);
-       // SmartDashboard.putNumber("LimelightArea", area);
     }
 
     public double getLeftPositionMeters()
@@ -402,22 +393,43 @@ public class Drivetrain extends SubsystemBase {
  */  
     public boolean specificDrive(double distance) 
     {
+        double kP = 0.05;
+        double startHeading = gyro.getAngle();
+        double error = startHeading - gyro.getAngle();
         boolean complete = false;
         getLeftEncoder().setPosition(0); //set the position to 0
         Double leftPosition = getLeftEncoder().getPosition();
         SmartDashboard.putNumber("Left Enc Pos: ", leftPosition);
+        SmartDashboard.putNumber("Start Heading ", startHeading);
+  
         //really only need to get this once...
         int perRev =  getLeftEncoder().getCountsPerRevolution();
         double totalRevolutions = distance*perRev;
         double currentRevolutions = 0;
         while(currentRevolutions<totalRevolutions)
         {
-        //set the motors to running
-        drivePercent(Constants.kLeftAuto, Constants.kRightAuto);
-        currentRevolutions = (-1*getLeftEncoder().getPosition()) * perRev;
-        SmartDashboard.putNumber("Current Revs", currentRevolutions);
-        
-        SmartDashboard.putNumber("Total Revs", totalRevolutions);
+            SmartDashboard.putNumber("Current Heading: ", gyro.getAngle());
+            SmartDashboard.putNumber("Heading eror: ", error);
+            if(error<0)
+            {
+                drivePercent(Constants.kLeftAuto-(kP*error), Constants.kRightAuto+(kP*error));
+
+            }
+            else if(error>0)
+            {
+                drivePercent(Constants.kLeftAuto+(kP*error), Constants.kRightAuto-(kP*error));
+
+            }
+            else
+            {
+                drivePercent(Constants.kLeftAuto, Constants.kRightAuto);
+            }
+            //set the motors to running
+            error = startHeading - gyro.getAngle();
+            currentRevolutions = (-1*getLeftEncoder().getPosition()) * perRev;
+            SmartDashboard.putNumber("Current Revs", currentRevolutions);
+            
+            SmartDashboard.putNumber("Total Revs", totalRevolutions);
         }
         complete = true;
 
@@ -426,6 +438,8 @@ public class Drivetrain extends SubsystemBase {
 
   public boolean specificDriveReverse(double distance) 
     {
+        double kP = 0.05;
+        double error = 90 - gyro.getAngle();
         boolean complete = false;
         getLeftEncoder().setPosition(0); //set the position to 0
         Double leftPosition = getLeftEncoder().getPosition();
