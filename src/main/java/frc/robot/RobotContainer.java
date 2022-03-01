@@ -23,6 +23,7 @@ import frc.robot.subsystems.Limelight;
 import frc.robot.commands.AimAndShoot;
 import frc.robot.commands.DrivetrainAuto;
 import frc.robot.commands.ShootAndDriveAuto;
+import frc.robot.commands.TurnToTarget;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -40,9 +41,9 @@ public class RobotContainer {
   private final Constants m_constants= new Constants();
   private final XboxController controller = new XboxController(1);
   private final Climber m_climber = new Climber();
-  private final Joystick Joystick = new Joystick(2);
+  private final Joystick joystick = new Joystick(2);
   //private frc.robot.commands.AimAndShoot AimAndShoot = new AimAndShoot(m_drivetrain, m_flyWheel, m_conveyor);
-  private final XboxController controller2 = new XboxController(2);
+ // private final XboxController controller2 = new XboxController(2);
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   ;
@@ -87,8 +88,8 @@ public class RobotContainer {
    
       //flywheel shoot fast y
     new JoystickButton(controller, XboxController.Button.kY.value)
-    .whenHeld(new InstantCommand(() -> m_flyWheel.shoot(Constants.kFlyWheelFast), m_flyWheel))
-      .whenReleased(new InstantCommand(m_flyWheel::stop, m_flyWheel));
+    .whenHeld(new InstantCommand(() -> m_climber.raiseClimber(Constants.kClimberBack), m_climber))
+      .whenReleased(new InstantCommand(m_climber::stopClimber, m_climber));
     
    
       //Lower convyeyor b
@@ -100,10 +101,6 @@ public class RobotContainer {
     .whenReleased(new InstantCommand(() ->  m_innerIntake.intakeStop(), m_innerIntake))
       .whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
    
-      //conveyor go a(on joystick)
-    new JoystickButton(Joystick,m_constants.kA)
-    .whenPressed(new InstantCommand(() -> m_conveyor.raiseConveyor(Constants.kConveyerHigh), m_conveyor))
-      .whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
    
       //deploy intake right stick
    // new JoystickButton(controller, XboxController.Button.kRightStick.value)
@@ -117,8 +114,8 @@ public class RobotContainer {
 
         //Shoot slow x
     new JoystickButton(controller, XboxController.Button.kX.value)
-    .whenPressed(new InstantCommand(() -> m_flyWheel.shoot(Constants.kFlyWheelSlow), m_flyWheel))
-        .whenReleased(new InstantCommand(m_flyWheel::stop,m_flyWheel));
+    .whenPressed(new InstantCommand(() -> m_climber.lowClimb(Constants.kClimberBack), m_climber))
+        .whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
    
         //intake out start
    // new JoystickButton(controller, XboxController.Button.kStart.value)
@@ -127,7 +124,7 @@ public class RobotContainer {
        //new JoystickButton(controller, XboxController.Button.kA.value)
        // .whenPressed(new TurnToTarget(m_drivetrain));
        new JoystickButton(controller, XboxController.Button.kA.value)
-       .whenPressed( new AimAndShoot(m_drivetrain, m_flyWheel, m_conveyor));
+       .whenPressed( new TurnToTarget(m_drivetrain));
 
          new JoystickButton(controller, XboxController.Button.kBack.value)
          .whenPressed(new InstantCommand(m_limelight::enableLED,m_limelight));
@@ -138,14 +135,50 @@ public class RobotContainer {
          new JoystickButton(controller, XboxController.Button.kRightStick.value)
          .whenPressed(new InstantCommand(m_limelight::findRing,m_limelight));
 
-         //new JoystickButton(controller, XboxController.Button.kLeftStick.value)
-         //.whenHeld(new InstantCommand(() -> m_climber.raiseClimber(.75),m_climber)
-         // ).whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
+
+
+//JOYCON
+
+//RB - Set coast mode to climber
+        new JoystickButton(joystick, Constants.kRB)
+         .whenPressed(new InstantCommand(() -> m_climber.setCoast(),m_climber));
+// RT - Set break mode to climber
+         new JoystickButton(joystick, Constants.kRT)
+         .whenPressed(new InstantCommand(() -> m_climber.setBrake(),m_climber));
+
+  //flywheel shoot fast Y
+  new JoystickButton(joystick, Constants.kY)
+  .whenHeld(new InstantCommand(() -> m_flyWheel.shoot(Constants.kFlyWheelFast), m_flyWheel))
+    .whenReleased(new InstantCommand(m_flyWheel::stop, m_flyWheel));
+
+  //flywheel shoot fast X
+  new JoystickButton(joystick, Constants.kX)
+  .whenHeld(new InstantCommand(() -> m_flyWheel.shoot(Constants.kFlyWheelSlow), m_flyWheel))
+    .whenReleased(new InstantCommand(m_flyWheel::stop, m_flyWheel));
+
+//Lt- lower climber
+         new JoystickButton(joystick, Constants.kLT)
+         .whenPressed(new InstantCommand(() -> m_climber.simpleFrontLower(Constants.kClimberSpeed),m_climber))
+         .whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
+
+//LB - CLIMB = CRUNCH!!        
+         new JoystickButton(joystick, Constants.kLB)
+         .whenPressed(new InstantCommand(() -> m_climber.simpleFrontRaise(Constants.kClimberSpeed),m_climber))
+         .whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
+
+    
+         
+// Joycon A - Lower conveyor and flywheel
+         new JoystickButton(joystick, Constants.kA)
+         .whenHeld(new InstantCommand(() -> m_conveyor.lowerConveyor(Constants.kConveyorLow), m_conveyor))
+        .whenHeld(new InstantCommand(() -> m_flyWheel.notShoot(Constants.kFlyWheelSlow), m_flyWheel))
+       .whenReleased(new InstantCommand(() ->  m_flyWheel.stop(), m_flyWheel))
+        .whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
+
 
          //new JoystickButton(controller, XboxController.Button.kRightStick.value)
          //.whenHeld(new InstantCommand(() -> m_climber.lowerClimber(.75),m_climber)).whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
     }
-
     public Command getAutonomousCommand(){
      // return new DrivetrainAuto(m_drivetrain, Constants.kAutoDistance);
      return m_chooser.getSelected();

@@ -115,6 +115,12 @@ public class Climber extends SubsystemBase{
        climberBack.set(ControlMode.PercentOutput, climberSpeed);
    }
 
+/** arms down climb*/
+   public void lowClimb(double climberSpeed)
+   {
+       climberBack.set(ControlMode.PercentOutput,-1 * climberSpeed);
+   }
+
    /**
     * Does not use a target distance - as we don't know it yet! But just a basic down 
     */
@@ -128,8 +134,8 @@ public class Climber extends SubsystemBase{
     * @param climberSpeed
     */
    public void simpleFrontRaise(double climberSpeed){
-    climberLeft.set(ControlMode.PercentOutput, climberSpeed);
-    climberRight.set(ControlMode.PercentOutput, climberSpeed);
+    climberLeft.set(ControlMode.PercentOutput, -1 * climberSpeed);
+    climberRight.set(ControlMode.PercentOutput, -1 * climberSpeed);
 
    }
 
@@ -166,7 +172,7 @@ public class Climber extends SubsystemBase{
 
    public void stopClimber(){
        climberLeft.set(ControlMode.PercentOutput, 0.0);
-       climberLeft.set(ControlMode.PercentOutput, 0.0);
+       climberRight.set(ControlMode.PercentOutput, 0.0);
        climberBack.set(ControlMode.PercentOutput, 0.0);
 
    }

@@ -24,6 +24,7 @@ public class FlyWheel extends SubsystemBase {
         flyWheel3 = new CANSparkMax(Constants.FlyWheel3, MotorType.kBrushless);
 
        flyWheelEncoder = flyWheel1.getEncoder();
+      
 
       if(Constants.RESET_SPARKMAX){
          flyWheel1.restoreFactoryDefaults();
@@ -72,14 +73,16 @@ public class FlyWheel extends SubsystemBase {
        flyWheel1.set(flyWheelSpeed);
     }    
 
-//    public void notShoot(double FlyWheelSpeed) 
-//    {
-//       flyWheel1.set(FlyWheelSpeed);
-//    }  
+    public void notShoot(double FlyWheelSpeed) 
+    {
+      flyWheel3.setInverted(true); 
+      flyWheel1.set( -1 * FlyWheelSpeed);
+    }  
 
     public void stop() 
     {
-       flyWheel1.set(0);
+      flyWheel1.set(0);
+       flyWheel3.setInverted(true);
     }
 
 

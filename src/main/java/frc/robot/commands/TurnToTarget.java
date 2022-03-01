@@ -59,7 +59,7 @@ public class TurnToTarget extends CommandBase {
       double area = ta.getDouble(0.0);
 
      double steeringAdjust = Kp * x;
-    if(Math.abs(x)<.2)
+    if(Math.abs(x)<.1)
     {
       done=true;
     }
