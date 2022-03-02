@@ -60,7 +60,7 @@ public class TurnToTarget extends CommandBase {
       double area = ta.getDouble(0.0);
       double target = tv.getDouble(0.0);
 
-     if(tv == 0.0)
+     if(target == 0.0)
      {
        done = true; //no target so complete 
      }

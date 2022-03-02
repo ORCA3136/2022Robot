@@ -457,17 +457,17 @@ public class Drivetrain extends SubsystemBase {
           SmartDashboard.putNumber("Heading eror: ", error);
           if(error<0)
           {
-              drivePercent(Constants.kLeftAuto-(kP*error), Constants.kRightAuto+(kP*error));
+              drivePercent(-1*(Constants.kLeftAuto-(kP*error)), -1*(Constants.kRightAuto+(kP*error)));
 
           }
           else if(error>0)
           {
-              drivePercent(Constants.kLeftAuto+(kP*error), Constants.kRightAuto-(kP*error));
+              drivePercent(-1*(Constants.kLeftAuto+(kP*error)), -1*(Constants.kRightAuto-(kP*error)));
 
           }
           else
           {
-              drivePercent(Constants.kLeftAuto, Constants.kRightAuto);
+              drivePercent(-1*Constants.kLeftAuto, -1*Constants.kRightAuto);
           }
           //set the motors to running
           error = startHeading - gyro.getAngle();
