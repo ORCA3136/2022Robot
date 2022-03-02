@@ -462,7 +462,7 @@ public class Drivetrain extends SubsystemBase {
           }
           else if(error>0)
           {
-              drivePercent(Constants.kLeftAuto+(kP*-error), Constants.kRightAuto-(kP*-error));
+              drivePercent(Constants.kLeftAuto+(kP*error), Constants.kRightAuto-(kP*error));
 
           }
           else
