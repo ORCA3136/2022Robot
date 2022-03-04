@@ -82,8 +82,7 @@ public class Robot extends TimedRobot {
       
     //m_autonomousCommand = new Auto(m_robotContainer.getDrivetrain(), m_robotContainer.getFlyWheel(), m_robotContainer.getConveyor());
 
-
-  
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     
     // schedule the autonomous command (example)
     

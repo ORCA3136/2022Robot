@@ -75,7 +75,8 @@ public final class Constants {
         public static final double kFlyWheelFast = - .75;
         public static final double kFlyWheelMedium = - .5;
         public static final double kFlyWheelSlow = - .34;
-        public static final double kFlyWheelAuto = - .75;
+        public static final double kFlyWheelAuto = - .85;
+        public static final double kFlyWheelShot1 = - .85;
         
         
         public static final int kIntakeForward = 3;

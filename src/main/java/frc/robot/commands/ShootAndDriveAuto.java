@@ -17,9 +17,9 @@ public class ShootAndDriveAuto extends SequentialCommandGroup
     {
         addCommands(
             //start the flywheel
-            new InstantCommand(() -> flyWheel.shoot(Constants.kFlyWheelAuto), flyWheel),
+            new InstantCommand(() -> flyWheel.shoot(Constants.kFlyWheelShot1), flyWheel),
             //wait for spinup
-            new WaitCommand(2),//TODO manage flywheel target speed at somepoint
+            new WaitCommand(2.5),//TODO manage flywheel target speed at somepoint
             //start conveyor and intake
             new InstantCommand(() -> intake.intakeReverse(Constants.kIntakeHigh), intake).andThen(
             new InstantCommand(() -> conveyor.raiseConveyor(Constants.kConveyerHigh), conveyor)),
@@ -31,15 +31,17 @@ public class ShootAndDriveAuto extends SequentialCommandGroup
             //drive forward...
             new InstantCommand(() -> intake.intakeReverse(Constants.kIntakeHigh), intake),
             new DrivetrainAuto(driveTrain, Constants.kAutoDistance),
+            new InstantCommand(() -> intake.intakeForward(Constants.kIntakeLow), intake),            
             new InstantCommand(intake::intakeStop, intake),
             new InstantCommand(() -> conveyor.lowerConveyor(Constants.kConveyerHigh), conveyor),
             new InstantCommand(()-> flyWheel.notShoot(Constants.kFlyWheelFast),flyWheel),
-            new WaitCommand(.65),
+            new WaitCommand(2),
+            new InstantCommand(() -> conveyor.stopConveyor(), conveyor),
             new PrintCommand("Completed Drive Auto Command"),
             new InstantCommand(driveTrain::stop, driveTrain),
             new InstantCommand(() ->  flyWheel.stop(), flyWheel),
-            new WaitCommand(2),
-            new InstantCommand(()-> flyWheel.shoot(-1), flyWheel),///NOTE FULL SEND RIGHT NOW FIX THIS - just drive closer
+            new DrivetrainAutoReverse(driveTrain, Constants.kAutoDistance),
+            new InstantCommand(()-> flyWheel.shoot(Constants.kFlyWheelAuto), flyWheel),///NOTE FULL SEND RIGHT NOW FIX THIS - just drive closer
             new InstantCommand(() -> conveyor.stopConveyor(), conveyor),
             new WaitCommand(1.5),
             new TurnToTarget(driveTrain),

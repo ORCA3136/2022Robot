@@ -395,7 +395,9 @@ public class Drivetrain extends SubsystemBase {
     {
         double kP = 0.05;
         double startHeading = gyro.getAngle();
-        double error = startHeading - gyro.getAngle();
+        
+        //double error = startHeading - gyro.getAngle();
+        double error = 0; //set this for now so it only drives
         boolean complete = false;
         getLeftEncoder().setPosition(0); //set the position to 0
         Double leftPosition = getLeftEncoder().getPosition();
@@ -424,8 +426,8 @@ public class Drivetrain extends SubsystemBase {
             {
                 drivePercent(Constants.kLeftAuto, Constants.kRightAuto);
             }
-            //set the motors to running
-            error = startHeading - gyro.getAngle();
+            //set the motors to running - comment out for a bit
+            //error = startHeading - gyro.getAngle();
             currentRevolutions = (-1*getLeftEncoder().getPosition()) * perRev;
             SmartDashboard.putNumber("Current Revs", currentRevolutions);
             
@@ -440,7 +442,8 @@ public class Drivetrain extends SubsystemBase {
   {
       double kP = 0.05;
       double startHeading = gyro.getAngle();
-      double error = startHeading - gyro.getAngle();
+      //double error = startHeading - gyro.getAngle();
+      double error = 0; //hard code for now
       boolean complete = false;
       getLeftEncoder().setPosition(0); //set the position to 0
       Double leftPosition = getLeftEncoder().getPosition();
@@ -470,7 +473,7 @@ public class Drivetrain extends SubsystemBase {
               drivePercent(-1*Constants.kLeftAuto, -1*Constants.kRightAuto);
           }
           //set the motors to running
-          error = startHeading - gyro.getAngle();
+          //error = startHeading - gyro.getAngle(); comment out for a bit
           currentRevolutions = (-1*getLeftEncoder().getPosition()) * - perRev;
           SmartDashboard.putNumber("Current Revs", currentRevolutions);
           
