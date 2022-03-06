@@ -166,7 +166,9 @@ public class RobotContainer {
          .whenPressed(new InstantCommand(() -> m_climber.simpleFrontRaise(Constants.kClimberSpeed),m_climber))
          .whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
 
-    
+         new JoystickButton(joystick, Constants.kB)
+         .whenPressed(new InstantCommand(() -> m_flyWheel.useOutput(Constants.kShooterTargetRPS, Constants.kShooterToleranceRPS), m_flyWheel))
+         .whenReleased(new InstantCommand(m_flyWheel::stop,m_flyWheel));
          
 // Joycon A - Lower conveyor and flywheel
          new JoystickButton(joystick, Constants.kA)

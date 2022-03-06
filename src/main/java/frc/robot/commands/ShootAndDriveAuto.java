@@ -53,11 +53,9 @@ public class ShootAndDriveAuto extends SequentialCommandGroup
             //new InstantCommand(() -> intake.intakeReverse(.2),intake),
             //new DrivetrainAuto(driveTrain, Constants.kAutoDistance2),
             new WaitCommand(1.5),
-
-
             new InstantCommand(() -> intake.intakeReverse(Constants.kIntakeHigh), intake)
             .andThen(new InstantCommand(() -> conveyor.raiseConveyor(Constants.kConveyerHigh), conveyor)),
-            new WaitCommand(2),
+            new WaitCommand(1),
             new InstantCommand(() ->  flyWheel.stop(), flyWheel),
             new InstantCommand(() -> conveyor.stopConveyor(), conveyor),
             //driveforward to get the next ball

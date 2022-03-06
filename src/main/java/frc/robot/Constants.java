@@ -120,7 +120,18 @@ public final class Constants {
         public final static int kSlot_Velocit = SLOT_2;
         public final static int kSlot_MotProf = SLOT_3;
         
-
-
+        //flywheel PID testing
+        public static final double kShooterFreeRPS = 5300;
+        public static final double kShooterTargetRPS = 4000;
+        public static final double kShooterToleranceRPS = 50;
+        public static final double kSVolts = 0.05;
+        public static final double kVVoltSecondsPerRotation =
+            // Should have value 12V at free speed...
+            12.0 / kShooterFreeRPS;
+        public static final int kEncoderCPR = 1024;
+            public static final double kEncoderDistancePerPulse =
+        // Distance units will be rotations
+            1.0 / (double) kEncoderCPR;
+        public static final boolean kEncoderReversed = false;
 
 }
