@@ -5,8 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
-import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ShootAndDriveAuto;
+
 
 
 /**

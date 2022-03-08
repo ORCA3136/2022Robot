@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -19,16 +18,15 @@ public class BasicShootnDrive extends SequentialCommandGroup
             //start the flywheel
             new InstantCommand(() -> flyWheel.shoot(Constants.kFlyWheelAuto), flyWheel),
             //wait for spinup
-            new WaitCommand(1),//TODO manage flywheel target speed at somepoint
+            new WaitCommand(2.5),//TODO manage flywheel target speed at somepoint
             //start conveyor and intake
-            new InstantCommand(() -> intake.intakeReverse(Constants.kIntakeHigh), intake).andThen(
+            new InstantCommand(() -> intake.intakeIn(Constants.kIntakeHigh), intake).andThen(
             new InstantCommand(() -> conveyor.raiseConveyor(Constants.kConveyerHigh), conveyor)),
-            new WaitCommand(1.5),
+            new WaitCommand(1),
             //stop flywheel
             new InstantCommand(() ->  flyWheel.stop(), flyWheel),
             //stop conveyor and intake
             new InstantCommand(() -> conveyor.stopConveyor(), conveyor),
-            //driveforward to get the next ball
             new InstantCommand(intake::intakeStop, intake),
             //drive forward...
             new DrivetrainAuto(driveTrain, Constants.kAutoDistance),

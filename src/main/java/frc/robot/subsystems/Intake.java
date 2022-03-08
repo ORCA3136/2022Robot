@@ -28,11 +28,11 @@ public class Intake extends SubsystemBase{
         innerRoller.set(0);
     }
 
-    public void intakeForward(double speed){
+    public void intakeOut(double speed){
         innerRoller.set(speed);
     }
     
-    public void intakeReverse(double speed){
+    public void intakeIn(double speed){
         innerRoller.set(-1 * speed);
     }
 }
