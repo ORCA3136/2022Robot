@@ -3,9 +3,6 @@ package frc.robot.subsystems;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkMaxPIDController.ArbFFUnits;
-
-import javax.lang.model.util.ElementScanner6;
-
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.ControlType;
@@ -17,8 +14,6 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -183,7 +178,7 @@ public class Drivetrain extends SubsystemBase {
      * @param maxSpeed
      * @return 
      */
-    public void drivePercentController(XboxController controller, double maxSpeed)
+    public void drivePercentController(XboxController controller)
     {
         driveVelocity(trueLeftX(((controller.getLeftY() * Constants.MAX_VELOCITY_MPS))), (trueRightX((controller.getRightY() * Constants.MAX_VELOCITY_MPS))));
     }

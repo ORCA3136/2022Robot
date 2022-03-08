@@ -12,7 +12,7 @@ public class Conveyor extends SubsystemBase{
 
 
 public Conveyor(){
-    conveyor = new CANSparkMax(Constants.kConveyor1, MotorType.kBrushless);
+    conveyor = new CANSparkMax(Constants.CONVEYOR, MotorType.kBrushless);
 }
 
 public void lowerConveyor(double ConveyorSpeed){

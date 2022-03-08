@@ -17,46 +17,37 @@ import frc.robot.models.Gains;
  */
 
 public final class Constants {
-        //drivetrainmotores
-        public static int LEADER_LEFT_CAN_ID = 1;
-        public static int FOLLOWER_LEFT_CAN_ID = 2;
-        public static int FOLLOWER_LEFT_2_CAN_ID = 3;
+        //CAN ID MAPPING
+        public static final int LEADER_LEFT_CAN_ID = 1;
+        public static final int FOLLOWER_LEFT_CAN_ID = 2;
+        public static final int FOLLOWER_LEFT_2_CAN_ID = 3;
     
-        public static int LEADER_RIGHT_CAN_ID = 4;
-        public static int FOLLOWER_RIGHT_CAN_ID = 5;
-        public static int FOLLOWER_RIGHT_2_CAN_ID = 6;
+        public static final int LEADER_RIGHT_CAN_ID = 4;
+        public static final int FOLLOWER_RIGHT_CAN_ID = 5;
+        public static final int FOLLOWER_RIGHT_2_CAN_ID = 6;
         
-        public static int FlyWheel1 = 7;
-        public static int FlyWheel2 = 8;
-        public static int FlyWheel3 = 12;
+        public static final int FLYWHEEL1 = 7;
+        public static final int FLYWHEEL2 = 8;
+        public static final int FLYWHEEL3 = 12;
     
-        public static boolean isFlyWheel3 = false;
+        public static boolean isFlyWheel3 = true;
 
-        public static int Climber1 = 10;
-
-        public static int kConveyor1 = 9;
+        public static final int CONVEYOR = 9;
     
-        
-        public static final int kInnerIntake = 11;
+        public static final int INTAKE = 11;
 
-        public static final int kClimberBack = 15;
-        public static final int kClimberLeft = 16;
-        public static final int kClimberRight = 17;
+        public static final int CLIMBERBACK = 15;
+        public static final int CLIMBERLEFT = 16;
+        public static final int CLIMBERRIGHT = 17;
 
-
+        //DRIVE MOTOR SETTINGS
         public static boolean RESET_SPARKMAX = true;
     
-        public static double MAX_VELOCITY_MPS = Units.inchesToMeters(80.0); //15feet/second converted to meters
+        public static double MAX_VELOCITY_MPS = Units.inchesToMeters(100.0);  //upping the spped a bit to 8.33 //MAX IS around 13ft/sec (156 inches)
         public static double loopPeriodSecs = 0.02;
         public static double WHEEL_RADIUS_METERS =  Units.inchesToMeters(3.0);
-
-        public static double maxSpeed = .65;
-    
-    
-        
-    
-      
-
+ 
+        //JOYTICK MAPPINGS
         public static final int kY = 4;
         public static final int kX = 1;
         public static final int kA = 2;
@@ -68,7 +59,7 @@ public final class Constants {
         public static final int kSelect = 11;
         public static final int kStart = 12;
         
-        //Pneumatic Adressing    
+        //SPEED SETTINGS FOR SUBSYSTEMS    
         public static final double kConveyerHigh = .5;
         public static final double kConveyorLow = .3;
 
@@ -77,10 +68,7 @@ public final class Constants {
         public static final double kFlyWheelSlow = - .34;
         public static final double kFlyWheelAuto = - .79;
         public static final double kFlyWheelShot1 = - .83;
-        
-        
-        public static final int kIntakeForward = 3;
-        public static final int kIntakeReverse = 0;
+    
         
         public static final double kIntakeHigh = .8;
         public static final double kIntakeLow = .3;

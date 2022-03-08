@@ -52,7 +52,7 @@ public class RobotContainer {
   public RobotContainer() {
 
     m_drivetrain.setDefaultCommand(
-      new RunCommand(() -> m_drivetrain.drivePercentController(controller,Constants.maxSpeed),m_drivetrain));
+      new RunCommand(() -> m_drivetrain.drivePercentController(controller),m_drivetrain));
 
       m_chooser.setDefaultOption("Shoot Then Drive", new ShootAndDriveAuto(m_drivetrain,m_flyWheel,m_conveyor,m_innerIntake));
       m_chooser.addOption("Drive Only",new DrivetrainAuto(m_drivetrain, Constants.kAutoDistance));
@@ -88,7 +88,7 @@ public class RobotContainer {
    
       //flywheel shoot fast y
     new JoystickButton(controller, XboxController.Button.kY.value)
-    .whenHeld(new InstantCommand(() -> m_climber.raiseClimber(Constants.kClimberBack), m_climber))
+    .whenHeld(new InstantCommand(() -> m_climber.raiseClimber(Constants.CLIMBERBACK), m_climber))
       .whenReleased(new InstantCommand(m_climber::stopClimber, m_climber));
     
    
@@ -114,7 +114,7 @@ public class RobotContainer {
 
         //Shoot slow x
     new JoystickButton(controller, XboxController.Button.kX.value)
-    .whenPressed(new InstantCommand(() -> m_climber.lowClimb(Constants.kClimberBack), m_climber))
+    .whenPressed(new InstantCommand(() -> m_climber.lowClimb(Constants.CLIMBERBACK), m_climber))
         .whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
    
         //intake out start

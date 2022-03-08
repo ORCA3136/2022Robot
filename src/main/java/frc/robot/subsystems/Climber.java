@@ -30,9 +30,9 @@ public class Climber extends SubsystemBase{
 
 
    public Climber(){
-       climberBack = new VictorSPX(Constants.kClimberBack); //might swap this to a neo 550 so we get an encoder....
-       climberLeft = new TalonSRX(Constants.kClimberLeft);
-       climberRight = new TalonSRX(Constants.kClimberRight);
+       climberBack = new VictorSPX(Constants.CLIMBERBACK); //might swap this to a neo 550 so we get an encoder....
+       climberLeft = new TalonSRX(Constants.CLIMBERLEFT);
+       climberRight = new TalonSRX(Constants.CLIMBERRIGHT);
        climberLeft.configFactoryDefault();
        climberRight.configFactoryDefault();
        climberLeft.setNeutralMode(NeutralMode.Coast);
