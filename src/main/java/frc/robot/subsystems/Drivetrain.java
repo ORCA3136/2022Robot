@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -74,6 +75,8 @@ public class Drivetrain extends SubsystemBase {
     NetworkTableEntry ty;
     NetworkTableEntry ta;
 
+    //not sure if this is a good numer or not - may make some changes
+    SlewRateLimiter filter = new SlewRateLimiter(0.5);
 
 
     public Drivetrain() 
@@ -185,7 +188,7 @@ public class Drivetrain extends SubsystemBase {
      */
     public void drivePercentController(XboxController controller, double maxSpeed)
     {
-        driveVelocity(trueLeftX(((controller.getLeftY() * Constants.MAX_VELOCITY_MPS))), (trueRightX((controller.getRightY() * Constants.MAX_VELOCITY_MPS))));
+        driveVelocity(filter.calculate(trueLeftX(((controller.getLeftY())) * Constants.MAX_VELOCITY_MPS)), filter.calculate((trueRightX((controller.getRightY())) * Constants.MAX_VELOCITY_MPS)));
     }
 
 
@@ -199,7 +202,7 @@ public class Drivetrain extends SubsystemBase {
 
         SmartDashboard.putNumber("LEFT", left);
         SmartDashboard.putNumber("RIGHT", right);
-        driveVelocity(left*Constants.MAX_VELOCITY_MPS, right*Constants.MAX_VELOCITY_MPS);
+        driveVelocity(filter.calculate(left)*Constants.MAX_VELOCITY_MPS, filter.calculate(right)*Constants.MAX_VELOCITY_MPS);
         
     }
 
