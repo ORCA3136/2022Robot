@@ -15,12 +15,12 @@ public Conveyor(){
     conveyor = new CANSparkMax(Constants.kConveyor1, MotorType.kBrushless);
 }
 
-public void lowerConveyor(){
-    conveyor.set( Constants.kConveyorSpeed *-1 );
+public void lowerConveyor(double ConveyorSpeed){
+    conveyor.set(-1 * ConveyorSpeed);
 }
 
-public void raiseConveyor(){
-    conveyor.set( Constants.kConveyorSpeed);
+public void raiseConveyor(double ConveyorSpeed){
+    conveyor.set(ConveyorSpeed);
 }
 
 public void stopConveyor(){
