@@ -220,8 +220,8 @@ public class FlyWheel extends SubsystemBase {
 
    public void shoot(double flyWheelSpeed) {
       flyWheel1.set(flyWheelSpeed);
-      // flyWheel2.set(flyWheelSpeed);
-      // flyWheel3.set(flyWheelSpeed);
+      flyWheel2.set(flyWheelSpeed);
+       flyWheel3.set(flyWheelSpeed);
    }
 
    public void notShoot(double FlyWheelSpeed) {
