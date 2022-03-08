@@ -76,12 +76,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
     //inner intake forwward rb
     new JoystickButton(controller, XboxController.Button.kRightBumper.value)
-    .whenHeld(new InstantCommand(() -> m_innerIntake.intakeReverse(Constants.kIntakeHigh), m_innerIntake))
+    .whenHeld(new InstantCommand(() -> m_innerIntake.intakeIn(Constants.kIntakeHigh), m_innerIntake))
          .whenReleased(new InstantCommand(m_innerIntake::intakeStop, m_innerIntake));
    
       //move elevator (conveyer) UP lb
     new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
-    .whenHeld(new InstantCommand(() -> m_innerIntake.intakeReverse(Constants.kIntakeHigh), m_innerIntake))
+    .whenHeld(new InstantCommand(() -> m_innerIntake.intakeIn(Constants.kIntakeHigh), m_innerIntake))
     .whenHeld(new InstantCommand(() -> m_conveyor.raiseConveyor(Constants.kConveyerHigh), m_conveyor))
     .whenReleased(new InstantCommand(() -> m_conveyor.stopConveyor(), m_conveyor))
       .whenReleased(new InstantCommand(m_innerIntake::intakeStop, m_innerIntake));
@@ -95,7 +95,7 @@ public class RobotContainer {
       //Lower convyeyor b
     new JoystickButton(controller, XboxController.Button.kB.value)
     .whenHeld(new InstantCommand(() -> m_conveyor.lowerConveyor(Constants.kConveyorLow), m_conveyor))
-    .whenHeld(new InstantCommand(() -> m_innerIntake.intakeForward(Constants.kIntakeLow), m_innerIntake))
+    .whenHeld(new InstantCommand(() -> m_innerIntake.intakeOut(Constants.kIntakeLow), m_innerIntake))
     .whenHeld(new InstantCommand(() -> m_flyWheel.shoot(.75), m_flyWheel))
     .whenReleased(new InstantCommand(() ->  m_flyWheel.stop(), m_flyWheel))
     .whenReleased(new InstantCommand(() ->  m_innerIntake.intakeStop(), m_innerIntake))
