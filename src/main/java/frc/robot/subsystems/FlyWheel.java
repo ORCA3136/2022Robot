@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxPIDController.ArbFFUnits;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
@@ -20,6 +21,7 @@ public class FlyWheel extends SubsystemBase {
    private SparkMaxPIDController flyWheel1PidController;
    private SparkMaxPIDController flyWheel2PidController;
    private SparkMaxPIDController flyWheel3PidController;
+
    public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
 
    public FlyWheel() {
@@ -43,6 +45,7 @@ public class FlyWheel extends SubsystemBase {
 
       // inverting flywhee 2 and 3
       flyWheel2.setInverted(true);
+      //flyWheel2.follow(flyWheel1, true);
       flyWheel3.setInverted(true);
 
       // max voltage
@@ -76,11 +79,11 @@ public class FlyWheel extends SubsystemBase {
       flyWheel3PidController = flyWheel3.getPIDController();
 
       // some default PID values
-      kP = 6e-5;
-      kI = 0;
+      kP = 0.0000001;
+      kI = 0.000000012;
       kD = 0;
       kIz = 0;
-      kFF = 0.000015;
+      kFF = 0.0001;
       kMaxOutput = 1;
       kMinOutput = -1;
       maxRPM = 5700;
@@ -94,19 +97,20 @@ public class FlyWheel extends SubsystemBase {
       flyWheel1PidController.setOutputRange(kMinOutput, kMaxOutput);
 
       // FlyWheel2 setup PID
+      /*
       flyWheel2PidController.setP(kP);
       flyWheel2PidController.setI(kI);
       flyWheel2PidController.setD(kD);
       flyWheel2PidController.setIZone(kIz);
       flyWheel2PidController.setFF(kFF);
       flyWheel2PidController.setOutputRange(kMinOutput, kMaxOutput);
-
+*/
       // FlyWheel3 setup PID
-      flyWheel3PidController.setP(kP);
-      flyWheel3PidController.setI(kI);
+      flyWheel3PidController.setP(.00012);
+      flyWheel3PidController.setI(.000001);
       flyWheel3PidController.setD(kD);
       flyWheel3PidController.setIZone(kIz);
-      flyWheel3PidController.setFF(kFF);
+      flyWheel3PidController.setFF(.000022);
       flyWheel3PidController.setOutputRange(kMinOutput, kMaxOutput);
 
       SmartDashboard.putNumber("P Gain", kP);
@@ -136,90 +140,56 @@ public class FlyWheel extends SubsystemBase {
 
       // if PID coefficients on SmartDashboard have changed, write new values to
       // controller TODO - possibly move these to methods, but once we tune we won't be changing
-      //PID CONTROLER 1
+ 
+
       if ((p != kP)) {
          flyWheel1PidController.setP(p);
+         flyWheel2PidController.setP(p);
+         //flyWheel3PidController.setP(p);
          kP = p;
       }
       if ((i != kI)) {
          flyWheel1PidController.setI(i);
+         flyWheel2PidController.setI(i);
+         //flyWheel3PidController.setI(i);
+
          kI = i;
       }
       if ((d != kD)) {
          flyWheel1PidController.setD(d);
+         flyWheel2PidController.setD(d);
+         //flyWheel3PidController.setD(d);
+
          kD = d;
       }
       if ((iz != kIz)) {
          flyWheel1PidController.setIZone(iz);
+         flyWheel2PidController.setIZone(iz);
+         //flyWheel3PidController.setIZone(iz);
+
          kIz = iz;
       }
       if ((ff != kFF)) {
          flyWheel1PidController.setFF(ff);
+         flyWheel2PidController.setFF(ff);
+         //flyWheel3PidController.setFF(ff);
+
          kFF = ff;
       }
       if ((max != kMaxOutput) || (min != kMinOutput)) {
          flyWheel1PidController.setOutputRange(min, max);
-         kMinOutput = min;
-         kMaxOutput = max;
-      }
-      //FLY Wheel 2 turning - frankly 1& 2 should be the same as they are both attached to flywheel
-      if ((p != kP)) {
-         flyWheel2PidController.setP(p);
-         kP = p;
-      }
-      if ((i != kI)) {
-         flyWheel2PidController.setI(i);
-         kI = i;
-      }
-      if ((d != kD)) {
-         flyWheel2PidController.setD(d);
-         kD = d;
-      }
-      if ((iz != kIz)) {
-         flyWheel2PidController.setIZone(iz);
-         kIz = iz;
-      }
-      if ((ff != kFF)) {
-         flyWheel2PidController.setFF(ff);
-         kFF = ff;
-      }
-      if ((max != kMaxOutput) || (min != kMinOutput)) {
          flyWheel2PidController.setOutputRange(min, max);
+         //flyWheel3PidController.setOutputRange(min, max);
          kMinOutput = min;
          kMaxOutput = max;
       }
 
-      //realistically we will need a different set of values for flywheel 3 as it is a different beast.
-      if ((p != kP)) {
-         flyWheel3PidController.setP(p);
-         kP = p;
-      }
-      if ((i != kI)) {
-         flyWheel3PidController.setI(i);
-         kI = i;
-      }
-      if ((d != kD)) {
-         flyWheel3PidController.setD(d);
-         kD = d;
-      }
-      if ((iz != kIz)) {
-         flyWheel3PidController.setIZone(iz);
-         kIz = iz;
-      }
-      if ((ff != kFF)) {
-         flyWheel3PidController.setFF(ff);
-         kFF = ff;
-      }
-      if ((max != kMaxOutput) || (min != kMinOutput)) {
-         flyWheel3PidController.setOutputRange(min, max);
-         kMinOutput = min;
-         kMaxOutput = max;
-      }
+   
 
    }
 
    public void shoot(double flyWheelSpeed) {
-      flyWheel1.set(flyWheelSpeed);
+     flyWheel1.set(flyWheelSpeed);
       flyWheel2.set(flyWheelSpeed);
        flyWheel3.set(flyWheelSpeed);
    }
@@ -237,9 +207,16 @@ public class FlyWheel extends SubsystemBase {
    }
 
    public void PIDshoot(double setPoint) { //TODO add another variable for 3
-      flyWheel1PidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
-      flyWheel2PidController.setReference(setPoint,CANSparkMax.ControlType.kVelocity);
-      flyWheel3PidController.setReference(setPoint,CANSparkMax.ControlType.kVelocity); //TODO handle 3 separately
+      flyWheel1PidController.setP(kP);
+      flyWheel1PidController.setI(kI);
+      flyWheel1PidController.setD(kD);
+      flyWheel1PidController.setIZone(kIz);
+      flyWheel1PidController.setFF(kFF);
+      flyWheel1PidController.setOutputRange(kMinOutput, kMaxOutput);
+
+      flyWheel1PidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity, 0, setPoint *kFF, ArbFFUnits.kPercentOut);
+     //flyWheel2PidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity, 0, setPoint *kFF, ArbFFUnits.kPercentOut);
+      //flyWheel3PidController.setReference(setPoint,CANSparkMax.ControlType.kVelocity); //TODO handle 3 separately
 
       SmartDashboard.putNumber("SetPoint", setPoint);
    }
