@@ -22,7 +22,7 @@ public class FlyWheel extends SubsystemBase {
    private SparkMaxPIDController flyWheel2PidController;
    private SparkMaxPIDController flyWheel3PidController;
 
-   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
+   public double kP, kI, kD, kIz, kFF,kFF3, kMaxOutput, kMinOutput, maxRPM;
 
    public FlyWheel() {
       // declares them as CANSparkMaxes
@@ -48,6 +48,10 @@ public class FlyWheel extends SubsystemBase {
       //flyWheel2.follow(flyWheel1, true);
       flyWheel3.setInverted(true);
 
+      //set to brake mode
+      flyWheel1.setIdleMode(CANSparkMax.IdleMode.kBrake);
+      flyWheel2.setIdleMode(CANSparkMax.IdleMode.kBrake);
+      flyWheel3.setIdleMode(CANSparkMax.IdleMode.kBrake);
       // max voltage
       flyWheel1.enableVoltageCompensation(12.0);
       flyWheel2.enableVoltageCompensation(12.0);
@@ -83,10 +87,13 @@ public class FlyWheel extends SubsystemBase {
       kI = 0.000000012;
       kD = 0;
       kIz = 0;
-      kFF = 0.0001;
+      kFF = 0.000091;
       kMaxOutput = 1;
       kMinOutput = -1;
       maxRPM = 5700;
+      kFF3 = 0.0001;
+
+
 
       // FlyWheel1 setup PId
       flyWheel1PidController.setP(kP);
@@ -104,7 +111,7 @@ public class FlyWheel extends SubsystemBase {
       flyWheel2PidController.setIZone(kIz);
       flyWheel2PidController.setFF(kFF);
       flyWheel2PidController.setOutputRange(kMinOutput, kMaxOutput);
-*/
+
       // FlyWheel3 setup PID
       flyWheel3PidController.setP(.00012);
       flyWheel3PidController.setI(.000001);
@@ -112,7 +119,7 @@ public class FlyWheel extends SubsystemBase {
       flyWheel3PidController.setIZone(kIz);
       flyWheel3PidController.setFF(.000022);
       flyWheel3PidController.setOutputRange(kMinOutput, kMaxOutput);
-
+*/
       SmartDashboard.putNumber("P Gain", kP);
       SmartDashboard.putNumber("I Gain", kI);
       SmartDashboard.putNumber("D Gain", kD);
@@ -214,9 +221,23 @@ public class FlyWheel extends SubsystemBase {
       flyWheel1PidController.setFF(kFF);
       flyWheel1PidController.setOutputRange(kMinOutput, kMaxOutput);
 
-      flyWheel1PidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity, 0, setPoint *kFF, ArbFFUnits.kPercentOut);
-     //flyWheel2PidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity, 0, setPoint *kFF, ArbFFUnits.kPercentOut);
-      //flyWheel3PidController.setReference(setPoint,CANSparkMax.ControlType.kVelocity); //TODO handle 3 separately
+      flyWheel2PidController.setP(kP);
+      flyWheel2PidController.setI(kI);
+      flyWheel2PidController.setD(kD);
+      flyWheel2PidController.setIZone(kIz);
+      flyWheel2PidController.setFF(kFF);
+      flyWheel2PidController.setOutputRange(kMinOutput, kMaxOutput);
+      
+      flyWheel3PidController.setP(.0000001);
+      flyWheel3PidController.setI(0.00);
+      flyWheel3PidController.setD(kD);
+      flyWheel3PidController.setIZone(kIz);
+      flyWheel3PidController.setFF(kFF3);
+      flyWheel3PidController.setOutputRange(kMinOutput, kMaxOutput);
+
+      flyWheel1PidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity, 0, setPoint * kFF, ArbFFUnits.kPercentOut);
+      flyWheel2PidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity, 0, setPoint * kFF, ArbFFUnits.kPercentOut);
+      flyWheel3PidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity, 0, setPoint * kFF3, ArbFFUnits.kPercentOut);
 
       SmartDashboard.putNumber("SetPoint", setPoint);
    }
