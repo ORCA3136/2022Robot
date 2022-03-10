@@ -127,7 +127,8 @@ public class FlyWheel extends SubsystemBase {
       SmartDashboard.putNumber("FlyWheel1 Velocity", flyWheelEncoder.getVelocity());
       SmartDashboard.putNumber("FlyWheel3 Velocity", flyWheelEncoder3.getVelocity());
       SmartDashboard.putNumber("FlyWheel2 Velocity", flyWheelEncoder2.getVelocity());
-
+      SmartDashboard.putNumber("FW1 Setpoint", f1SP);
+      SmartDashboard.putNumber("FW3 Setpoint", f3SP);
       double FW1 = SmartDashboard.getNumber("FW1 Setpoint", 0);
       double FW3 = SmartDashboard.getNumber("FW3 Setpoint", 0);
 
