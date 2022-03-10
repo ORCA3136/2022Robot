@@ -213,7 +213,7 @@ public class FlyWheel extends SubsystemBase {
       flyWheel3.set(0);
    }
 
-   public void PIDshoot(double setPoint) { //TODO add another variable for 3
+   public void PIDshoot(double mainSetPoint, double flyWheel3Setpoint) { //TODO add another variable for 3
       flyWheel1PidController.setP(kP);
       flyWheel1PidController.setI(kI);
       flyWheel1PidController.setD(kD);
@@ -235,11 +235,11 @@ public class FlyWheel extends SubsystemBase {
       flyWheel3PidController.setFF(kFF3);
       flyWheel3PidController.setOutputRange(kMinOutput, kMaxOutput);
 
-      flyWheel1PidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity, 0, setPoint * kFF, ArbFFUnits.kPercentOut);
-      flyWheel2PidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity, 0, setPoint * kFF, ArbFFUnits.kPercentOut);
-      flyWheel3PidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity, 0, setPoint * kFF3, ArbFFUnits.kPercentOut);
+      flyWheel1PidController.setReference(mainSetPoint, CANSparkMax.ControlType.kVelocity, 0, mainSetPoint * kFF, ArbFFUnits.kPercentOut);
+      flyWheel2PidController.setReference(mainSetPoint, CANSparkMax.ControlType.kVelocity, 0, mainSetPoint * kFF, ArbFFUnits.kPercentOut);
+      flyWheel3PidController.setReference(flyWheel3Setpoint, CANSparkMax.ControlType.kVelocity, 0, flyWheel3Setpoint * kFF3, ArbFFUnits.kPercentOut);
 
-      SmartDashboard.putNumber("SetPoint", setPoint);
+      SmartDashboard.putNumber("SetPoint", mainSetPoint);
    }
 
 }
