@@ -109,7 +109,8 @@ public final class Constants {
         public final static int kSlot_MotProf = SLOT_3;
         
         //flywheel PID testing
-        public static final double kShooterHighTargetRPS = -2500;
+        public static final double kShooterHighTargetRPS = -2900;
+        public static final double kShooterFW3TargetRPS = -1000;
         public static final double kShooterLowTargetRPS = 1700;
 
 }

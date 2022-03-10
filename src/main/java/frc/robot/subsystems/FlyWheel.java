@@ -24,6 +24,10 @@ public class FlyWheel extends SubsystemBase {
 
    public double kP, kI, kD, kIz, kFF,kFF3, kP3, kI3,kMaxOutput, kMinOutput, maxRPM;
 
+   public double f1SP = Constants.kShooterHighTargetRPS;
+   public double f3SP = Constants.kShooterFW3TargetRPS;
+
+
    public FlyWheel() {
       // declares them as CANSparkMaxes
       flyWheel1 = new CANSparkMax(Constants.FLYWHEEL1, MotorType.kBrushless);
@@ -124,6 +128,18 @@ public class FlyWheel extends SubsystemBase {
       SmartDashboard.putNumber("FlyWheel3 Velocity", flyWheelEncoder3.getVelocity());
       SmartDashboard.putNumber("FlyWheel2 Velocity", flyWheelEncoder2.getVelocity());
 
+      double FW1 = SmartDashboard.getNumber("FW1 Setpoint", 0);
+      double FW3 = SmartDashboard.getNumber("FW3 Setpoint", 0);
+
+      if ((FW1 != f1SP)) {
+         f1SP = FW1;
+
+      }
+      if ((FW3!= f3SP)) {
+         f3SP = FW3;
+      }
+
+            
       //TODO add booleans to display on dashboard
       
       /*
@@ -205,7 +221,7 @@ public class FlyWheel extends SubsystemBase {
    }
 
    public void PIDshoot(double mainSetPoint, double flyWheel3Setpoint) {
-      /*
+      
       flyWheel1PidController.setP(kP);
       flyWheel1PidController.setI(kI);
       flyWheel1PidController.setD(kD);
@@ -226,11 +242,11 @@ public class FlyWheel extends SubsystemBase {
       flyWheel3PidController.setIZone(kIz);
       flyWheel3PidController.setFF(kFF3);
       flyWheel3PidController.setOutputRange(kMinOutput, kMaxOutput);
-      */
+      
 
-      flyWheel1PidController.setReference(mainSetPoint, CANSparkMax.ControlType.kVelocity, 0, mainSetPoint * kFF, ArbFFUnits.kPercentOut);
-      flyWheel2PidController.setReference(mainSetPoint, CANSparkMax.ControlType.kVelocity, 0, mainSetPoint * kFF, ArbFFUnits.kPercentOut);
-      flyWheel3PidController.setReference(flyWheel3Setpoint, CANSparkMax.ControlType.kVelocity, 0, flyWheel3Setpoint * kFF3, ArbFFUnits.kPercentOut);
+      flyWheel1PidController.setReference(f1SP, CANSparkMax.ControlType.kVelocity, 0, f1SP * kFF, ArbFFUnits.kPercentOut);
+      flyWheel2PidController.setReference(f1SP, CANSparkMax.ControlType.kVelocity, 0, f1SP * kFF, ArbFFUnits.kPercentOut);
+      flyWheel3PidController.setReference(f3SP, CANSparkMax.ControlType.kVelocity, 0, f3SP * kFF3, ArbFFUnits.kPercentOut);
 
       SmartDashboard.putNumber("SetPoint", mainSetPoint);
    }
