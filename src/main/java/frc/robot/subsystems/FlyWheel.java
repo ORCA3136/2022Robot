@@ -205,7 +205,7 @@ public class FlyWheel extends SubsystemBase {
    }
 
    public void PIDshoot(double mainSetPoint, double flyWheel3Setpoint) {
-      /*
+      
       flyWheel1PidController.setP(kP);
       flyWheel1PidController.setI(kI);
       flyWheel1PidController.setD(kD);
@@ -226,7 +226,7 @@ public class FlyWheel extends SubsystemBase {
       flyWheel3PidController.setIZone(kIz);
       flyWheel3PidController.setFF(kFF3);
       flyWheel3PidController.setOutputRange(kMinOutput, kMaxOutput);
-      */
+      
 
       flyWheel1PidController.setReference(mainSetPoint, CANSparkMax.ControlType.kVelocity, 0, mainSetPoint * kFF, ArbFFUnits.kPercentOut);
       flyWheel2PidController.setReference(mainSetPoint, CANSparkMax.ControlType.kVelocity, 0, mainSetPoint * kFF, ArbFFUnits.kPercentOut);
