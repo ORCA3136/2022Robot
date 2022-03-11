@@ -8,6 +8,7 @@ import frc.robot.subsystems.Intake;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class LimelightTarget extends CommandBase {
@@ -50,6 +51,7 @@ public class LimelightTarget extends CommandBase {
     @Override
     public void initialize() {
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+
         // LIMELIGHT
 
     }
@@ -94,8 +96,14 @@ public class LimelightTarget extends CommandBase {
         {
             //TODO add some logic to start flywheel
             flywheel.PIDshoot(Constants.kShooterHighTargetRPS, Constants.kShooterHighTargetF3RPS);
+            Timer.delay(1.0);
             //add a delay for ramp.. or have this method provide a response that indicates it is ready,...
-            
+            conveyor.raiseConveyor(Constants.kConveyerHigh);
+            intake.intakeIn(Constants.kIntakeHigh);
+            Timer.delay(0.5);
+            intake.intakeStop();
+            conveyor.stopConveyor();
+            flywheel.stop();
             //add some logic to start conveyor
             //add some logic to start intake
             done = true;
