@@ -26,7 +26,7 @@ public class LimelightTarget extends CommandBase {
     private NetworkTableEntry ty;
     private NetworkTableEntry tv;
 
-    private double Kp = -0.1; // Proportional control constant
+    private double Kp = 0.1; // Proportional control constant
 
     private boolean done = false;
 
@@ -68,6 +68,12 @@ public class LimelightTarget extends CommandBase {
         double x = tx.getDouble(0.0);
         double y = ty.getDouble(0.0);
         double target = tv.getDouble(0.0);
+        System.out.println(">>>>>>>>>>>>");
+        System.out.println("Y: "+y);
+        System.out.println("X: "+x);
+        System.out.println("ALIGNED TO TARGET: "+alignedToTarget);
+        System.out.println("IN RANGE: "+targetInRange); 
+        System.out.println("<<<<<<<<<<<<<");
         if(target == 1.0)
         {
             double steeringAdjust = Kp * x;
@@ -81,30 +87,38 @@ public class LimelightTarget extends CommandBase {
                 alignedToTarget = true;
             } else if(x<0){
                 alignedToTarget = false;
-                double left = steeringAdjust;
-                double right = -steeringAdjust;
+                double left = Math.abs(steeringAdjust);
+                double right = steeringAdjust;
                 //move to position
                 drivetrain.drivePercent(left, right);
             }
             else {
                 alignedToTarget = false;
-                double left =-steeringAdjust;
-                double right = steeringAdjust;
+                double left =-1*steeringAdjust;
+                double right =steeringAdjust;
                 //move to position
                 drivetrain.drivePercent(left, right);
             }
             //now move to right distance
             if(alignedToTarget)
             {
-                if (Math.abs(y) < .5) 
+                System.out.println("ALIGNED DOING DISTANCE");
+                System.out.println("Y: "+y);
+                System.out.println("X: "+x);
+                System.out.println("ALIGNED TO TARGET: "+alignedToTarget);
+                System.out.println("IN RANGE: "+targetInRange); 
+                
+                if (Math.abs(y) < .1) 
                 {
                     targetInRange = true;
                 } else if(y<0){
+                    System.out.println("Y less than 0");
                     targetInRange = false;  
                     //move to position
                     drivetrain.drivePercent(-distanceAdjust, -distanceAdjust);
                 }
                 else{
+                    System.out.println("Y Greater than 0");
                     targetInRange = false;  
                     //move to position
                     drivetrain.drivePercent(distanceAdjust, distanceAdjust);
