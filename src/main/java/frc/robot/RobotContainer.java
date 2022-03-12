@@ -22,6 +22,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.commands.AimAndShoot;
 import frc.robot.commands.DrivetrainAuto;
+import frc.robot.commands.LimelightTarget;
 import frc.robot.commands.ShootAndDriveAuto;
 import frc.robot.commands.TurnToTarget;
 
@@ -75,17 +76,20 @@ public class RobotContainer {
   
   private void configureButtonBindings() {
     //inner intake forwward rb
-    new JoystickButton(controller, XboxController.Button.kRightBumper.value)
-    .whenHeld(new InstantCommand(() -> m_innerIntake.intakeIn(Constants.kIntakeHigh), m_innerIntake))
-         .whenReleased(new InstantCommand(m_innerIntake::intakeStop, m_innerIntake));
+    //new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
+    //.whenHeld(new InstantCommand(() -> m_innerIntake.intakeIn(Constants.kIntakeHigh), m_innerIntake))
+        //.whenReleased(new InstantCommand(m_innerIntake::intakeStop, m_innerIntake));
    
       //move elevator (conveyer) UP lb
-    new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
+    new JoystickButton(controller, XboxController.Button.kRightBumper.value)
     .whenHeld(new InstantCommand(() -> m_innerIntake.intakeIn(Constants.kIntakeHigh), m_innerIntake))
     .whenHeld(new InstantCommand(() -> m_conveyor.raiseConveyor(Constants.kConveyerHigh), m_conveyor))
     .whenReleased(new InstantCommand(() -> m_conveyor.stopConveyor(), m_conveyor))
       .whenReleased(new InstantCommand(m_innerIntake::intakeStop, m_innerIntake));
-   
+
+    new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
+    .whenHeld(new LimelightTarget(m_drivetrain, m_flyWheel, m_conveyor, m_innerIntake));
+    
       //flywheel shoot fast y
     new JoystickButton(controller, XboxController.Button.kY.value)
     .whenHeld(new InstantCommand(() -> m_climber.raiseClimber(Constants.CLIMBERBACK), m_climber))
