@@ -75,12 +75,12 @@ public class RobotContainer {
   
   private void configureButtonBindings() {
     //inner intake forwward rb
-    new JoystickButton(controller, XboxController.Button.kRightBumper.value)
+    new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
     .whenHeld(new InstantCommand(() -> m_innerIntake.intakeIn(Constants.kIntakeHigh), m_innerIntake))
          .whenReleased(new InstantCommand(m_innerIntake::intakeStop, m_innerIntake));
    
       //move elevator (conveyer) UP lb
-    new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
+    new JoystickButton(controller, XboxController.Button.kRightBumper.value)
     .whenHeld(new InstantCommand(() -> m_innerIntake.intakeIn(Constants.kIntakeHigh), m_innerIntake))
     .whenHeld(new InstantCommand(() -> m_conveyor.raiseConveyor(Constants.kConveyerHigh), m_conveyor))
     .whenReleased(new InstantCommand(() -> m_conveyor.stopConveyor(), m_conveyor))
