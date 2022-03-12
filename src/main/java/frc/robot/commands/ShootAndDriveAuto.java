@@ -31,7 +31,7 @@ public class ShootAndDriveAuto extends SequentialCommandGroup
             new DrivetrainAuto(driveTrain, Constants.kAutoDistance),
             new InstantCommand(() -> intake.intakeOut(Constants.kIntakeLow), intake),            
             new InstantCommand(() -> conveyor.lowerConveyor(Constants.kConveyorLow), conveyor),
-            new InstantCommand(()-> flyWheel.notShoot(Constants.kFlyWheelFast),flyWheel),
+            new InstantCommand(()-> flyWheel.notShootAuto(Constants.kFlyWheelFast),flyWheel),
             new WaitCommand(.5),
             new InstantCommand(() -> conveyor.stopConveyor(), conveyor),
             new InstantCommand(intake::intakeStop, intake),

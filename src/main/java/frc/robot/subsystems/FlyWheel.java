@@ -218,6 +218,12 @@ public class FlyWheel extends SubsystemBase {
       flyWheel3.set(-1 * FlyWheelSpeed);
    }
 
+   public void notShootAuto(double FlyWheelSpeed) {
+      flyWheel1.set(-.5* FlyWheelSpeed);
+      flyWheel2.set(-.5 * FlyWheelSpeed);
+      flyWheel3.set(-.5 * FlyWheelSpeed);
+   }
+
    public void stop() {
       flyWheel1.set(0);
       flyWheel2.set(0);
