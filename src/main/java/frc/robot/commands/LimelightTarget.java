@@ -9,6 +9,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class LimelightTarget extends CommandBase {
@@ -23,7 +24,7 @@ public class LimelightTarget extends CommandBase {
     private NetworkTable table;
     private NetworkTableEntry tx;
     private NetworkTableEntry ty;
-    private NetworkTableEntry ta;
+    private NetworkTableEntry tv;
 
     private double Kp = -0.1; // Proportional control constant
 
@@ -63,54 +64,67 @@ public class LimelightTarget extends CommandBase {
         table = NetworkTableInstance.getDefault().getTable("limelight");
         tx = table.getEntry("tx");
         ty = table.getEntry("ty");
+        tv = table.getEntry("tv");
         double x = tx.getDouble(0.0);
         double y = ty.getDouble(0.0);
+        double target = tv.getDouble(0.0);
+        if(target == 1.0)
+        {
+            double steeringAdjust = Kp * x;
+            double distanceAdjust = Kp * y;
+            SmartDashboard.putNumber("STEERING ADJUST", steeringAdjust);
+            SmartDashboard.putNumber("DISTANCE ADJUST", distanceAdjust);
 
-        double steeringAdjust = Kp * x;
-        double distanceAdjust = Kp * y;
-        //align to target first //might need to add a check for in not aligned to target
-        if (Math.abs(x) < .2) 
-        {
-            alignedToTarget = true;
-        } else {
-            alignedToTarget = false;
-            double left = steeringAdjust;
-            double right = -steeringAdjust;
-            //move to position
-            drivetrain.drivePercent(left, right);
-        }
-        //now move to right distance
-        if(alignedToTarget)
-        {
-            if (Math.abs(y) < .2) 
+            //align to target first //might need to add a check for in not aligned to target
+            if (Math.abs(x) < .2) 
             {
-                targetInRange = true;
+                alignedToTarget = true;
             } else {
-                targetInRange = false;  
+                alignedToTarget = false;
+                double left = steeringAdjust;
+                double right = -steeringAdjust;
                 //move to position
-                drivetrain.drivePercent(distanceAdjust, distanceAdjust);
+                drivetrain.drivePercent(left, right);
+            }
+            //now move to right distance
+            if(alignedToTarget)
+            {
+                if (Math.abs(y) < .2) 
+                {
+                    targetInRange = true;
+                } else {
+                    targetInRange = false;  
+                    //move to position
+                    drivetrain.drivePercent(distanceAdjust, distanceAdjust);
+                }
+            }
+    
+            if(alignedToTarget && targetInRange)
+            {
+                //TODO add some logic to start flywheel
+                flywheel.PIDshoot(Constants.kShooterHighTargetRPS, Constants.kShooterHighTargetF3RPS);
+                Timer.delay(1.0);
+                //add a delay for ramp.. or have this method provide a response that indicates it is ready,...
+                conveyor.raiseConveyor(Constants.kConveyerHigh);
+                intake.intakeIn(Constants.kIntakeHigh);
+                Timer.delay(0.5);
+                intake.intakeStop();
+                conveyor.stopConveyor();
+                flywheel.stop();
+                //add some logic to start conveyor
+                //add some logic to start intake
+                done = true;
+            }
+            else{
+                done = false;
             }
         }
-
-        if(alignedToTarget && targetInRange)
+        else
         {
-            //TODO add some logic to start flywheel
-            flywheel.PIDshoot(Constants.kShooterHighTargetRPS, Constants.kShooterHighTargetF3RPS);
-            Timer.delay(1.0);
-            //add a delay for ramp.. or have this method provide a response that indicates it is ready,...
-            conveyor.raiseConveyor(Constants.kConveyerHigh);
-            intake.intakeIn(Constants.kIntakeHigh);
-            Timer.delay(0.5);
-            intake.intakeStop();
-            conveyor.stopConveyor();
-            flywheel.stop();
-            //add some logic to start conveyor
-            //add some logic to start intake
+            System.out.println("NO TARGET");
             done = true;
         }
-        else{
-            done = false;
-        }
+       
 
     }
 
