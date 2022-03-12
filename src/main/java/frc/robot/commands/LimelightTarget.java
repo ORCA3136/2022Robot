@@ -79,20 +79,32 @@ public class LimelightTarget extends CommandBase {
             if (Math.abs(x) < .2) 
             {
                 alignedToTarget = true;
-            } else {
+            } else if(x<0){
                 alignedToTarget = false;
                 double left = steeringAdjust;
                 double right = -steeringAdjust;
                 //move to position
                 drivetrain.drivePercent(left, right);
             }
+            else {
+                alignedToTarget = false;
+                double left =-steeringAdjust;
+                double right = steeringAdjust;
+                //move to position
+                drivetrain.drivePercent(left, right);
+            }
             //now move to right distance
             if(alignedToTarget)
             {
-                if (Math.abs(y) < .2) 
+                if (Math.abs(y) < .5) 
                 {
                     targetInRange = true;
-                } else {
+                } else if(y<0){
+                    targetInRange = false;  
+                    //move to position
+                    drivetrain.drivePercent(-distanceAdjust, -distanceAdjust);
+                }
+                else{
                     targetInRange = false;  
                     //move to position
                     drivetrain.drivePercent(distanceAdjust, distanceAdjust);
