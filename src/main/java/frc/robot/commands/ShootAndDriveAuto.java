@@ -47,7 +47,6 @@ public class ShootAndDriveAuto extends SequentialCommandGroup
             new TurnToTarget(driveTrain),
             new TurnToTarget(driveTrain), 
             new WaitCommand(2.5),
-
             new InstantCommand(() -> intake.intakeIn(Constants.kIntakeHigh), intake)
             .andThen(new InstantCommand(() -> conveyor.raiseConveyor(Constants.kConveyerHigh), conveyor)),
             new WaitCommand(1),

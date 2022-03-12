@@ -18,7 +18,7 @@ public class TurnToTarget extends CommandBase {
   private NetworkTable table;
   private NetworkTableEntry tx;
   private NetworkTableEntry ty;
-  private NetworkTableEntry ta;
+  private NetworkTableEntry tv;
 
   private double Kp = -0.1;  // Proportional control constant
 
@@ -53,24 +53,30 @@ public class TurnToTarget extends CommandBase {
      table = NetworkTableInstance.getDefault().getTable("limelight");
      tx = table.getEntry("tx");
      ty = table.getEntry("ty");
-     ta = table.getEntry("ta");
+     tv = table.getEntry("tv");
       double x = tx.getDouble(0.0);
       double y = ty.getDouble(0.0);
-      double area = ta.getDouble(0.0);
-
-     double steeringAdjust = Kp * x;
-    if(Math.abs(x)<.2)
+      double target = tv.getDouble(0.0);
+    if(target==1.0)
     {
-      done=true;
+      double steeringAdjust = Kp * x;
+      if(Math.abs(x)<.2)
+      {
+        done=true;
+      }
+      else
+      {
+        done = false;
+      }
+      double left=steeringAdjust;
+      double right=-steeringAdjust;
+     
+      m_drivetrain.drivePercent(left, right);
     }
-    else
-    {
-      done = false;
+    else{
+      done = true;
     }
-    double left=steeringAdjust;
-    double right=-steeringAdjust;
-   
-    m_drivetrain.drivePercent(left, right);
+    
   }
 
   // Called once the command ends or is interrupted.
