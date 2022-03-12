@@ -43,7 +43,7 @@ public final class Constants {
         //DRIVE MOTOR SETTINGS
         public static boolean RESET_SPARKMAX = true;
     
-        public static double MAX_VELOCITY_MPS = Units.inchesToMeters(100.0);  //upping the spped a bit to 8.33 //MAX IS around 13ft/sec (156 inches)
+        public static double MAX_VELOCITY_MPS = Units.inchesToMeters(90.0);  //upping the spped a bit to 8.33 //MAX IS around 13ft/sec (156 inches)
         public static double loopPeriodSecs = 0.02;
         public static double WHEEL_RADIUS_METERS =  Units.inchesToMeters(3.0);
  
