@@ -152,13 +152,13 @@ public class RobotContainer {
 
   //flywheel shoot fast Y
   new JoystickButton(joystick, Constants.kY)
-  .whenHeld(new InstantCommand(() -> m_flyWheel.shoot(Constants.kFlyWheelFast), m_flyWheel))
-    .whenReleased(new InstantCommand(m_flyWheel::stop, m_flyWheel));
+  .whenPressed(new InstantCommand(() -> m_flyWheel.PIDdistance(Constants.kShooterDistanceRPS, Constants.kShooterDistancetF3RPS), m_flyWheel))
+  .whenReleased(new InstantCommand(m_flyWheel::stop,m_flyWheel));
 
-  //flywheel shoot fast X
+  //flywheel distance fast X
   new JoystickButton(joystick, Constants.kX)
-  .whenHeld(new InstantCommand(() -> m_flyWheel.shoot(Constants.kFlyWheelSlow), m_flyWheel))
-    .whenReleased(new InstantCommand(m_flyWheel::stop, m_flyWheel));
+  .whenPressed(new InstantCommand(() -> m_flyWheel.PIDshoot(Constants.kShooterHighTargetRPS, Constants.kShooterHighTargetF3RPS), m_flyWheel))
+  .whenReleased(new InstantCommand(m_flyWheel::stop,m_flyWheel));
 
 //Lt- lower climber
          new JoystickButton(joystick, Constants.kLT)
@@ -169,9 +169,9 @@ public class RobotContainer {
          new JoystickButton(joystick, Constants.kLB)
          .whenPressed(new InstantCommand(() -> m_climber.simpleFrontRaise(Constants.kClimberSpeed),m_climber))
          .whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
-
+//low goal
          new JoystickButton(joystick, Constants.kB)
-         .whenPressed(new InstantCommand(() -> m_flyWheel.PIDshoot(Constants.kShooterHighTargetRPS, Constants.kShooterHighTargetF3RPS), m_flyWheel))
+         .whenPressed(new InstantCommand(() -> m_flyWheel.shoot(Constants.kFlyWheelSlow), m_flyWheel))
          .whenReleased(new InstantCommand(m_flyWheel::stop,m_flyWheel));
          
 // Joycon A - Lower conveyor and flywheel
