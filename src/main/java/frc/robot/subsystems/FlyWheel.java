@@ -27,6 +27,9 @@ public class FlyWheel extends SubsystemBase {
    public double f1SP = Constants.kShooterHighTargetRPS;
    public double f3SP = Constants.kShooterHighTargetF3RPS;
 
+   public double D1SP = Constants.kShooterDistanceRPS;
+   public double D3SP = Constants.kShooterDistancetF3RPS;
+
 
    public FlyWheel() {
       // declares them as CANSparkMaxes
@@ -248,6 +251,37 @@ public class FlyWheel extends SubsystemBase {
       flyWheel1PidController.setReference(f1SP, CANSparkMax.ControlType.kVelocity, 0, f1SP * kFF, ArbFFUnits.kPercentOut);
       flyWheel2PidController.setReference(f1SP, CANSparkMax.ControlType.kVelocity, 0, f1SP * kFF, ArbFFUnits.kPercentOut);
       flyWheel3PidController.setReference(f3SP, CANSparkMax.ControlType.kVelocity, 0, f3SP * kFF3, ArbFFUnits.kPercentOut);
+
+      SmartDashboard.putNumber("SetPoint", mainSetPoint);
+   }
+
+   public void PIDdistance(double mainSetPoint, double flyWheel3Setpoint) {
+      
+      flyWheel1PidController.setP(kP);
+      flyWheel1PidController.setI(kI);
+      flyWheel1PidController.setD(kD);
+      flyWheel1PidController.setIZone(kIz);
+      flyWheel1PidController.setFF(kFF);
+      flyWheel1PidController.setOutputRange(kMinOutput, kMaxOutput);
+
+      flyWheel2PidController.setP(kP);
+      flyWheel2PidController.setI(kI);
+      flyWheel2PidController.setD(kD);
+      flyWheel2PidController.setIZone(kIz);
+      flyWheel2PidController.setFF(kFF);
+      flyWheel2PidController.setOutputRange(kMinOutput, kMaxOutput);
+      
+      flyWheel3PidController.setP(.0000001);
+      flyWheel3PidController.setI(0.00);
+      flyWheel3PidController.setD(kD);
+      flyWheel3PidController.setIZone(kIz);
+      flyWheel3PidController.setFF(kFF3);
+      flyWheel3PidController.setOutputRange(kMinOutput, kMaxOutput);
+      
+
+      flyWheel1PidController.setReference(D1SP, CANSparkMax.ControlType.kVelocity, 0, D1SP * kFF, ArbFFUnits.kPercentOut);
+      flyWheel2PidController.setReference(D1SP, CANSparkMax.ControlType.kVelocity, 0, D1SP * kFF, ArbFFUnits.kPercentOut);
+      flyWheel3PidController.setReference(D3SP, CANSparkMax.ControlType.kVelocity, 0, D3SP * kFF3, ArbFFUnits.kPercentOut);
 
       SmartDashboard.putNumber("SetPoint", mainSetPoint);
    }

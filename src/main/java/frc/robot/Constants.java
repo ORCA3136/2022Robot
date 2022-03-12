@@ -113,4 +113,7 @@ public final class Constants {
         public static final double kShooterHighTargetF3RPS = 1160;
         public static final double kShooterLowTargetRPS = 1700;
 
+        public static final double kShooterDistanceRPS = -2700;
+        public static final double kShooterDistancetF3RPS = 2800;
+
 }
