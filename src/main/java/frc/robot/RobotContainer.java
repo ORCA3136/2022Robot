@@ -24,6 +24,7 @@ import frc.robot.commands.AimAndShoot;
 import frc.robot.commands.BasicShootnDrive;
 import frc.robot.commands.DrivetrainAuto;
 import frc.robot.commands.ShootAndDriveAuto;
+import frc.robot.commands.ThreeBallAuto;
 import frc.robot.commands.TurnToTarget;
 
 /**
@@ -58,6 +59,7 @@ public class RobotContainer {
       m_chooser.setDefaultOption("2 Ball Auto", new ShootAndDriveAuto(m_drivetrain,m_flyWheel,m_conveyor,m_innerIntake));
       m_chooser.addOption("Drive Only",new DrivetrainAuto(m_drivetrain, Constants.kAutoDistance));
       m_chooser.addOption("1 Ball Auto", new BasicShootnDrive(m_drivetrain, m_flyWheel, m_conveyor, m_innerIntake));
+      m_chooser.addOption("3 Ball Auto", new ThreeBallAuto(m_drivetrain, m_flyWheel, m_conveyor, m_innerIntake));
       SmartDashboard.putData("Auto Chooser: ", m_chooser);
 
     // Configure the button bindings
@@ -173,7 +175,7 @@ public class RobotContainer {
 // Joycon A - Lower conveyor and flywheel
          new JoystickButton(joystick, Constants.kA)
          .whenHeld(new InstantCommand(() -> m_conveyor.lowerConveyor(Constants.kConveyorLow), m_conveyor))
-         .whenHeld(new InstantCommand(() -> m_flyWheel.shoot(.75), m_flyWheel))
+         .whenHeld(new InstantCommand(() -> m_flyWheel.shoot(.5), m_flyWheel))
        .whenReleased(new InstantCommand(() ->  m_flyWheel.stop(), m_flyWheel))
         .whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
 

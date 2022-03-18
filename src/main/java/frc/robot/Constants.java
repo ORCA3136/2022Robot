@@ -81,9 +81,10 @@ public final class Constants {
         public static final double kLeftAuto = -.5;
         public static final double kRightAuto = -.5;
         public static final double kAutoDistance = 40;
-        public static final double kAutoDistanceTurn = 5;
+        public static final double kAutoDistanceTurn = 0.00000000000000001;
+        public static final double kAutoDistanceTurnRight = -20;
         public static final double kAutoDistanceReverse = -40;
-        public static final double kAutoDistanceThree = 118;
+        public static final double kAutoDistanceThree = 40;
 
         public static final double idealShoot = 60;
 

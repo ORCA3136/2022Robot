@@ -16,10 +16,10 @@ public class DriveTrainAutoTurn extends CommandBase {
   // The subsystem the command runs on
   private  Drivetrain driveTrain;
   private boolean complete = false;
-  private double driveDist = Constants.kAutoDistance;
+  private double driveDist = Constants.kAutoDistanceTurn;
 
   public DriveTrainAutoTurn(Drivetrain subsystem, double distance) {
-    SmartDashboard.putNumber("Drive Distance", Constants.kAutoDistanceTurn);
+    SmartDashboard.putNumber("Driveturn Distance", Constants.kAutoDistanceTurn);
     driveDist = distance;
     driveTrain = subsystem;
     addRequirements(driveTrain);

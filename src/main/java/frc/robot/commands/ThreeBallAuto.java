@@ -40,21 +40,18 @@ public class ThreeBallAuto extends SequentialCommandGroup
             //drive back to shooting range....TODO move to a limelight calibrated distance
             new DrivetrainAutoReverse(driveTrain, Constants.kAutoDistance),
             new InstantCommand(()-> flyWheel.PIDshoot(Constants.kShooterHighTargetRPS, Constants.kShooterHighTargetF3RPS), flyWheel),
-            new TurnToTarget(driveTrain),
-            new TurnToTarget(driveTrain), 
-            new TurnToTarget(driveTrain),
-            new TurnToTarget(driveTrain), 
-            new TurnToTarget(driveTrain),
-            new TurnToTarget(driveTrain), 
             new WaitCommand(2),
+            new InstantCommand(() -> intake.intakeIn(Constants.kIntakeHigh), intake)
+            .andThen(new InstantCommand(() -> conveyor.raiseConveyor(Constants.kConveyerHigh), conveyor)),
             new InstantCommand(() -> intake.intakeIn(Constants.kIntakeHigh), intake)
             .andThen(new InstantCommand(() -> conveyor.raiseConveyor(Constants.kConveyerHigh), conveyor)),
             new WaitCommand(1),
             //goes back to where the ball was, turns, and drives distance
-            new DrivetrainAuto(driveTrain, Constants.kAutoDistance),
             new DriveTrainAutoTurn(driveTrain, Constants.kAutoDistanceTurn),
+            new InstantCommand(driveTrain::stop, driveTrain),
             new InstantCommand(() -> intake.intakeIn(Constants.kIntakeHigh), intake),
-            new DrivetrainAuto(driveTrain, Constants.kAutoDistanceThree),
+            new DrivetrainAuto(driveTrain, Constants.kAutoDistance),
+            new InstantCommand(driveTrain::stop, driveTrain),
             //runs intake to bring it in and pushes it off flywheel
             new InstantCommand(() -> intake.intakeOut(Constants.kIntakeLow), intake),            
             new InstantCommand(() -> conveyor.lowerConveyor(Constants.kConveyorLow), conveyor),
@@ -67,12 +64,6 @@ public class ThreeBallAuto extends SequentialCommandGroup
             new InstantCommand(() ->  flyWheel.stop(), flyWheel),
             //runs flywheel and turns to target
             new InstantCommand(()-> flyWheel.PIDshoot(Constants.kShooterHighTargetRPS, Constants.kShooterHighTargetF3RPS), flyWheel),
-            new TurnToTarget(driveTrain),
-            new TurnToTarget(driveTrain), 
-            new TurnToTarget(driveTrain),
-            new TurnToTarget(driveTrain),   
-            new TurnToTarget(driveTrain),
-            new TurnToTarget(driveTrain), 
             new WaitCommand(2),
             //shoots  it 
             new InstantCommand(() -> intake.intakeIn(Constants.kIntakeHigh), intake)

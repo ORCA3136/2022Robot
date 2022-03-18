@@ -485,7 +485,7 @@ public boolean specificDriveTurn(double distance)
     double startHeading = gyro.getAngle();
     
     //double error = startHeading - gyro.getAngle();
-    double error = 0; //set this for now so it only drives
+    double error = -80; //set this for now so it only drives
     boolean complete = false;
     getLeftEncoder().setPosition(0); //set the position to 0
     Double leftPosition = getLeftEncoder().getPosition();
@@ -512,11 +512,11 @@ public boolean specificDriveTurn(double distance)
         }
         else
         {
-            drivePercent(-1 * Constants.kLeftAuto, Constants.kRightAuto);
+            drivePercent(Constants.kLeftAuto, -1 * Constants.kRightAuto);
         }
         //set the motors to running - comment out for a bit
         //error = startHeading - gyro.getAngle();
-        currentRevolutions = (-1*getLeftEncoder().getPosition()) * perRev;
+        currentRevolutions = (-1* getLeftEncoder().getPosition()) * perRev;
         SmartDashboard.putNumber("Current Revs", currentRevolutions);
         
         SmartDashboard.putNumber("Total Revs", totalRevolutions);
