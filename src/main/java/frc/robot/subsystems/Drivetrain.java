@@ -59,7 +59,12 @@ public class Drivetrain extends SubsystemBase {
 
     private final DifferentialDriveOdometry odometry =
       new DifferentialDriveOdometry(new Rotation2d(), new Pose2d());
-       
+
+    public void resetOdometry(Pose2d pose) {
+
+        odometry.resetPosition(pose, gyro.getRotation2d());
+      }
+      
     private double baseDistanceLeftRad = 0.0;
     private double baseDistanceRightRad = 0.0;
 
@@ -156,6 +161,8 @@ public class Drivetrain extends SubsystemBase {
         leftEncoder.setPosition(0);
         rightEncoder.setPosition(0);
 
+          // Odometry class for tracking robot pose
+        final DifferentialDriveOdometry m_odometry;
     }
 
     /**
@@ -323,9 +330,9 @@ public class Drivetrain extends SubsystemBase {
 
         Pose2d robotPose = odometry.getPoseMeters();
         //log this 
-       // new double  {robotPose.getX(), robotPose.getY(),
-      //  robotPose.getRotation().getRadians()};
-      // Shuffleboard.getTab("Drive").add()
+        //new double {robotPose.getX(), robotPose.getY(),
+       // robotPose.getRotation().getRadians()};
+        //Shuffleboard.getTab("Drive").add()
         SmartDashboard.putNumber("LAST LEFT VELOCITY MPS", lastLeftVelocityMPS);
 
         SmartDashboard.putNumber("LAST RIGHT VELOCITY MPS", lastRightVelocityMPS);
@@ -368,6 +375,7 @@ public class Drivetrain extends SubsystemBase {
         return rightController;
     }
 
+    
 
     /**
    * Inverts NavX yaw as Odometry takes CCW as positive
