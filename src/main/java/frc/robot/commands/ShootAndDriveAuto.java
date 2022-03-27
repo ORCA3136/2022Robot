@@ -15,7 +15,7 @@ public class ShootAndDriveAuto extends SequentialCommandGroup
     {
         addCommands(
             //start the flywheel
-            new InstantCommand(() -> flyWheel.PIDshoot(Constants.kShooterHighTargetRPS, Constants.kShooterHighTargetF3RPS), flyWheel),
+            new InstantCommand(() -> flyWheel.PIDshoot(Constants.kShooterHighTargetAutoTest, Constants.kShooterHighTargetF3AutoRPS), flyWheel),
             //wait for spinup
             new WaitCommand(2),//TODO manage flywheel target speed at somepoint
             //start conveyor and intake

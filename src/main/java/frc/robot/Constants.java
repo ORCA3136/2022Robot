@@ -111,9 +111,11 @@ public final class Constants {
         //flywheel PID testing
         public static final double kShooterHighTargetRPS = -2900;
         public static final double kShooterHighTargetF3RPS = 1160;
+        public static final double kShooterHighTargetF3AutoRPS = 1160;
+        public static final double kShooterHighTargetAutoTest = -1700;
         public static final double kShooterLowTargetRPS = 1700;
 
         public static final double kShooterDistanceRPS = -2700;
         public static final double kShooterDistancetF3RPS = 2800;
-
+        
 }
