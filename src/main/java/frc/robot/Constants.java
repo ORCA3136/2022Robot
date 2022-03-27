@@ -112,8 +112,12 @@ public final class Constants {
         //flywheel PID testing
         public static final double kShooterHighTargetRPS = -2900;
         public static final double kShooterHighTargetF3RPS = 1160;
-        public static final double kShooterHighTargetF3AutoRPS = 1160;
-        public static final double kShooterHighTargetAutoTest = -1600;
+        public static final double kShooterHighTargetF3AutoRPS = 1400;
+        public static final double kShooterHighTargetAutoTest = -2800;
+        public static final double kMAXSHOTF3 = 3000;
+        public static final double kMAXSHOT = -5000;
+        public static final double kLaunchpadFlyWheel = -3300;
+        public static final double kLaunchpadFlyWheel3 = -2250;        
         public static final double kShooterLowTargetRPS = 1700;
 
         public static final double kShooterDistanceRPS = -2700;
