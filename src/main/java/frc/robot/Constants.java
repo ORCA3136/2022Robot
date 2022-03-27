@@ -67,7 +67,8 @@ public final class Constants {
         public static final double kFlyWheelMedium = - .5;
         public static final double kFlyWheelSlow = - .34;
         public static final double kFlyWheelAuto = - .79;
-        public static final double kFlyWheelShot1 = - .83;
+        public static final double kFlyWheelSuck = - .20;
+        public static final double kFlyWheelThree = 1;
     
         
         public static final double kIntakeHigh = .8;
@@ -112,7 +113,7 @@ public final class Constants {
         public static final double kShooterHighTargetRPS = -2900;
         public static final double kShooterHighTargetF3RPS = 1160;
         public static final double kShooterHighTargetF3AutoRPS = 1160;
-        public static final double kShooterHighTargetAutoTest = -1700;
+        public static final double kShooterHighTargetAutoTest = -1600;
         public static final double kShooterLowTargetRPS = 1700;
 
         public static final double kShooterDistanceRPS = -2700;

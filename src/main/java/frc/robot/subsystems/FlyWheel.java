@@ -218,6 +218,12 @@ public class FlyWheel extends SubsystemBase {
       flyWheel3.set(-1 * FlyWheelSpeed);
    }
 
+   public void kirbySuck(double FlyWheelSpeed) {
+      flyWheel1.set(-1 * Constants.kFlyWheelSuck);
+      flyWheel2.set(-1 * Constants.kFlyWheelSuck);
+      flyWheel3.set(-1 * Constants.kFlyWheelThree);
+   }
+
    public void notShootAuto(double FlyWheelSpeed) {
       flyWheel1.set(-.5* FlyWheelSpeed);
       flyWheel2.set(-.5 * FlyWheelSpeed);

@@ -124,7 +124,10 @@ public class RobotContainer {
        //new JoystickButton(controller, XboxController.Button.kA.value)
        // .whenPressed(new TurnToTarget(m_drivetrain));
        new JoystickButton(controller, XboxController.Button.kA.value)
-       .whenPressed( new TurnToTarget(m_drivetrain));
+       .whenHeld(new InstantCommand(() -> m_flyWheel.kirbySuck(.75), m_flyWheel)) 
+       .whenHeld(new InstantCommand(() -> m_conveyor.lowerConveyor(Constants.kConveyorLow), m_conveyor))
+        .whenReleased(new InstantCommand(() ->  m_flyWheel.stop(), m_flyWheel))
+        .whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
 
          new JoystickButton(controller, XboxController.Button.kBack.value)
          .whenPressed(new InstantCommand(m_limelight::enableLED,m_limelight));
@@ -160,7 +163,7 @@ public class RobotContainer {
          new JoystickButton(joystick, Constants.kLT)
          .whenPressed(new InstantCommand(() -> m_climber.simpleFrontLower(Constants.kClimberSpeed),m_climber))
          .whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
-
+         
 //LB - CLIMB = CRUNCH!!        
          new JoystickButton(joystick, Constants.kLB)
          .whenPressed(new InstantCommand(() -> m_climber.simpleFrontRaise(Constants.kClimberSpeed),m_climber))
