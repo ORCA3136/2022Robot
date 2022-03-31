@@ -117,23 +117,22 @@ public final class Constants {
         public static final double kShooterDistanceRPS = -2700;
         public static final double kShooterDistancetF3RPS = 2800;
 
-        // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
-        // These characterization values MUST be determined either experimentally or theoretically
-        // for *your* robot's drive.
-        // The Robot Characterization Toolsuite provides a convenient tool for obtaining these
-        // values for your robot.
-        public static final double ksVolts = 0.22;
-        public static final double kvVoltSecondsPerMeter = 1.98;
-        public static final double kaVoltSecondsSquaredPerMeter = 0.2;
-
+     //drivetrain characterization
+        public static final double ksVolts = 0.1319;
+        public static final double kvVoltSecondsPerMeter = 1.1366;
+        public static final double kaVoltSecondsSquaredPerMeter = 0.20241;
+    
         // Example value only - as above, this must be tuned for your drive!
-        public static final double kPDriveVel = 8.5;  
-        
-        public static final double kTrackwidthMeters = 0.69;
-        public static final DifferentialDriveKinematics kDriveKinematics =
-            new DifferentialDriveKinematics(kTrackwidthMeters);
+        public static final double kPDriveVel = 1.5323;
+        public static final double kIDrive = 0;
+        public static final double kDDrive = 0;
 
-          
-            
+        public static final double kRamseteB = 2;
+        public static final double kRamseteZeta = 0.7;
+
+        public static final double TRACK_WIDTH_METERS = 0.69; // width between sides of dt
+        public static final DifferentialDriveKinematics DRIVE_KINEMATICS = new DifferentialDriveKinematics(
+            TRACK_WIDTH_METERS);
+        
 
 }
