@@ -191,10 +191,16 @@ public class Drivetrain extends SubsystemBase {
      */
     public void drivePercent(double left, double right)
     {
-
         SmartDashboard.putNumber("LEFT", left);
         SmartDashboard.putNumber("RIGHT", right);
         driveVelocity(left*Constants.MAX_VELOCITY_MPS, right*Constants.MAX_VELOCITY_MPS);
+        
+    }
+
+    public void fullSend(XboxController controller)
+    {
+        driveVelocity(trueLeftX(((controller.getLeftY() * Constants.FS_MAX_VELOCITY_MPS))), (trueRightX((controller.getRightY() * Constants.FS_MAX_VELOCITY_MPS))));
+
         
     }
 

@@ -78,8 +78,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     //inner intake forwward rb
     new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
-    .whenHeld(new InstantCommand(() -> m_innerIntake.intakeIn(Constants.kIntakeHigh), m_innerIntake))
-         .whenReleased(new InstantCommand(m_innerIntake::intakeStop, m_innerIntake));
+      .whileHeld(new InstantCommand(() -> m_drivetrain.fullSend(controller), m_drivetrain));
    
       //move elevator (conveyer) UP lb
     new JoystickButton(controller, XboxController.Button.kRightBumper.value)
@@ -124,15 +123,15 @@ public class RobotContainer {
        //new JoystickButton(controller, XboxController.Button.kA.value)
        // .whenPressed(new TurnToTarget(m_drivetrain));
        
-       //new JoystickButton(controller, XboxController.Button.kA.value)
-       //.whenHeld(new InstantCommand(() -> m_flyWheel.kirbySuck(.75), m_flyWheel)) 
-       //.whenHeld(new InstantCommand(() -> m_conveyor.lowerConveyor(Constants.kConveyorLow), m_conveyor))
-       // .whenReleased(new InstantCommand(() ->  m_flyWheel.stop(), m_flyWheel))
-       // .whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
+       new JoystickButton(controller, XboxController.Button.kA.value)
+       .whenHeld(new InstantCommand(() -> m_flyWheel.kirbySuck(.75), m_flyWheel)) 
+       .whenHeld(new InstantCommand(() -> m_conveyor.lowerConveyor(Constants.kConveyorLow), m_conveyor))
+        .whenReleased(new InstantCommand(() ->  m_flyWheel.stop(), m_flyWheel))
+        .whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
 
-        new JoystickButton(controller, XboxController.Button.kA.value)
-        .whenPressed(new InstantCommand(() -> m_flyWheel.PIDshoot(Constants.kMAXSHOT, Constants.kMAXSHOTF3), m_flyWheel))
-          .whenReleased(new InstantCommand(m_flyWheel::stop,m_flyWheel));
+        //new JoystickButton(controller, XboxController.Button.kA.value)
+        //.whenPressed(new InstantCommand(() -> m_flyWheel.PIDshoot(Constants.kMAXSHOT, Constants.kMAXSHOTF3), m_flyWheel))
+         // .whenReleased(new InstantCommand(m_flyWheel::stop,m_flyWheel));
 
          new JoystickButton(controller, XboxController.Button.kBack.value)
          .whenPressed(new InstantCommand(m_limelight::enableLED,m_limelight));

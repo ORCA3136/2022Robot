@@ -16,7 +16,7 @@ public class BasicShootnDrive extends SequentialCommandGroup
     {
         addCommands(
             //start the flywheel
-            new InstantCommand(() -> flyWheel.PIDshoot(Constants.kShooterDistanceRPS,Constants.kShooterDistancetF3RPS), flyWheel),
+            new InstantCommand(() -> flyWheel.PIDshoot(Constants.kShooterHighTargetAutoTest,Constants.kShooterHighTargetF3AutoRPS), flyWheel),
             //wait for spinup
             new WaitCommand(1),//TODO manage flywheel target speed at somepoint
             //start conveyor and intake
