@@ -25,7 +25,7 @@ import frc.robot.commands.BasicShootnDrive;
 import frc.robot.commands.DrivetrainAuto;
 import frc.robot.commands.ShootAndDriveAuto;
 import frc.robot.commands.TurnToTarget;
-
+import frc.robot.commands.NotMidClimb;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -43,6 +43,7 @@ public class RobotContainer {
   private final XboxController controller = new XboxController(1);
   private final Climber m_climber = new Climber();
   private final Joystick joystick = new Joystick(2);
+
   //private frc.robot.commands.AimAndShoot AimAndShoot = new AimAndShoot(m_drivetrain, m_flyWheel, m_conveyor);
  // private final XboxController controller2 = new XboxController(2);
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -184,10 +185,20 @@ public class RobotContainer {
        .whenReleased(new InstantCommand(() ->  m_flyWheel.stop(), m_flyWheel))
         .whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
 
+        //Launchpad Shoot, joystick button start
+        new JoystickButton(joystick, Constants.kStart)
+        .whenHeld(new InstantCommand(() -> m_flyWheel.PIDshoot(Constants.kLaunchpadFlyWheel, Constants.kLaunchpadFlyWheel3), m_flyWheel))
+        .whenReleased(new InstantCommand(() ->  m_flyWheel.stop(), m_flyWheel));
 
+        new JoystickButton(joystick, Constants.kSelect)
+        .whenPressed(new NotMidClimb(m_climber))
+        .whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
+        
          //new JoystickButton(controller, XboxController.Button.kRightStick.value)
          //.whenHeld(new InstantCommand(() -> m_climber.lowerClimber(.75),m_climber)).whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
     }
+
+
     public Command getAutonomousCommand(){
      // return new DrivetrainAuto(m_drivetrain, Constants.kAutoDistance);
      return m_chooser.getSelected();

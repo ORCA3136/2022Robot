@@ -58,8 +58,8 @@ public final class Constants {
         public static final int kRB = 6;
         public static final int kRT = 8;
         public static final int kLT = 7;
-        public static final int kSelect = 11;
-        public static final int kStart = 12;
+        public static final int kSelect = 9;
+        public static final int kStart = 10;
         
         //SPEED SETTINGS FOR SUBSYSTEMS    
         public static final double kConveyerHigh = .5;
@@ -92,6 +92,7 @@ public final class Constants {
         //overly complex climber stuff....
         public static final double kClimberSpeed = .5;
         public static final double kClimberSpeedFast = 1;
+        public static final double kClimberHold = .1;
        
         public final static int kTalonTimeoutMs = 30;
         public final static int kTalonSensorUnitsPerRotation = 4096;
@@ -114,12 +115,16 @@ public final class Constants {
         //flywheel PID testing
         public static final double kShooterHighTargetRPS = -2900;
         public static final double kShooterHighTargetF3RPS = 1160;
+
         public static final double kShooterHighTargetF3AutoRPS = 1400;
         public static final double kShooterHighTargetAutoTest = -2800;
+
         public static final double kMAXSHOTF3 = 3000;
         public static final double kMAXSHOT = -5000;
-        public static final double kLaunchpadFlyWheel = -3300;
-        public static final double kLaunchpadFlyWheel3 = -2250;        
+
+        public static final double kLaunchpadFlyWheel = -4000;
+        public static final double kLaunchpadFlyWheel3 = 5550;
+
         public static final double kShooterLowTargetRPS = 1700;
 
         public static final double kShooterDistanceRPS = -2700;

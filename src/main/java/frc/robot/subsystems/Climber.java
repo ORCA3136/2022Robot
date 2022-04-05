@@ -58,7 +58,7 @@ public class Climber extends SubsystemBase{
         climberLeft.setInverted(false);
 		climberLeft.setSensorPhase(true);
 		climberRight.setInverted(true);
-		climberRight.setSensorPhase(true);
+		climberRight.setSensorPhase(true);  
 
         /* Set status frame periods to ensure we don't have stale data */
 		climberRight.setStatusFramePeriod(StatusFrame.Status_12_Feedback1, 20, Constants.kTalonTimeoutMs);
