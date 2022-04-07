@@ -79,7 +79,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
     //inner intake forwward rb
     new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
-      .whileHeld(new InstantCommand(() -> m_drivetrain.fullSend(controller), m_drivetrain));
+    .whenPressed(new InstantCommand(() -> m_flyWheel.PIDshoot(Constants.kShooterHighTargetRPS, Constants.kShooterHighTargetF3RPS), m_flyWheel))
+    .whenReleased(new InstantCommand(m_flyWheel::stop,m_flyWheel));
+
+
+   // new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
+     // .whileHeld(new InstantCommand(() -> m_drivetrain.fullSend(controller), m_drivetrain));
    
       //move elevator (conveyer) UP lb
     new JoystickButton(controller, XboxController.Button.kRightBumper.value)
@@ -186,9 +191,8 @@ public class RobotContainer {
         .whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
 
         //Launchpad Shoot, joystick button start
-        new JoystickButton(joystick, Constants.kStart)
-        .whenHeld(new InstantCommand(() -> m_flyWheel.PIDshoot(Constants.kLaunchpadFlyWheel, Constants.kLaunchpadFlyWheel3), m_flyWheel))
-        .whenReleased(new InstantCommand(() ->  m_flyWheel.stop(), m_flyWheel));
+        new JoystickButton(joystick, Constants.kHome)
+        .whileHeld(new InstantCommand(() -> m_drivetrain.fullSend(controller), m_drivetrain));
 
         new JoystickButton(joystick, Constants.kSelect)
         .whenPressed(new NotMidClimb(m_climber))

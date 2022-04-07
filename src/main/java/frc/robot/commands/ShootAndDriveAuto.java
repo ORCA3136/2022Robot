@@ -40,13 +40,14 @@ public class ShootAndDriveAuto extends SequentialCommandGroup
             //drive back to shooting range....TODO move to a limelight calibrated distance
             new DrivetrainAutoReverse(driveTrain, Constants.kAutoDistance),
             new InstantCommand(()-> flyWheel.PIDshoot(Constants.kShooterHighTargetRPS, Constants.kShooterHighTargetF3RPS), flyWheel),
-            new TurnToTarget(driveTrain),
+          /*  new TurnToTarget(driveTrain),
             new TurnToTarget(driveTrain), 
             new TurnToTarget(driveTrain),
             new TurnToTarget(driveTrain), 
             new TurnToTarget(driveTrain),
             new TurnToTarget(driveTrain), 
-            new WaitCommand(2.5),
+           */
+            new WaitCommand(2),
             new InstantCommand(() -> intake.intakeIn(Constants.kIntakeHigh), intake)
             .andThen(new InstantCommand(() -> conveyor.raiseConveyor(Constants.kConveyerHigh), conveyor)),
             new WaitCommand(1),
