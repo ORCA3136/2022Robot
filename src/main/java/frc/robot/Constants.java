@@ -35,10 +35,14 @@ public final class Constants {
         public static final int CONVEYOR = 9;
     
         public static final int INTAKE = 11;
+        public static final int INTAKE2 = 10;
 
         public static final int CLIMBERBACK = 15;
         public static final int CLIMBERLEFT = 16;
         public static final int CLIMBERRIGHT = 17;
+
+        public static final int INTAKELEFT = 18;
+        public static final int INTAKERIGHT = 19;
 
         //DRIVE MOTOR SETTINGS
         public static boolean RESET_SPARKMAX = true;
