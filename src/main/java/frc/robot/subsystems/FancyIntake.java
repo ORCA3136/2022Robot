@@ -24,7 +24,7 @@ public class FancyIntake extends SubsystemBase{
     public FancyIntake(){
         leftRoller = new VictorSPX(Constants.INTAKELEFT);
         rightRoller = new TalonSRX(Constants.INTAKERIGHT);
-        outerRoller = new CANSparkMax(Constants.INTAKE, MotorType.kBrushless);
+        outerRoller = new CANSparkMax(Constants.OUTERROLLER, MotorType.kBrushless);
         togglePressed = false;
         toggleOn = false;
 
