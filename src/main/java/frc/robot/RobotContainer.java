@@ -17,9 +17,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.FancyIntake;
 import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.FancyIntake;
 import frc.robot.commands.AimAndShoot;
 import frc.robot.commands.BasicShootnDrive;
 import frc.robot.commands.DrivetrainAuto;
@@ -43,6 +45,7 @@ public class RobotContainer {
   private final XboxController controller = new XboxController(1);
   private final Climber m_climber = new Climber();
   private final Joystick joystick = new Joystick(2);
+  private final FancyIntake m_fancyIntake = new FancyIntake();
 
   //private frc.robot.commands.AimAndShoot AimAndShoot = new AimAndShoot(m_drivetrain, m_flyWheel, m_conveyor);
  // private final XboxController controller2 = new XboxController(2);
@@ -82,17 +85,33 @@ public class RobotContainer {
     .whenPressed(new InstantCommand(() -> m_flyWheel.PIDshoot(Constants.kShooterHighTargetRPS, Constants.kShooterHighTargetF3RPS), m_flyWheel))
     .whenReleased(new InstantCommand(m_flyWheel::stop,m_flyWheel));
 
+    new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
+    .whenPressed(new InstantCommand(() -> m_flyWheel.PIDshoot(Constants.kShooterHighTargetRPS, Constants.kShooterHighTargetF3RPS), m_flyWheel))
+    .whenReleased(new InstantCommand(m_flyWheel::stop,m_flyWheel));
+
 
    // new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
      // .whileHeld(new InstantCommand(() -> m_drivetrain.fullSend(controller), m_drivetrain));
    
-      //move elevator (conveyer) UP lb
+      //rb deploys intake, runs both intake wheels, runs conveyor, retracts intake, stops all motors
     new JoystickButton(controller, XboxController.Button.kRightBumper.value)
     .whenHeld(new InstantCommand(() -> m_innerIntake.intakeIn(Constants.kIntakeHigh), m_innerIntake))
+    .whenHeld(new InstantCommand(() -> m_fancyIntake.deployOuter(Constants.kIntakeLow), m_fancyIntake))
     .whenHeld(new InstantCommand(() -> m_conveyor.raiseConveyor(Constants.kConveyerHigh), m_conveyor))
-    .whenReleased(new InstantCommand(() -> m_conveyor.stopConveyor(), m_conveyor))
-      .whenReleased(new InstantCommand(m_innerIntake::intakeStop, m_innerIntake));
+    .whenHeld(new InstantCommand(() -> m_fancyIntake.wheelsIn(Constants.kIntakeLow), m_fancyIntake))
+      .whenReleased(new InstantCommand(() -> m_fancyIntake.retractOuter(Constants.kIntakeLow), m_fancyIntake))
+      .whenReleased(new InstantCommand(() -> m_conveyor.stopConveyor(), m_conveyor))
+      .whenReleased(new InstantCommand(() -> m_fancyIntake.wheelsStop(), m_fancyIntake))
+      .whenReleased(new InstantCommand(m_innerIntake::intakeStop, m_innerIntake))
+      .whenReleased(new InstantCommand(m_fancyIntake::halt, m_fancyIntake));
+
    
+      new JoystickButton(controller, XboxController.Button.kA.value)
+      .whenHeld(new InstantCommand(() -> m_fancyIntake.deployOuter(Constants.kIntakeLow), m_fancyIntake))
+      .whenHeld(new InstantCommand(() -> m_conveyor.raiseConveyor(Constants.kConveyerHigh), m_conveyor))
+      .whenReleased(new InstantCommand(() -> m_conveyor.stopConveyor(), m_conveyor))
+        .whenReleased(new InstantCommand(m_fancyIntake::halt, m_fancyIntake));
+
       //flywheel shoot fast y
     new JoystickButton(controller, XboxController.Button.kY.value)
     .whenHeld(new InstantCommand(() -> m_climber.raiseClimber(Constants.CLIMBERBACK), m_climber))
@@ -129,11 +148,11 @@ public class RobotContainer {
        //new JoystickButton(controller, XboxController.Button.kA.value)
        // .whenPressed(new TurnToTarget(m_drivetrain));
        
-       new JoystickButton(controller, XboxController.Button.kA.value)
-       .whenHeld(new InstantCommand(() -> m_flyWheel.kirbySuck(.75), m_flyWheel)) 
-       .whenHeld(new InstantCommand(() -> m_conveyor.lowerConveyor(Constants.kConveyorLow), m_conveyor))
-        .whenReleased(new InstantCommand(() ->  m_flyWheel.stop(), m_flyWheel))
-        .whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
+       //new JoystickButton(controller, XboxController.Button.kA.value)
+       //.whenHeld(new InstantCommand(() -> m_flyWheel.kirbySuck(.75), m_flyWheel)) 
+       //.whenHeld(new InstantCommand(() -> m_conveyor.lowerConveyor(Constants.kConveyorLow), m_conveyor))
+        //.whenReleased(new InstantCommand(() ->  m_flyWheel.stop(), m_flyWheel))
+        //.whenReleased(new InstantCommand(m_conveyor::stopConveyor, m_conveyor));
 
         //new JoystickButton(controller, XboxController.Button.kA.value)
         //.whenPressed(new InstantCommand(() -> m_flyWheel.PIDshoot(Constants.kMAXSHOT, Constants.kMAXSHOTF3), m_flyWheel))

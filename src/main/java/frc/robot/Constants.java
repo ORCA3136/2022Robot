@@ -81,6 +81,9 @@ public final class Constants {
         public static final double kIntakeHigh = .8;
         public static final double kIntakeLow = .3;
 
+        public static final double kFancyIntakeHigh = .5;
+        public static final double kFancyIntakeLow = .3;
+
         public static final double kLeftDriveScaling = .8;
         public static final double kRightDriveScaling = -.8;
 
