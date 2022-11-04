@@ -101,7 +101,7 @@ public class RobotContainer {
       //rb deploys intake, runs both intake wheels, runs conveyor, retracts intake, stops all motors
     new JoystickButton(controller, XboxController.Button.kRightBumper.value)
     .whenHeld(new InstantCommand(() -> m_innerIntake.intakeIn(Constants.kIntakeHigh), m_innerIntake))
-    .whenHeld(new InstantCommand(() -> m_fancyIntake.wheelsIn(Constants.kIntakeLow), m_fancyIntake))
+    .whenHeld(new InstantCommand(() -> m_fancyIntake.wheelsIn(Constants.kFancyWheels), m_fancyIntake))
       .whenReleased(new InstantCommand(() -> m_fancyIntake.wheelsStop(), m_fancyIntake))
       .whenReleased(new InstantCommand(m_innerIntake::intakeStop, m_innerIntake));
 
@@ -109,7 +109,7 @@ public class RobotContainer {
 
    
       new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
-       .whenPressed(new InstantCommand(() -> m_fancyIntake.retractOuter(Constants.kIntakeLow), m_fancyIntake))
+       .whenPressed(new InstantCommand(() -> m_fancyIntake.retractOuter(Constants.kFancyIntakeHigh), m_fancyIntake))
        .whenReleased(new InstantCommand(m_fancyIntake::halt, m_fancyIntake));
        //     .whenPressed(new InstantCommand(() -> m_fancyIntake.servoHand(), m_fancyIntake));
 
