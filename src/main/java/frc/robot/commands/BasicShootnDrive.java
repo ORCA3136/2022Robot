@@ -9,12 +9,14 @@ import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.FlyWheel;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.FancyIntake;
 
 public class BasicShootnDrive extends SequentialCommandGroup
 {
-    public BasicShootnDrive(Drivetrain driveTrain, FlyWheel flyWheel, Conveyor conveyor, Intake intake)
+    public BasicShootnDrive(Drivetrain driveTrain, FlyWheel flyWheel, Conveyor conveyor, Intake intake, FancyIntake fancyIntake)
     {
         addCommands(
+            new InstantCommand(() -> fancyIntake.servoHand(), fancyIntake),
             //start the flywheel
             new InstantCommand(() -> flyWheel.PIDshoot(Constants.kShooterHighTargetAutoTest,Constants.kShooterHighTargetF3AutoRPS), flyWheel),
             //wait for spinup

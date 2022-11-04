@@ -7,13 +7,15 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.FlyWheel;
+import frc.robot.subsystems.FancyIntake;
 import frc.robot.subsystems.Intake;
 
 public class ShootAndDriveAuto extends SequentialCommandGroup
 {
-    public ShootAndDriveAuto(Drivetrain driveTrain, FlyWheel flyWheel, Conveyor conveyor, Intake intake)
+    public ShootAndDriveAuto(Drivetrain driveTrain, FlyWheel flyWheel, Conveyor conveyor, Intake intake, FancyIntake fancyIntake)
     {
         addCommands(
+            new InstantCommand(() -> fancyIntake.servoHand(), fancyIntake),
             //start the flywheel
             new InstantCommand(() -> flyWheel.PIDshoot(Constants.kShooterHighTargetAutoTest, Constants.kShooterHighTargetF3AutoRPS), flyWheel),
             //wait for spinup
@@ -27,9 +29,9 @@ public class ShootAndDriveAuto extends SequentialCommandGroup
             //driveforward to get the next ball
             new InstantCommand(intake::intakeStop, intake),
             //drive forward..and run the intake
+            new InstantCommand(() -> fancyIntake.wheelsIn(Constants.kIntakeLow), fancyIntake),
             new InstantCommand(() -> intake.intakeIn(Constants.kIntakeHigh), intake),
             new DrivetrainAuto(driveTrain, Constants.kAutoDistance),
-            new InstantCommand(() -> intake.intakeOut(Constants.kIntakeLow), intake),            
             new InstantCommand(() -> conveyor.lowerConveyor(Constants.kConveyorLow), conveyor),
             new InstantCommand(()-> flyWheel.notShootAuto(Constants.kFlyWheelFast),flyWheel),
             new WaitCommand(.5),
@@ -53,8 +55,9 @@ public class ShootAndDriveAuto extends SequentialCommandGroup
             new WaitCommand(1),
             new InstantCommand(() ->  flyWheel.stop(), flyWheel),
             new InstantCommand(() -> conveyor.stopConveyor(), conveyor),
-            new InstantCommand(intake::intakeStop, intake)
-            );
+            new InstantCommand(intake::intakeStop, intake),
+            new InstantCommand(() -> fancyIntake.wheelsStop(), fancyIntake)
+                        );
     }
 
 }

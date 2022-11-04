@@ -59,9 +59,9 @@ public class RobotContainer {
     m_drivetrain.setDefaultCommand(
       new RunCommand(() -> m_drivetrain.drivePercentController(controller),m_drivetrain));
 
-      m_chooser.setDefaultOption("2 Ball Auto", new ShootAndDriveAuto(m_drivetrain,m_flyWheel,m_conveyor,m_innerIntake));
+      m_chooser.setDefaultOption("2 Ball Auto", new ShootAndDriveAuto(m_drivetrain,m_flyWheel,m_conveyor,m_innerIntake, m_fancyIntake));
       m_chooser.addOption("Drive Only",new DrivetrainAuto(m_drivetrain, Constants.kAutoDistance));
-      m_chooser.addOption("1 Ball Auto", new BasicShootnDrive(m_drivetrain, m_flyWheel, m_conveyor, m_innerIntake));
+      m_chooser.addOption("1 Ball Auto", new BasicShootnDrive(m_drivetrain, m_flyWheel, m_conveyor, m_innerIntake, m_fancyIntake));
       SmartDashboard.putData("Auto Chooser: ", m_chooser);
 
     // Configure the button bindings
@@ -81,13 +81,18 @@ public class RobotContainer {
   
   private void configureButtonBindings() {
     //inner intake forwward rb
-    new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
-    .whenPressed(new InstantCommand(() -> m_flyWheel.PIDshoot(Constants.kShooterHighTargetRPS, Constants.kShooterHighTargetF3RPS), m_flyWheel))
-    .whenReleased(new InstantCommand(m_flyWheel::stop,m_flyWheel));
+    //new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
+    //.whenPressed(new InstantCommand(() -> m_flyWheel.PIDshoot(Constants.kShooterHighTargetRPS, Constants.kShooterHighTargetF3RPS), m_flyWheel))
+    //.whenReleased(new InstantCommand(m_flyWheel::stop,m_flyWheel));
 
-    new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
-    .whenPressed(new InstantCommand(() -> m_flyWheel.PIDshoot(Constants.kShooterHighTargetRPS, Constants.kShooterHighTargetF3RPS), m_flyWheel))
-    .whenReleased(new InstantCommand(m_flyWheel::stop,m_flyWheel));
+    new JoystickButton(controller, XboxController.Button.kA.value)
+    .whenHeld(new InstantCommand(() -> m_innerIntake.intakeIn(Constants.kIntakeHigh), m_innerIntake))
+    .whenHeld(new InstantCommand(() -> m_conveyor.raiseConveyor(Constants.kConveyerHigh), m_conveyor))
+     .whenReleased(new InstantCommand(() -> m_conveyor.stopConveyor(), m_conveyor))
+     .whenReleased(new InstantCommand(m_innerIntake::intakeStop, m_innerIntake));
+
+
+
 
 
    // new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
@@ -96,21 +101,21 @@ public class RobotContainer {
       //rb deploys intake, runs both intake wheels, runs conveyor, retracts intake, stops all motors
     new JoystickButton(controller, XboxController.Button.kRightBumper.value)
     .whenHeld(new InstantCommand(() -> m_innerIntake.intakeIn(Constants.kIntakeHigh), m_innerIntake))
-    .whenHeld(new InstantCommand(() -> m_fancyIntake.deployOuter(Constants.kIntakeLow), m_fancyIntake))
-    .whenHeld(new InstantCommand(() -> m_conveyor.raiseConveyor(Constants.kConveyerHigh), m_conveyor))
     .whenHeld(new InstantCommand(() -> m_fancyIntake.wheelsIn(Constants.kIntakeLow), m_fancyIntake))
-      .whenReleased(new InstantCommand(() -> m_fancyIntake.retractOuter(Constants.kIntakeLow), m_fancyIntake))
-      .whenReleased(new InstantCommand(() -> m_conveyor.stopConveyor(), m_conveyor))
       .whenReleased(new InstantCommand(() -> m_fancyIntake.wheelsStop(), m_fancyIntake))
-      .whenReleased(new InstantCommand(m_innerIntake::intakeStop, m_innerIntake))
-      .whenReleased(new InstantCommand(m_fancyIntake::halt, m_fancyIntake));
+      .whenReleased(new InstantCommand(m_innerIntake::intakeStop, m_innerIntake));
+
+    
 
    
-      new JoystickButton(controller, XboxController.Button.kA.value)
-      .whenHeld(new InstantCommand(() -> m_fancyIntake.deployOuter(Constants.kIntakeLow), m_fancyIntake))
-      .whenHeld(new InstantCommand(() -> m_conveyor.raiseConveyor(Constants.kConveyerHigh), m_conveyor))
-      .whenReleased(new InstantCommand(() -> m_conveyor.stopConveyor(), m_conveyor))
-        .whenReleased(new InstantCommand(m_fancyIntake::halt, m_fancyIntake));
+      new JoystickButton(controller, XboxController.Button.kLeftBumper.value)
+       .whenPressed(new InstantCommand(() -> m_fancyIntake.retractOuter(Constants.kIntakeLow), m_fancyIntake))
+       .whenReleased(new InstantCommand(m_fancyIntake::halt, m_fancyIntake));
+       //     .whenPressed(new InstantCommand(() -> m_fancyIntake.servoHand(), m_fancyIntake));
+
+//      .whenHeld(new InstantCommand(() -> m_conveyor.raiseConveyor(Constants.kConveyerHigh), m_conveyor))
+//      .whenReleased(new InstantCommand(() -> m_conveyor.stopConveyor(), m_conveyor))
+//        .whenReleased(new InstantCommand(m_fancyIntake::halt, m_fancyIntake));
 
       //flywheel shoot fast y
     new JoystickButton(controller, XboxController.Button.kY.value)
@@ -216,6 +221,10 @@ public class RobotContainer {
         new JoystickButton(joystick, Constants.kSelect)
         .whenPressed(new NotMidClimb(m_climber))
         .whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
+
+        new JoystickButton(joystick, Constants.kStart)
+        .whenPressed(new InstantCommand(() -> m_flyWheel.kirbySuck(Constants.kShooterDistanceRPS), m_flyWheel))
+        .whenReleased(new InstantCommand(() ->  m_flyWheel.stop(), m_flyWheel));
         
          //new JoystickButton(controller, XboxController.Button.kRightStick.value)
          //.whenHeld(new InstantCommand(() -> m_climber.lowerClimber(.75),m_climber)).whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));

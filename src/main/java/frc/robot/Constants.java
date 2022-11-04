@@ -41,8 +41,8 @@ public final class Constants {
         public static final int CLIMBERLEFT = 16;
         public static final int CLIMBERRIGHT = 17;
 
-        public static final int INTAKELEFT = 18;
-        public static final int INTAKERIGHT = 19;
+        public static final int INTAKELEFT = 19;
+        public static final int INTAKERIGHT = 18;
 
 
         //DRIVE MOTOR SETTINGS
@@ -70,6 +70,7 @@ public final class Constants {
         //SPEED SETTINGS FOR SUBSYSTEMS    
         public static final double kConveyerHigh = .5;
         public static final double kConveyorLow = .3;
+        public static final double kAutoConveyorLow = .2;
 
         public static final double kFlyWheelFast = - .75;
         public static final double kFlyWheelMedium = - .5;

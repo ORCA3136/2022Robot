@@ -16,8 +16,10 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.DrivetrainAuto;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.FancyIntake;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -31,6 +33,7 @@ public class Robot extends TimedRobot {
 
   public RobotContainer m_robotContainer;
   private Command m_autonomousCommand;
+  private FancyIntake m_fancyIntake;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -84,6 +87,8 @@ public class Robot extends TimedRobot {
 
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     
+    
+
     // schedule the autonomous command (example)
     
     if (m_autonomousCommand != null) {
@@ -110,8 +115,6 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-
-
 
     // schedule the autonomous command (example)
      if (m_autonomousCommand != null) {
