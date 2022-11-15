@@ -98,6 +98,8 @@ public final class Constants {
         public static final double kAutoDistance = 40;
         public static final double kAutoDistanceReverse = -40;
         public static final double kAutoDistance2 = 20;
+        public static final double kAutoDistanceRumble = 34;
+
 
         public static final double idealShoot = 60;
 
