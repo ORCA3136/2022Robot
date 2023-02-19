@@ -117,9 +117,9 @@ public class RobotContainer {
        // .whenReleased(new InstantCommand(m_intake::off,m_intake));
 
         //Shoot slow x
-    new JoystickButton(controller, XboxController.Button.kX.value)
-    .whenPressed(new InstantCommand(() -> m_climber.lowClimb(Constants.CLIMBERBACK), m_climber))
-        .whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
+  //  new JoystickButton(controller, XboxController.Button.kX.value)
+    //.whenPressed(new InstantCommand(() -> m_climber.lowClimb(Constants.CLIMBERBACK), m_climber))
+    //    .whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
    
         //intake out start
    // new JoystickButton(controller, XboxController.Button.kStart.value)
@@ -144,11 +144,11 @@ public class RobotContainer {
 //JOYCON
 
 //RB - Set coast mode to climber
-        new JoystickButton(joystick, Constants.kRB)
-         .whenPressed(new InstantCommand(() -> m_climber.setCoast(),m_climber));
+//        new JoystickButton(joystick, Constants.kRB)
+//         .whenPressed(new InstantCommand(() -> m_climber.setCoast(),m_climber));
 // RT - Set break mode to climber
-         new JoystickButton(joystick, Constants.kRT)
-         .whenPressed(new InstantCommand(() -> m_climber.setBrake(),m_climber));
+//         new JoystickButton(joystick, Constants.kRT)
+//         .whenPressed(new InstantCommand(() -> m_climber.setBrake(),m_climber));
 
   //flywheel shoot fast Y
   new JoystickButton(joystick, Constants.kY)
@@ -161,14 +161,14 @@ public class RobotContainer {
   .whenReleased(new InstantCommand(m_flyWheel::stop,m_flyWheel));
 
 //Lt- lower climber
-         new JoystickButton(joystick, Constants.kLT)
-         .whenPressed(new InstantCommand(() -> m_climber.simpleFrontLower(Constants.kClimberSpeed),m_climber))
-         .whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
+//         new JoystickButton(joystick, Constants.kLT)
+//        .whenPressed(new InstantCommand(() -> m_climber.simpleFrontLower(Constants.kClimberSpeed),m_climber))
+//         .whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
 
 //LB - CLIMB = CRUNCH!!        
-         new JoystickButton(joystick, Constants.kLB)
-         .whenPressed(new InstantCommand(() -> m_climber.simpleFrontRaise(Constants.kClimberSpeed),m_climber))
-         .whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
+//         new JoystickButton(joystick, Constants.kLB)
+//         .whenPressed(new InstantCommand(() -> m_climber.simpleFrontRaise(Constants.kClimberSpeed),m_climber))
+//         .whenReleased(new InstantCommand(m_climber::stopClimber,m_climber));
 //low goal
          new JoystickButton(joystick, Constants.kB)
          .whenPressed(new InstantCommand(() -> m_flyWheel.shoot(Constants.kFlyWheelSlow), m_flyWheel))
